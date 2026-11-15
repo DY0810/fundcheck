@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deadlineCard, nextWindow } from './deadline';
+import { blackoutMessage, deadlineCard, nextWindow } from './deadline';
 
 const today = '2026-11-14';
 const card = (event: string | null, o: { travel?: boolean; newVendor?: boolean; payment?: string; today?: string; end?: string } = {}) =>
@@ -29,8 +29,22 @@ describe('deadlineCard (port of grill Q3 Python)', () => {
     const c = card('2026-12-10');
     expect(c).toMatchObject({ status: 'blackout', headline: null, latest: null, blackout: true });
     expect(card('2027-05-02').status).toBe('blackout');
-    expect(card('2027-05-01').status).not.toBe('blackout'); // "after May 1"
     expect(card('2026-12-03', { end: '2026-12-06' }).status).toBe('blackout'); // multi-day into the window
+  });
+
+  it('flags University holidays, breaks, study days and finals (R24 sentence 2, USC academic calendar)', () => {
+    expect(blackoutMessage('2027-02-15')).toBe("Event date falls on Presidents' Day, a University holiday, when USG does not fund events (§1).");
+    expect(blackoutMessage('2027-03-16')).toBe('Event date falls during spring break (Spring Recess), when USG does not fund events (§1).');
+    expect(blackoutMessage('2027-01-18')).toContain('Martin Luther King Jr. Day');
+    expect(blackoutMessage('2027-05-01')).toBe('Event date falls during study days, when USG does not fund events (§1).'); // "after May 1" misses May 1 itself
+    expect(blackoutMessage('2026-11-27')).toContain('Thanksgiving');
+    expect(blackoutMessage('2026-12-10')).toBe("Event date falls in USG's no-funding window (per the application form)."); // the form's window wins
+    for (const classDay of ['2027-02-16', '2027-02-12', '2027-03-12', '2027-03-22', '2027-04-09', '2027-04-30'])
+      expect([classDay, blackoutMessage(classDay)]).toEqual([classDay, null]);
+    expect(blackoutMessage('2027-03-12', '2027-03-14')).toContain('spring break'); // multi-day into the break
+    expect(blackoutMessage('2027-02-12', '2027-02-14')).toBeNull(); // Fri to Sun before Presidents' Day
+    expect(card('2027-02-15').status).toBe('blackout');
+    expect(card('2027-03-16')).toMatchObject({ status: 'blackout', blackout: true, headline: null });
   });
 
   it('returns unknown_date for a missing or malformed date', () => {

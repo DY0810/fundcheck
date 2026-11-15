@@ -47,6 +47,21 @@ const span = ([a, b]: [string, string]): [number, number] => [at(a), at(b)];
 const HOL = new Set(['2026-09-07', '2026-10-08', '2026-10-09', '2026-11-11', '2027-01-18', '2027-02-15'].map(at));
 const BRK = ([['2026-11-25', '2026-11-29'], ['2026-12-05', '2027-01-10'], ['2027-03-14', '2027-03-21'], ['2027-05-01', '2027-08-23']] as [string, string][]).map(span);
 const TERM = ([['2026-08-24', '2026-12-04'], ['2027-01-11', '2027-04-30']] as [string, string][]).map(span);
+// R24 sentence 2 (holidays, breaks, study days, finals), the same calendar split by name: usc.edu/academic-calendar, re-read 2026-11-14
+const CLOSED: [phrase: string, first: IsoDate, last: IsoDate][] = [
+  ['on Labor Day, a University holiday', '2026-09-07', '2026-09-07'],
+  ['during Fall Recess, a University break', '2026-10-08', '2026-10-09'],
+  ['on Veterans Day, a University holiday', '2026-11-11', '2026-11-11'],
+  ['during the Thanksgiving holiday', '2026-11-25', '2026-11-29'],
+  ['during study days', '2026-12-05', '2026-12-08'],
+  ['during finals', '2026-12-09', '2026-12-16'],
+  ['during Winter Recess, a University break', '2026-12-17', '2027-01-10'],
+  ['on Martin Luther King Jr. Day, a University holiday', '2027-01-18', '2027-01-18'],
+  ["on Presidents' Day, a University holiday", '2027-02-15', '2027-02-15'],
+  ['during spring break (Spring Recess)', '2027-03-14', '2027-03-21'],
+  ['during study days', '2027-05-01', '2027-05-04'],
+  ['during finals', '2027-05-05', '2027-05-12'],
+];
 const START = TERM[0][0];
 const END = TERM[TERM.length - 1][1];
 
@@ -79,8 +94,15 @@ function latest(anchor: number, n: number): number | null {
 
 const minOrNull = (xs: (number | null)[]) => (xs.includes(null) ? null : Math.min(...(xs as number[])));
 
-// R24, quoted from the form: events Dec 5 2026 to Jan 12 2027, or after May 1 2027. ISO strings compare as dates.
-const inBlackout = (first: IsoDate, last: IsoDate) => (first <= '2027-01-12' && last >= '2026-12-05') || last > '2027-05-01';
+/** R24 flag message if USG would not fund an event on these days, else null. ISO strings compare as dates.
+ *  First the form's window (Dec 5 2026 to Jan 12 2027, or after May 1 2027), then the calendar days above. */
+export function blackoutMessage(event: IsoDate | null, end?: IsoDate | null): string | null {
+  if (!event || day(event) === null) return null;
+  const last = end && day(end) !== null && end > event ? end : event;
+  if ((event <= '2027-01-12' && last >= '2026-12-05') || last > '2027-05-01') return "Event date falls in USG's no-funding window (per the application form).";
+  const hit = CLOSED.find(([, a, b]) => event <= b && last >= a);
+  return hit ? `Event date falls ${hit[0]}, when USG does not fund events (§1).` : null;
+}
 
 /** The Python's `nxt`: the first open Wednesday on or after `today`, or null if none before the term ends. */
 function openWed(today: IsoDate): number | null {
@@ -111,8 +133,7 @@ export function deadlineCard(a: {
 
   const anchors: DeadlineCard['anchors'] = [{ kind: 'event', date: a.event, weeks }];
   if (a.payment && day(a.payment) !== null) anchors.push({ kind: 'payment', date: a.payment, weeks: 9 });
-  const last = a.end && day(a.end) !== null && a.end > a.event ? a.end : a.event;
-  if (inBlackout(a.event, last)) return { status: 'blackout', headline: null, latest: null, weeks, anchors, blackout: true, ruleIds };
+  if (blackoutMessage(a.event, a.end)) return { status: 'blackout', headline: null, latest: null, weeks, anchors, blackout: true, ruleIds };
 
   const s = minOrNull(anchors.map((x) => safe(at(x.date), x.weeks)));
   const l = minOrNull(anchors.map((x) => latest(at(x.date), x.weeks)));

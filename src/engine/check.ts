@@ -10,7 +10,7 @@ import {
   type ItemAiRuleId,
   type RuleId,
 } from '../shared/contracts';
-import { deadlineCard } from './deadline';
+import { blackoutMessage, deadlineCard } from './deadline';
 import { buildDocs, UEPA } from './docs';
 import { buildMoney, lineCents, lodgingExcess, reductions, resolve, usd } from './money';
 import { checkVendors } from './vendor';
@@ -149,8 +149,8 @@ export function runCheck({ extraction: x, answers, today, rules, vendors }: Chec
     if (v.status === 'not_found_verify')
       flag({ ruleId: 'R18', severity: 'confirm', badge: 'rule_math', itemId: v.itemId, message: `${v.vendor}: not found on the list, verify with the Funding Department.` });
 
-  if (deadline.blackout) flag({ ruleId: 'R24', severity: 'not_eligible', badge: 'rule_math', itemId: null,
-    message: "Event date falls in USG's no-funding window (per the application form)." });
+  const blackout = blackoutMessage(f.date, f.endDate);
+  if (blackout) flag({ ruleId: 'R24', severity: 'not_eligible', badge: 'rule_math', itemId: null, message: blackout });
 
   if (answers.paymentDueDate == null) ask({ id: 'paymentDueDate', question: 'When is the first payment to a vendor due? (optional)', ruleId: 'R25', kind: 'date' });
   if (fund === 'social_rec_startup' && answers.startupEligible == null)

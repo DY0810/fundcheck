@@ -191,6 +191,16 @@ describe('runCheck rules', () => {
     expect(r.deadline.status).toBe('blackout');
   });
 
+  it('R24: a holiday, spring break or a multi-day event into a break is not eligible; class days in those weeks pass', () => {
+    const r24 = (facts: Partial<Extraction['facts']>) => run(plan({ facts })).flags.find((fl) => fl.ruleId === 'R24');
+    expect(r24({ date: '2027-02-15' })).toMatchObject({ severity: 'not_eligible', badge: 'rule_math', message: expect.stringContaining("Presidents' Day, a University holiday") });
+    expect(r24({ date: '2027-03-16' })?.message).toContain('spring break');
+    expect(r24({ date: '2027-03-11', endDate: '2027-03-15', multiDay: true })?.message).toContain('spring break');
+    expect(r24({ date: '2027-02-16' })).toBeUndefined();
+    expect(r24({ date: '2027-03-11' })).toBeUndefined();
+    expect(r24({ date: '2027-04-09' })).toBeUndefined();
+  });
+
   it('R16, R32, R33, R30 and R19 follow the answers', () => {
     expect(run(plan(), { uepaNumber: 'A12345' }).documents.find((d) => d.id === 'R16')?.status).toBe('done');
     const bad = run(plan(), { uepaNumber: '12345' });
