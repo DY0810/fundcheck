@@ -16,8 +16,13 @@ Scoring:
 - **Pass:** the case is fully correct: no misses, no false flags, and the fund and eligible dollars match whenever the case sets them.
 - **Precision and recall:** computed over all labels. False positives are counted only against each case's `mustNotFlag` list.
 
-Limits: the set is hand-written by the team, so it is not a benchmark. e01 is the sample plan, and some of its phrasing is close to the prompt's few-shot examples. R24's second quote (no funding during "University holidays, breaks, study days, or finals") is labelled as written, though the engine only checks the date windows.
+Limits: the set is hand-written by the team, so it is not a benchmark. e01 is the sample plan, and some of its phrasing is close to the prompt's few-shot examples. R24's second quote (no funding during "University holidays, breaks, study days, or finals") is labelled as written.
 
 Label changes:
 - e11 (before the first run, at HQ's request): the Surfliner ticket now passes with either an R3.rideshare flag or an Ask chip (`orAsk`), because the clause names "Amtrak cabins" and a coach seat is arguably not a cabin.
 - e35 and e36 (after full run 1 of the 100): the `itemContains` token pointed at the venue line ("yamashiro", "cantina") instead of the dinner line that "Restaurant diners" applies to. Run 1 flagged R3.restaurant on the dinner line in both cases but scored them as misses. The tokens are now "prix" and "dinner", and the rule and expectation are unchanged. Run 1 was not published; run 2 is.
+
+History:
+- Run 2 (2026-11-15 02:59 UTC): 96/100. e84 and e85 failed because the engine's R24 checked only the Dec 5–Jan 12 and after-May-1 windows.
+- Engine fix cc50d5c: R24 now also covers University holidays, breaks, study days and finals from the USC academic calendar.
+- Run 3 (2026-11-15 03:22 UTC, published): 98/100, precision 0.991, recall 0.983, all claude-opus-5-5, no labels changed. Still failing: e06 (R4 judged low confidence → Ask) and e87 (tees judged durable → R19 skipped).
