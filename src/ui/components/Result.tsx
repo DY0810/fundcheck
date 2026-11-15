@@ -1,26 +1,71 @@
+import type { ReactNode, Ref } from 'react';
 import { ChevronDown, Circle, CircleAlert, CircleCheck, CircleHelp } from 'lucide-react';
 import type { Answers, CheckResult, DeadlineCard, Extraction, Flag, Severity } from '../../shared/contracts';
 import { SEVERITY_ORDER } from '../../shared/contracts';
-import { date, money, pct } from '../lib/format';
+import { date, money, pct, plural } from '../lib/format';
 import { rule } from '../lib/rules';
-import { AiText, BadgeTag, CopyButton, Panel, RuleRef, SEV, SevChip, UsgQuote } from './bits';
+import { AiText, BadgeTag, CopyButton, Fold, Panel, RuleRef, SEV, SevChip, UsgQuote } from './bits';
 
 // ---------- Summary ----------
 
+const countLabel = (s: Severity, n: number) =>
+  s === 'review_note' ? plural(n, 'review note') : s === 'confirm' ? `${n} to confirm` : `${n} ${SEV[s].label.toLowerCase()}`;
+
 export function Summary({ check }: { check: CheckResult }) {
   const counts = SEVERITY_ORDER.filter((s) => s !== 'pass').map((s) => [s, check.flags.filter((f) => f.severity === s).length] as const).filter(([, n]) => n);
-  const line = counts.length
-    ? counts.map(([s, n]) => `${n} ${SEV[s].label.toLowerCase()}`).join(', ')
-    : 'No flags';
+  const line = counts.length ? counts.map(([s, n]) => countLabel(s, n)).join(', ') : 'No flags';
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap gap-2">
-        {counts.length ? counts.map(([s, n]) => <SevChip key={s} severity={s}>{`${n} ${SEV[s].label.toLowerCase()}`}</SevChip>) : <SevChip severity="pass">No flags</SevChip>}
+        {counts.length ? counts.map(([s, n]) => <SevChip key={s} severity={s}>{countLabel(s, n)}</SevChip>) : <SevChip severity="pass">No flags</SevChip>}
       </div>
       {/* One short line, so edits don't re-announce the whole report. */}
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         Pre-check updated: {line}. Eligible request {money(check.money.eligibleCents)}.
       </p>
+    </div>
+  );
+}
+
+// ---------- Verdict ----------
+
+const Estimate = () => <span className="rounded-full bg-gold px-2 py-px text-xs font-semibold text-ink">Estimate</span>;
+
+/** The answer, first: counts, eligible request, deadline and fund. Everything else is detail below. */
+export function Verdict({ check, note, headingRef, nav }: { check: CheckResult; note?: ReactNode; headingRef: Ref<HTMLHeadingElement>; nav: ReactNode }) {
+  const m = check.money;
+  const r9 = check.flags.find((f) => f.ruleId === 'R9');
+  return (
+    <div className="panel flex flex-col gap-4 border-t-4 border-t-cardinal p-4 lg:p-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h2 id="result-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Pre-check</h2>
+        {note}
+      </div>
+      <Summary check={check} />
+      <dl className="m-0 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-[1.1fr_1fr_1fr] sm:gap-x-6">
+        <div className="col-span-2 flex flex-col gap-0.5 sm:col-span-1">
+          <dt className="text-sm text-ink-2">Eligible request</dt>
+          <dd className="num m-0 flex flex-wrap items-baseline gap-x-2">
+            <span className="text-2xl font-semibold tracking-[-0.02em] text-ink">{money(Math.max(0, m.eligibleCents))}</span>
+            <span className="text-base text-ink-2">of {money(m.totalCents)} planned</span>
+          </dd>
+          {r9 && m.yearlyRemainingCents != null && (
+            <dd className="num m-0 text-sm text-cap">Capped at the {money(m.yearlyRemainingCents)} your org has left of its $8,000 for the year</dd>
+          )}
+          {m.yearlyRemainingCents == null && m.eligibleCents > m.yearlyCapCents && (
+            <dd className="num m-0 text-sm text-cap">More than the $8,000 USG funds per org each year</dd>
+          )}
+        </div>
+        <div className="flex min-w-0 flex-col gap-0.5">
+          <dt className="flex items-center gap-2 text-sm text-ink-2">Deadline <Estimate /></dt>
+          <dd className="num m-0 text-base font-semibold text-ink">{headline(check.deadline)}</dd>
+        </div>
+        <div className="flex min-w-0 flex-col gap-0.5">
+          <dt className="text-sm text-ink-2">Fund</dt>
+          <dd className="m-0 text-base font-semibold text-ink">{check.fund.label}</dd>
+        </div>
+      </dl>
+      {nav}
     </div>
   );
 }
@@ -50,7 +95,7 @@ function FlagCard({ flag, extraction }: { flag: Flag; extraction: Extraction }) 
       {flag.aiReason && <AiText>{flag.aiReason}</AiText>}
       <p className="m-0 flex flex-wrap gap-x-2 gap-y-1">
         <RuleRef id={flag.ruleId} />
-        {r?.discretionNote && <span className="text-xs text-ink-2">· The board may make an exception (R2, quoted above)</span>}
+        {r?.discretionNote && <span className="text-xs text-ink-2">· The board may make an exception (R2, quoted below)</span>}
       </p>
     </li>
   );
@@ -66,13 +111,19 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
   if (!groups.length) {
     return (
       <Panel title="Flags" id="flags-h">
-        <p className="m-0 text-base text-ink-2">Nothing in this plan matched a rule we check. Answer the questions above to finish the check.</p>
+        <p className="m-0 text-base text-ink-2">Nothing in this plan matched a rule we check. Answer the questions to finish the check.</p>
       </Panel>
     );
   }
   return (
     <div className="flex flex-col gap-4 lg:gap-6">
-      {groups.map(([sev, flags]) => (
+      {groups.map(([sev, flags]) => sev === 'pass' ? (
+        <Fold key={sev} title={`Passed (${flags.length})`} id={`g-${sev}`}>
+          <ul className="m-0 flex list-none flex-col gap-4 p-0">
+            {flags.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
+          </ul>
+        </Fold>
+      ) : (
         <section key={sev} aria-labelledby={`g-${sev}`} className="panel flex flex-col gap-4 p-4 lg:p-6">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 id={`g-${sev}`} className={`m-0 flex items-center gap-2 text-lg font-semibold ${SEV[sev].fg}`}>
@@ -81,11 +132,15 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
               <span className="num text-base font-medium text-ink-2">({flags.length})</span>
             </h3>
           </div>
-          {/* R2 applies to every discretion rule; quoted once per group instead of under each flag. */}
-          {flags.some((f) => rule(f.ruleId)?.discretionNote) && <UsgQuote id="R2" intro={`Exception at the board's discretion. ${rule('R2')?.source ?? 'The Guidelines'} says:`} />}
           <ul className="m-0 flex list-none flex-col gap-4 p-0">
             {flags.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
           </ul>
+          {/* R2 applies to every discretion rule; quoted once per group, after the flags so the first quote stays on screen. */}
+          {flags.some((f) => rule(f.ruleId)?.discretionNote) && (
+            <div className="border-t border-line pt-4">
+              <UsgQuote id="R2" intro={`Exception at the board's discretion. ${rule('R2')?.source ?? 'The Guidelines'} says:`} />
+            </div>
+          )}
         </section>
       ))}
     </div>
@@ -96,11 +151,10 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
 
 export function FundCard({ check }: { check: CheckResult }) {
   return (
-    <Panel title="Fund" id="fund-h">
-      <p className="m-0 text-lg font-semibold text-ink">{check.fund.label}</p>
+    <Fold title="Why this fund" id="fund-h" meta={check.fund.label}>
       <UsgQuote id={check.fund.ruleId} />
       <AiText>{check.fund.aiReason}</AiText>
-    </Panel>
+    </Fold>
   );
 }
 
@@ -120,6 +174,7 @@ export function MoneyCard({ check, answers }: { check: CheckResult; answers: Ans
   const received = answers.receivedThisYearCents ?? null;
   const used = (received ?? 0) + Math.max(0, m.eligibleCents);
   const share = used / m.yearlyCapCents;
+  const r9 = check.flags.find((f) => f.ruleId === 'R9');
   return (
     <Panel title="Money" id="money-h">
       <div>
@@ -142,6 +197,7 @@ export function MoneyCard({ check, answers }: { check: CheckResult; answers: Ans
         <Row label="Plan total" value={m.totalCents} />
         <Row label="Not eligible" value={m.ineligibleCents} minus />
         <Row label="Over-cap reductions" value={m.capReductionCents} minus />
+        {r9?.amountCents ? <Row label="Yearly cap" value={r9.amountCents} minus /> : null}
         <Row label="Eligible request" value={m.eligibleCents} strong />
       </dl>
       <dl className="m-0 grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 text-sm text-ink-2">
@@ -215,9 +271,9 @@ const DOC_STATUS = {
   invalid: { label: 'Check the format', Icon: CircleAlert, cls: 'text-ne' },
 } as const;
 
-export function Documents({ check }: { check: CheckResult }) {
+export function Documents({ check, children }: { check: CheckResult; children?: ReactNode }) {
   return (
-    <Panel title="Documents checklist" id="docs-h">
+    <Panel title="Documents checklist" id="docs-h" className="scroll-mt-4">
       {check.documents.length === 0 ? (
         <p className="m-0 text-base text-ink-2">No documents found for this plan yet.</p>
       ) : (
@@ -225,7 +281,7 @@ export function Documents({ check }: { check: CheckResult }) {
           {check.documents.map((d) => {
             const s = DOC_STATUS[d.status];
             return (
-              <li key={d.id} className="flex flex-col gap-2 border-t border-line py-3 first:border-t-0 first:pt-0 sm:flex-row sm:items-center sm:justify-between">
+              <li key={d.id} className="flex items-start justify-between gap-3 border-t border-line py-3 first:border-t-0 first:pt-0">
                 <div className="flex min-w-0 items-start gap-2">
                   <s.Icon aria-hidden size={18} className={`mt-0.5 shrink-0 ${s.cls}`} />
                   <div className="min-w-0">
@@ -242,6 +298,7 @@ export function Documents({ check }: { check: CheckResult }) {
           })}
         </ul>
       )}
+      {children}
     </Panel>
   );
 }
@@ -250,10 +307,12 @@ export function Documents({ check }: { check: CheckResult }) {
 
 export function Vendors({ check, answers, onOverride }: { check: CheckResult; answers: Answers; onOverride: (itemId: string, on: boolean) => void }) {
   const food = check.vendors.filter((v) => v.status !== 'not_applicable');
+  const unsure = food.filter((v) => v.status !== 'found').length;
+  const meta = food.length === 0 ? 'No vendors named' : unsure ? `${unsure} not found on the list, verify` : `${food.length} found on the USG Vendor List`;
   return (
-    <Panel title="Vendors" id="vendors-h">
+    <Fold title="Vendors" id="vendors-h" meta={meta} open={unsure > 0}>
       {food.length === 0 ? (
-        <p className="m-0 text-base text-ink-2">No food vendors named in your plan. FundCheck checks food vendors against the USG Vendor List.</p>
+        <p className="m-0 text-base text-ink-2">No vendors named in your plan. FundCheck checks each named vendor against the USG Vendor List.</p>
       ) : (
         <ul className="m-0 flex list-none flex-col p-0">
           {food.map((v) => {
@@ -281,7 +340,7 @@ export function Vendors({ check, answers, onOverride }: { check: CheckResult; an
         </ul>
       )}
       <UsgQuote id="R18" />
-    </Panel>
+    </Fold>
   );
 }
 
@@ -289,8 +348,8 @@ export function Vendors({ check, answers, onOverride }: { check: CheckResult; an
 
 export function PostEvent({ check }: { check: CheckResult }) {
   return (
-    <Panel title="After the event" id="post-h">
+    <Fold title="After the event" id="post-h" meta="What to send USG once the event is over">
       <UsgQuote id={check.postEventRuleId} />
-    </Panel>
+    </Fold>
   );
 }

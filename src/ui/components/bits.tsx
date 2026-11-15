@@ -1,5 +1,5 @@
-import { useState, type ReactNode } from 'react';
-import { Ban, Calculator, Check, CircleCheck, CircleHelp, Copy, Gauge, MessageSquareText, ScanText, type LucideIcon } from 'lucide-react';
+import { useState, type ReactNode, type Ref } from 'react';
+import { Ban, Calculator, Check, ChevronDown, CircleCheck, CircleHelp, Copy, Gauge, MessageSquareText, ScanText, type LucideIcon } from 'lucide-react';
 import type { Badge, RuleId, Severity } from '../../shared/contracts';
 import { rule } from '../lib/rules';
 
@@ -105,5 +105,21 @@ export function Panel({ title, id, children, className = '', aside }: { title: s
       </div>
       {children}
     </section>
+  );
+}
+
+/** A panel that starts collapsed (or open), for the long tail of the result. */
+export function Fold({ title, meta, open, id, detailsRef, children }: { title: string; meta?: ReactNode; open?: boolean; id?: string; detailsRef?: Ref<HTMLDetailsElement>; children: ReactNode }) {
+  return (
+    <details ref={detailsRef} open={open} className="panel group scroll-mt-4">
+      <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 rounded-panel px-4 py-3 lg:px-6 [&::-webkit-details-marker]:hidden">
+        <span className="flex min-w-0 flex-col">
+          <span id={id} className="text-lg font-semibold text-ink">{title}</span>
+          {meta && <span className="text-sm text-ink-2 [overflow-wrap:anywhere]">{meta}</span>}
+        </span>
+        <ChevronDown aria-hidden size={20} className="shrink-0 text-ink-2 transition-transform duration-200 group-open:rotate-180" />
+      </summary>
+      <div className="flex flex-col gap-4 px-4 pb-4 lg:px-6 lg:pb-6">{children}</div>
+    </details>
   );
 }

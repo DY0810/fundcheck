@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Download, LoaderCircle, RotateCcw } from 'lucide-react';
 import type { Answers, ApiError, CheckResult, Draft, Extraction } from '../../shared/contracts';
 import * as api from '../lib/api';
-import { date, moneyExact } from '../lib/format';
+import { date, moneyExact, plural } from '../lib/format';
 import { BUDGET_FILE_NAME, budgetCsv } from '../engine';
 import { CopyButton, UsgQuote } from './bits';
 
@@ -24,8 +24,12 @@ function Field({ label, value, ai, wide, children }: { label: string; value: str
   );
 }
 
-function downloadCsv(extraction: Extraction, draft: Draft | null) {
-  const blob = new Blob([budgetCsv(extraction.items, draft?.budgetJustifications ?? {})], { type: 'text/csv;charset=utf-8' });
+// Lines flagged not eligible stay out of the budget USG sees.
+const notEligible = (check: CheckResult) => new Set(check.flags.filter((f) => f.severity === 'not_eligible' && f.itemId).map((f) => f.itemId));
+
+function downloadCsv(extraction: Extraction, check: CheckResult, draft: Draft | null) {
+  const out = notEligible(check);
+  const blob = new Blob([budgetCsv(extraction.items.filter((i) => !out.has(i.id)), draft?.budgetJustifications ?? {})], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = Object.assign(document.createElement('a'), { href: url, download: BUDGET_FILE_NAME });
   a.click();
@@ -38,6 +42,7 @@ export function DraftPanel({ extraction, check, answers }: { extraction: Extract
   const [error, setError] = useState<ApiError | null>(null);
   const f = extraction.facts;
   const other = answers.otherFundingSources?.trim() || 'N/A';
+  const out = extraction.items.filter((i) => notEligible(check).has(i.id));
 
   async function run() {
     setBusy(true);
@@ -60,11 +65,17 @@ export function DraftPanel({ extraction, check, answers }: { extraction: Extract
             {busy && <LoaderCircle aria-hidden size={16} className="animate-spin" />}
             {draft ? 'Redraft my form answers' : 'Draft my form answers'}
           </button>
-          <button type="button" className="btn btn-secondary" onClick={() => downloadCsv(extraction, draft)}>
+          <button type="button" className="btn btn-secondary" onClick={() => downloadCsv(extraction, check, draft)} aria-describedby="csv-note">
             <Download aria-hidden size={16} /> Download budget CSV
           </button>
         </div>
       </div>
+      <p id="csv-note" className="m-0 max-w-[75ch] text-sm text-ink-2 [overflow-wrap:anywhere]">
+        {out.length
+          ? `The budget CSV leaves out ${plural(out.length, 'line')} that ${out.length === 1 ? "isn't" : "aren't"} eligible: ${out.map((i) => i.description || 'unnamed line').join(', ')}.`
+          : 'The budget CSV lists every line.'}
+        {check.money.venuePersonnelCents > 0 && ' Venue and personnel are listed at full cost; USG funds up to $4,000 of them.'}
+      </p>
 
       {error && (
         <div role="alert" className="flex flex-col gap-3 rounded-panel bg-ne-bg p-4 text-ne sm:flex-row sm:items-center sm:justify-between">
