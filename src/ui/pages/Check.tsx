@@ -201,7 +201,7 @@ export default function Check() {
             </button>
           </div>
           {error && (
-            <div role="alert" className="flex flex-col gap-3 rounded-panel bg-ne-bg p-4 text-ne sm:flex-row sm:items-center sm:justify-between">
+            <div role="alert" className="flex flex-col gap-3 rounded-panel border border-control bg-panel p-4 text-ink sm:flex-row sm:items-center sm:justify-between">
               <p className="m-0 text-base">{error.message}</p>
               {error.code !== 'empty' && error.code !== 'too_long' && (
                 <button type="button" className="btn btn-secondary shrink-0" onClick={() => submit()}>

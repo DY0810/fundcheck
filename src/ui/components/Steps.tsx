@@ -64,7 +64,7 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
       <p className="m-0 min-w-0 text-base text-ink [overflow-wrap:anywhere]" aria-hidden>{f.label}</p>
       <div className="flex shrink-0 rounded-ctl bg-inset p-1" role="presentation">
         {(['apply', 'keep'] as const).map((c) => (
-          <label key={c} className="flex min-h-target cursor-pointer items-center rounded-[calc(var(--radius-ctl)-2px)] px-3 text-sm font-medium text-ink has-checked:bg-brand has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink">
+          <label key={c} className="flex min-h-target cursor-pointer items-center rounded-[calc(var(--radius-ctl)-2px)] px-3 text-sm font-medium text-ink has-checked:bg-panel has-checked:font-semibold has-checked:shadow-[inset_0_0_0_2px_var(--color-ink)] has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink">
             <input type="radio" name={`fix-${f.id}`} className="sr-only" checked={choices[f.id] === c} onChange={() => onChoose(f.id, c)} />
             {c === 'apply' ? 'Apply' : 'Keep and ask the board'}
           </label>
@@ -94,7 +94,7 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
       {auto.length > 0 && (
         <section aria-label="Fixes" className="panel flex animate-reveal flex-col divide-y divide-line [animation-delay:80ms]">
           <div className="flex flex-col gap-3 px-card py-4 sm:flex-row sm:items-center sm:justify-between lg:px-card-lg">
-            <p className="m-0 text-base font-semibold text-ink">{plural(auto.length, 'change')} that follow USG's rules</p>
+            <p className="m-0 text-base font-semibold text-ink">{auto.length === 1 ? '1 change that follows' : `${auto.length} changes that follow`} USG's rules</p>
             <button type="button" className="btn btn-secondary" onClick={onApproveAll} disabled={allAuto}>
               {allAuto ? `All ${auto.length} applied` : `Approve all ${auto.length}`}
             </button>

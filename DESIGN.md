@@ -94,7 +94,8 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 ## Components
 
 - **Buttons.** Labels 16 / 600, 44 px tall. Primary: cardinal fill, white text. Secondary: panel fill, cardinal text, 2 px inset cardinal stroke; gold-tint fill and brand-press on hover. Ghost: cardinal text, underline on hover. Press: `scale(0.98)`. Loading keeps the label and adds a spinner plus `aria-busy`.
-- **Selected options** (yes / no / unknown, Apply / Keep): cardinal fill, white text. They are clickable, so cardinal is allowed.
+- **Selected options.** Yes / no / unknown answers: cardinal fill, white text (clickable, so cardinal is allowed). Step 2's Apply / Keep: the chosen segment is white with a 2 px ink ring and semibold label, no cardinal, so "Continue" stays the only cardinal fill on that screen.
+- **Alerts.** A paste or service error sits on a white panel with a control border and ink text, never on a severity surface: an outage is not a finding.
 - **Step indicator.** Current step: ink disc, white number. Done steps: buttons with a gold-tint disc and cardinal text. Future: inset disc. A step with nothing to do (Fix with no fixes) is not clickable.
 - **Inputs.** Panel fill, 1 px control border, 6 px radius, 44 px tall. Visible `<label>` always.
 - **Chips.** Full radius, 14 px; severity chips on their surface; neutral chips on inset.

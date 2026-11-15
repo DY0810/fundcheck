@@ -273,12 +273,10 @@ export function DeadlineBody({ check }: { check: CheckResult }) {
         USG documents word this rule differently, so we show the earliest date. Confirm on USG's Funding Application Deadlines sheet or with usgfunds@usc.edu.
       </p>
       {r25?.alsoSee?.length ? (
-        <details className="group">
-          <summary className="flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-brand [&::-webkit-details-marker]:hidden">
-            <ChevronDown aria-hidden size={16} className="transition-transform duration-200 group-open:rotate-180" />
-            Show the other wordings
-          </summary>
-          <ul className="m-0 mt-3 flex list-none flex-col gap-3 p-0">
+        // Shown in full: this already sits inside a row, and rows hold no further disclosures.
+        <div className="flex flex-col gap-3">
+          <p className="m-0 text-sm font-medium text-ink">The other wordings</p>
+          <ul className="m-0 flex list-none flex-col gap-3 p-0">
             {r25.alsoSee.map((s) => (
               <li key={s.source + s.quote} className="flex flex-col gap-1">
                 <span className="text-sm text-ink-2">{s.source} says:</span>
@@ -286,7 +284,7 @@ export function DeadlineBody({ check }: { check: CheckResult }) {
               </li>
             ))}
           </ul>
-        </details>
+        </div>
       ) : null}
     </>
   );
