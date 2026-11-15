@@ -1,0 +1,657 @@
+{
+  "version": "guidelines-2026-10-21.1",
+  "rules": [
+    {
+      "id": "R1",
+      "title": "Balloons",
+      "quotes": [
+        "The following are not eligible for funding: … Balloons"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R2",
+      "title": "Board may make an exception",
+      "quotes": [
+        "Any items critical to the function of the program may be considered as an exception to this rule at the board's discretion."
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R3.reimbursement",
+      "title": "Reimbursements",
+      "quotes": [
+        "Any reimbursements"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.charity",
+      "title": "Charity payments or donations",
+      "quotes": [
+        "Payments or donations to charity"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.alcohol",
+      "title": "Alcohol",
+      "quotes": [
+        "Alcoholic beverages"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.gifts",
+      "title": "Gifts and gift cards",
+      "quotes": [
+        "Gifts and gift cards"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.durable",
+      "title": "Durable goods",
+      "quotes": [
+        "Durable goods (Items that are not for one-time use such as electronics, uniforms, etc.)"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.raw_food",
+      "title": "Raw food needing refrigeration or preparation",
+      "quotes": [
+        "Raw food items requiring refrigeration and/or preparation"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.restaurant",
+      "title": "Restaurant dinners",
+      "quotes": [
+        "Restaurant diners"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.rideshare",
+      "title": "Rideshare and vehicle costs",
+      "quotes": [
+        "Rideshare costs (Uber, Lyft, Buses, Vans, Amtrak cabins, Car rentals, etc.)"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.deposit",
+      "title": "Refundable deposits and cleaning/damage fees",
+      "quotes": [
+        "Any refundable deposits and fees pertaining to cleaning/damage"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.p2p",
+      "title": "Peer-to-peer payments",
+      "quotes": [
+        "Peer to Peer Payments (Airbnb, VRBO, PayPal, Zelle, CashApp, etc.)"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.talent",
+      "title": "Payments to talent or performers",
+      "quotes": [
+        "Payments to talent or performers"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.subscription",
+      "title": "Monthly subscriptions",
+      "quotes": [
+        "Monthly Subscriptions/Payments"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.international",
+      "title": "International travel",
+      "quotes": [
+        "International travel"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3.jewelry",
+      "title": "Jewelry",
+      "quotes": [
+        "Jewelry"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R3a",
+      "title": "What counts as a durable good",
+      "quotes": [
+        "A durable good is a product that is designed to last for an extended period, typically three years or more."
+      ],
+      "source": "USG Funding FAQ doc, Social Recreation Fund Q1",
+      "sourceUrl": "https://docs.google.com/document/d/11IYBlPhAzE_Exvim3Fm1Cr_nI6q6mdurzKACldOj9jU/",
+      "sourceDate": "2026-11-14",
+      "type": "M",
+      "discretionNote": false
+    },
+    {
+      "id": "R4",
+      "title": "No ticket sales",
+      "quotes": [
+        "Events that include ticket sales"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R5.open",
+      "title": "On-campus events must be open to all students",
+      "quotes": [
+        "On-campus events that are not open to all students"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R5.residence",
+      "title": "No events in private residences",
+      "quotes": [
+        "Events occurring in private residences"
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": true
+    },
+    {
+      "id": "R6",
+      "title": "$4,000 venue and personnel cap",
+      "quotes": [
+        "The USG Funding Department will provide funding for up to $4,000 of the total cost associated with on-campus venue rentals and personnel."
+      ],
+      "source": "USG Funding Department Guidelines §3",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "H",
+      "discretionNote": false
+    },
+    {
+      "id": "R7",
+      "title": "Over $4,000 is reviewed case by case",
+      "quotes": [
+        "Events with expenses over $4,000 will be reviewed on a case-by-case basis to ensure effective use of funding."
+      ],
+      "source": "USG Funding Department Guidelines §3",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R8",
+      "title": "Multi-day events are reviewed case by case",
+      "quotes": [
+        "Multi-day events will be reviewed on a case-by-case basis."
+      ],
+      "source": "USG Funding Department Guidelines §3",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R9",
+      "title": "$8,000 per organization per year",
+      "quotes": [
+        "Individual organizations may receive a maximum of $8,000 from the USG Funding Department per year."
+      ],
+      "source": "USG Funding Department Guidelines §3; FAQ doc Q4",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R10",
+      "title": "Up to 4 funded events per semester",
+      "quotes": [
+        "Each RSO can have up to 4 events funded per semester as long as it remains under $8,000 from the USG Funding Department per year."
+      ],
+      "source": "USG funding page FAQ",
+      "sourceUrl": "https://usg.usc.edu/branches/funding/",
+      "sourceDate": "2026-11-14",
+      "type": "D",
+      "discretionNote": false,
+      "note": "Not in the Guidelines; from the USG funding page FAQ and the application slides."
+    },
+    {
+      "id": "R11",
+      "title": "Food at most $35 per person",
+      "quotes": [
+        "Food requests should not exceed a $35 per person maximum based on expected attendance, and raw food items requiring refrigeration or preparation are not eligible."
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "H",
+      "discretionNote": false
+    },
+    {
+      "id": "R12",
+      "title": "Food vendor health permit and insurance",
+      "quotes": [
+        "RSOs must provide a Health Permit and Certificate of Insurance from the Food Vendor."
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R13",
+      "title": "Food justification",
+      "quotes": [
+        "Additional information detailing why food is necessary and how it aligns with the event's purpose is required for review and approval."
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": false
+    },
+    {
+      "id": "R14",
+      "title": "Hospitality food and beverage form",
+      "quotes": [
+        "If serving food at event, please request and attach the food and beverage form from Hospitality"
+      ],
+      "source": "USG Funding Department Guidelines §2",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R15",
+      "title": "ESR for on-campus events",
+      "quotes": [
+        "ESRs for on campus events"
+      ],
+      "source": "USG Funding Department Guidelines §2",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R16",
+      "title": "UEPA number",
+      "quotes": [
+        "A UEPA is required anytime university funds are being used, food is part of an event, and/or any event with 25 or more people. Applications for conferences and travel for Academic Professional fund may not require a UEPA.",
+        "It starts with an A and has 5 or 6 digits."
+      ],
+      "source": "USG RSO Funding Application 2026-27 (draft), Event Details",
+      "sourceUrl": "",
+      "sourceDate": "2026-09-09",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R17",
+      "title": "A quote for every expense",
+      "quotes": [
+        "The full budget proposal for the event, including quotes for each individual expense",
+        "For online purchases, include a screenshot of the cart showing prices, quantities, and total price including all fees.",
+        "For Amazon purchases, create an Amazon Wish List and provide the link in the budget proposal."
+      ],
+      "source": "USG Funding Department Guidelines §2; FAQ doc Q11",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R18",
+      "title": "USG Vendor List",
+      "quotes": [
+        "The Vendor List serves as a guide of previous vendors the University worked with. … the list is not exhaustive. We will not accept a vendor not on the list."
+      ],
+      "source": "USG Funding Department Guidelines §1",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R19",
+      "title": "T-shirts need a USC Trademarks-authorized vendor",
+      "quotes": [
+        "T-Shirts funded by USG may only be produced by a vendor who is authorized to work with USC Trademarks."
+      ],
+      "source": "USG Funding Department Guidelines §4, Social and Recreation/Startup Fund",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R20",
+      "title": "Performing Arts: rentals and PO vendors only",
+      "quotes": [
+        "Expenses related to production, staging, lighting, decoration (rentals only), venue, staffing, and security can only be funded if they are obtained from a PO Vendor."
+      ],
+      "source": "USG Funding Department Guidelines §4, Performing and Visual Arts",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": false
+    },
+    {
+      "id": "R21",
+      "title": "Lodging at most $400 per night, with price comparison",
+      "quotes": [
+        "Rooms cannot exceed $400 per night.",
+        "Proof of price comparison with other hotels is required for hotel expenses."
+      ],
+      "source": "USG Funding Department Guidelines §5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "H",
+      "discretionNote": false
+    },
+    {
+      "id": "R22",
+      "title": "Travel documents",
+      "quotes": [
+        "Including name, DOB, phone number, USC email, USC ID #, and class level of all travelers",
+        "a clear statement of purpose that outlines the reasoning for the travel"
+      ],
+      "source": "USG Funding Department Guidelines §2",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R23",
+      "title": "Applications open Wednesdays only",
+      "quotes": [
+        "Funding applications will be open once a week on Wednesdays and close at 11:59 PM.",
+        "every Wednesday at 8:00 AM and close at 11:59 PM."
+      ],
+      "source": "USG Funding Department Guidelines §1; FAQ doc Q5",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R24",
+      "title": "Blackout dates",
+      "quotes": [
+        "Applications for events between December 5, 2026 and January 12, 2027, as well as events after May 1, 2027, will not be considered or approved.",
+        "USG Funding does not process applications or provide funding for events during University holidays, breaks, study days, or finals."
+      ],
+      "source": "USG RSO Funding Application 2026-27 (draft), Application Timelines; USG Funding Department Guidelines §1",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R25",
+      "title": "Submission deadline (estimate)",
+      "quotes": [
+        "at least six academic weeks six academic weeks before the initial payment due date, for approved USC Vendors",
+        "at least 9 academic weeks prior to the date of initial payment due date"
+      ],
+      "source": "USG Funding Department Guidelines §1",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false,
+      "alsoSee": [
+        {
+          "source": "USG Funding Department Guidelines §1",
+          "quote": "at least six academic weeks six academic weeks before the initial payment due date, for approved USC Vendors"
+        },
+        {
+          "source": "USG funding page FAQ",
+          "quote": "six academic weeks before the event date when using an approved vendor, and or nine academic weeks before the initial payment due date (whichever comes first) for approved USC Vendors"
+        },
+        {
+          "source": "USG Funding FAQ doc Q9",
+          "quote": "six academic weeks before the event date when using an approved vendor, and eight academic weeks before the event date for new vendors and travel"
+        },
+        {
+          "source": "USG RSO Funding Application 2026-27 (draft), intro text",
+          "quote": "at least six weeks prior to the event date for USC approved vendors and nine weeks prior to the travel date"
+        },
+        {
+          "source": "USG RSO Funding Application 2026-27 (draft), signed checkbox",
+          "quote": "8 weeks prior to the travel date"
+        }
+      ]
+    },
+    {
+      "id": "R26",
+      "title": "Late applications are automatically denied",
+      "quotes": [
+        "If this deadline is not met the application will be automatically denied."
+      ],
+      "source": "USG Funding Department Guidelines §1",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R27",
+      "title": "2 business days to fix an incomplete application",
+      "quotes": [
+        "Incomplete applications will be returned to the applicant who must provide the necessary information within 2 business days",
+        "2 business days is equivalent to 48 hours from the notification of an incomplete application"
+      ],
+      "source": "USG Funding Department Guidelines §2; application slides",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false,
+      "alsoSee": [
+        {
+          "source": "USG Funding FAQ doc Q16",
+          "quote": "three business days"
+        }
+      ]
+    },
+    {
+      "id": "R28",
+      "title": "After the event: evaluation and final invoices",
+      "quotes": [
+        "All applicants must submit the Post Event Evaluation form … within three business days of the final day of the event.",
+        "This Post Event Evaluation form must include pictures of the event with members in attendance.",
+        "Final invoices must be submitted no later than three business days after the final day of the event."
+      ],
+      "source": "USG Funding Department Guidelines §1",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R29.performing",
+      "title": "Performing, Visual Arts, & Cultural Fund",
+      "quotes": [
+        "The Performing and Visual Arts Fund shall provide funding for events geared towards the arts programmed by recognized student organizations to celebrate, highlight, or foster a sense of community."
+      ],
+      "source": "USG Funding Department Guidelines §4",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": false
+    },
+    {
+      "id": "R29.philanthropy",
+      "title": "Philanthropy Fund",
+      "quotes": [
+        "The Philanthropy Fund shall provide funding for community service projects sponsored by recognized student organizations."
+      ],
+      "source": "USG Funding Department Guidelines §4",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": false
+    },
+    {
+      "id": "R29.professional",
+      "title": "Professional Academic Research Fund",
+      "quotes": [
+        "…events programmed by recognized student organizations that help educate and advance students' future professional careers and academic research projects…"
+      ],
+      "source": "USG Funding Department Guidelines §4",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": false
+    },
+    {
+      "id": "R29.social",
+      "title": "Social, Recreational, and Startup Fund",
+      "quotes": [
+        "…events programmed by recognized student organizations to celebrate, highlight, or foster a sense of community for the student group…"
+      ],
+      "source": "USG Funding Department Guidelines §4",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": false
+    },
+    {
+      "id": "R30",
+      "title": "Startup fund eligibility",
+      "quotes": [
+        "student organizations first registered with the Office of Campus Activities within the last two academic semesters (fall or spring)"
+      ],
+      "source": "USG Funding Department Guidelines §4",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R31",
+      "title": "Professional fund events must be free and open",
+      "quotes": [
+        "must be free and open to all students"
+      ],
+      "source": "USG Funding Department Guidelines §4, Professional/Academic",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "M",
+      "discretionNote": false
+    },
+    {
+      "id": "R32",
+      "title": "USG Funding Department modules completed",
+      "quotes": [
+        "make sure to complete the USG Funding Department modules during RSO Recognition"
+      ],
+      "source": "USG Funding Department Guidelines §2; FAQ doc Q2",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    },
+    {
+      "id": "R33",
+      "title": "Other University funding",
+      "quotes": [
+        "RSO receiving funding from another University income source"
+      ],
+      "source": "USG Funding Department Guidelines §6",
+      "sourceUrl": "https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit",
+      "sourceDate": "2026-10-21",
+      "type": "D",
+      "discretionNote": false
+    }
+  ]
+}
