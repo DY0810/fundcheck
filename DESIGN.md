@@ -16,7 +16,7 @@ v2 replaces the USWDS palette with USC cardinal as the brand, and lowers density
 Two voices, never mixed:
 
 - **USG's words** are set in a serif (Source Serif 4) on a quiet inset surface, always introduced by their source ("USG Funding Department Guidelines §5 says:"). Only text from `src/shared/rules.json` `quotes` may use this style.
-- **Our words** (messages, labels, notes) and **the AI's words** are set in the sans (Public Sans). AI text is always labelled "AI reasoning" or "AI draft". Flag cards show no AI reasoning: the "AI-judged" badge says the model matched it, and the USG quote says why.
+- **Our words** (messages, labels, notes) and **the AI's words** are set in the sans (Public Sans). AI-drafted form answers are labelled "AI draft". Flag cards show no AI reasoning: the USG quote says why.
 - **Say it once.** Each fact appears once in its detail section; a summary number in the verdict with its detail lower down is the only repeat. No rule IDs on screen.
 
 ## Mode and rejected skill rules
@@ -114,7 +114,7 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 - **Inputs.** Panel fill, 1 px control border, 6 px radius, 44 px tall. Visible `<label>` always.
 - **Chips.** Full radius, 14 px; severity chips on their surface; neutral chips on inset.
 - **Quote block.** Source line in sans 14 / ink-2 with the source name as an ink link, then the quote in serif 16 / ink on inset, 12 / 16 padding.
-- **Flag card.** Severity icon and title, "AI-judged" or "Rule math" badge, "In your plan:" only when the plan's words say more than the title, then the quote block. Under "Not eligible per §5" the title is the thing itself ("DJ ($600)", "Ticket sales").
+- **Flag card.** Severity icon and title, "In your plan:" only when the plan's words say more than the title, then the quote block. Under "Not eligible per §5" the title is the thing itself ("DJ ($600)", "Ticket sales").
 - **Exception.** Once per group: "The board may make an exception" beside the group heading, an ink toggle that opens the R2 quote under it. It stays visible, because it keeps a flag from reading as final.
 - **One-line rows.** A `<details>` row: title, then its key fact after a middle dot ("Deadline · Submit by Wed, Feb 3, 2027"), chevron at the end.
 - **Skeleton.** Inset bars with an opacity pulse; "Reading your plan…" as live text.
