@@ -55,7 +55,7 @@ Severity never relies on colour alone: each has an icon and a text label. Pairs 
 | `confirm` | "Confirm" | `CircleHelp` | `#5C4809` | `#FAF3D1` | 7.9 |
 | `pass` | "Passed" | `CircleCheck` | `#216E1F` | `#ECF3EC` | 5.6 |
 
-**No coloured side bars.** USWDS alerts carry a 4 px coloured bar on the left; the design skills used here reject coloured side stripes on cards as decoration that repeats what the icon and label already say. Flags show severity through the icon, the label and the chip, not a stripe. The verdict panel is the one exception: a 4 px top rule in the worst severity present (red if anything is not eligible, green if all passed), because it summarises the whole page's state. It is never brand blue or USC cardinal. The quote block keeps no side border either.
+**No coloured side bars.** USWDS alerts carry a 4 px coloured bar on the left; the design skills used here reject coloured side stripes on cards as decoration that repeats what the icon and label already say. Flags show severity through the icon, the label and the chip, not a stripe. The verdict panel is the one exception: a 4 px top rule in the worst severity present (red if anything is not eligible, green if only passed checks; neutral line grey when nothing has been read), because it summarises the whole page's state. It is never brand blue or USC cardinal. The quote block keeps no side border either.
 
 **Not copied from USWDS:** the government banner, flag, `.gov` or lock icons, GSA or USWDS logos, "Official" wording, the USWDS icon set and illustrations, USWDS page copy, and the USWDS `secondary` red. Gold never sits on or next to the blue.
 
@@ -76,7 +76,8 @@ Fixed rem scale (ratio ≈ 1.25), no fluid type:
 | `text-sm` | 14 / 20 | labels, chips, secondary lines |
 | `text-base` | 16 / 24 | body, inputs, quotes |
 | `text-lg` | 20 / 28 | panel headings |
-| `text-xl` | 28 / 34 | page headline (24 / 30 under 640 px) |
+| `text-xl` | 28 / 34 | panel-level page headings; the landing headline on phones |
+| display | 40 / 46, tracking -0.02em | the landing headline from 1024 px only, so the first screen reads as one statement |
 | `text-2xl` | 40 / 44 | the eligible-request figure only |
 
 Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em`; the figure `-0.02em`. Money and dates use `tabular-nums`. Prose measure stays under 70ch. Inputs are 16 px so iOS does not zoom.
@@ -98,7 +99,7 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 
 ## Components
 
-- **Buttons.** Primary: brand fill, white text, 44 px tall. Secondary: panel fill, ink text, 1 px control border, brand-tint on hover. Ghost: text only, brand, underline on hover. Press: `scale(0.98)`. Loading keeps the label and adds a spinner plus `aria-busy`.
+- **Buttons.** Labels 16 / 600. Primary: brand fill, white text, 44 px tall. Secondary (USWDS outline): panel fill, brand text, 2 px inset brand stroke, brand-tint fill and brand-press stroke on hover. Selected yes / no answers fill brand. Ghost: text only, brand, underline on hover. Press: `scale(0.98)`. Loading keeps the label and adds a spinner plus `aria-busy`.
 - **Inputs.** Panel fill, 1 px control border, 6 px radius, 44 px tall (40 in the table). Visible `<label>` always; placeholders are examples, never labels.
 - **Yes / no / unknown.** A three-option radio group, not a select.
 - **Chips.** Full radius, 14 px, 28 px tall; category chips are neutral (inset); match chips take their severity colours.
@@ -123,8 +124,8 @@ Motion conveys state only. All transitions name their properties; never `transit
 | `--dur-hover` | 150 ms | colour changes |
 | `--dur-ui` | 200 ms | disclosure, chip state |
 | `--dur-reveal` | 240 ms | result first appears (opacity + 8 px rise) |
-| stagger | 40 ms | flags revealing in order (Wave 2) |
-| count-up | 600 ms, once | eligible figure (Wave 2) |
+| stagger | verdict 0 ms, flag groups 80 ms + 60 ms each, side column 160 ms | the result's first reveal only; groups that appear later on an edit fade in once |
+| count-up | rejected | the eligible figure is data the user reads and the video freezes on; it never moves for style |
 
 `prefers-reduced-motion: reduce`: no transforms, no stagger, no count-up; opacity fades only, 120 ms. Hover effects sit behind `@media (hover: hover) and (pointer: fine)`. Typing never animates anything.
 
@@ -135,3 +136,8 @@ Motion conveys state only. All transitions name their properties; never `transit
 - Nulls render as "Unknown". Never `NaN`, `$0` for a missing cost, or an empty cell.
 - Deadline card is labelled "Estimate", carries the exact estimate copy, and never uses a red banner.
 - Privacy line under the textarea: "Nothing you paste is stored. Don't paste traveller details." The page stores nothing (no localStorage, no plan in the URL).
+
+## Favicon and social preview
+
+- `public/favicon.svg` is the header mark itself (cardinal square, gold check). It is the mark, so it counts as USC accent place 1, not a third place.
+- `public/og.png` (1200 × 630) repeats the landing page: the 4 px cardinal rule, the mark and wordmark, the headline, and a panel with the sample's eligible request and one USG quote taken from `rules.json` (R4). No severity colours, so cardinal and "not eligible" red never share the image.

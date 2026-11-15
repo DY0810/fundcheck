@@ -66,7 +66,7 @@ export function TriState({ legend, value, onChange, wide }: { legend: string; va
       <legend className="label mb-1.5 p-0">{legend}</legend>
       <div className="flex rounded-ctl border border-control bg-panel p-0.5">
         {opts.map(([l, v]) => (
-          <label key={l} className={`flex min-h-10 flex-1 cursor-pointer items-center justify-center rounded-[4px] px-2 text-sm font-medium transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${value === v ? 'bg-ink text-white' : 'text-ink'}`}>
+          <label key={l} className={`flex min-h-10 flex-1 cursor-pointer items-center justify-center rounded-[4px] px-2 text-sm font-medium transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${value === v ? 'bg-brand text-white' : 'text-ink'}`}>
             <input type="radio" name={name} className="sr-only" checked={value === v} onChange={() => onChange(v)} />
             {l}
           </label>
@@ -235,7 +235,7 @@ export function AskRow({ ask, value, onAnswer }: { ask: Ask; value: AskValue; on
         return (
           <div role="radiogroup" aria-labelledby={id} className="flex gap-2">
             {([['Yes', true], ['No', false]] as const).map(([l, v]) => (
-              <button key={l} type="button" role="radio" aria-checked={value === v} className={`btn min-h-10 px-4 ${value === v ? 'bg-ink text-white' : 'btn-secondary'}`} onClick={() => onAnswer(v)}>
+              <button key={l} type="button" role="radio" aria-checked={value === v} className={`btn min-h-10 px-4 ${value === v ? 'bg-brand text-white' : 'btn-secondary'}`} onClick={() => onAnswer(v)}>
                 {l}
               </button>
             ))}

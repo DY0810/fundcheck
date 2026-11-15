@@ -35,9 +35,10 @@ const Estimate = () => <span className="rounded-full bg-brand-tint px-2 py-px te
 export function Verdict({ check, note, headingRef, nav }: { check: CheckResult; note?: ReactNode; headingRef: Ref<HTMLHeadingElement>; nav: ReactNode }) {
   const m = check.money;
   const r9 = check.flags.find((f) => f.ruleId === 'R9');
-  const worst = SEVERITY_ORDER.find((s) => check.flags.some((f) => f.severity === s)) ?? 'pass';
+  // Worst severity present; no flags at all (nothing read yet) stays neutral rather than a green all-clear.
+  const worst = SEVERITY_ORDER.find((s) => check.flags.some((f) => f.severity === s));
   return (
-    <div className={`panel flex flex-col gap-4 border-t-4 p-4 lg:p-6 ${SEV[worst].top}`}>
+    <div className={`panel flex animate-reveal flex-col gap-4 border-t-4 p-4 lg:p-6 ${worst ? SEV[worst].top : 'border-t-line'}`}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 id="result-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Pre-check</h2>
         {note}
@@ -118,14 +119,15 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
   }
   return (
     <div className="flex flex-col gap-4 lg:gap-6">
-      {groups.map(([sev, flags]) => sev === 'pass' ? (
+      {groups.map(([sev, flags], i) => sev === 'pass' ? (
         <Fold key={sev} title={`Passed (${flags.length})`} id={`g-${sev}`}>
           <ul className="m-0 flex list-none flex-col gap-4 p-0">
             {flags.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
           </ul>
         </Fold>
       ) : (
-        <section key={sev} aria-labelledby={`g-${sev}`} className="panel flex flex-col gap-4 p-4 lg:p-6">
+        // Verdict first, then each severity group in order: 80 ms, then 60 ms apart.
+        <section key={sev} aria-labelledby={`g-${sev}`} className="panel flex animate-reveal flex-col gap-4 p-4 lg:p-6" style={{ animationDelay: `${80 + i * 60}ms` }}>
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 id={`g-${sev}`} className={`m-0 flex items-center gap-2 text-lg font-semibold ${SEV[sev].fg}`}>
               {(() => { const I = SEV[sev].Icon; return <I aria-hidden size={20} strokeWidth={2} />; })()}

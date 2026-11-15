@@ -122,7 +122,7 @@ export default function Check() {
       <section aria-labelledby="paste-h" className="grid grid-cols-1 gap-6 pt-4 lg:grid-cols-12 lg:gap-8 lg:pt-8">
         <div className="flex flex-col gap-5 lg:col-span-8">
           <div className="flex flex-col gap-2">
-            <h1 id="paste-h" className="m-0 text-[1.5rem] leading-[1.875rem] font-semibold sm:text-xl">Pre-check your USG funding application.</h1>
+            <h1 id="paste-h" className="m-0 text-[1.75rem] leading-[2.125rem] font-semibold tracking-[-0.02em] lg:text-[2.5rem] lg:leading-[2.875rem]">Pre-check your USG funding application.</h1>
             <p className="m-0 max-w-[62ch] text-base text-ink-2">
               Paste your event plan. FundCheck reads it, checks it against the USG Funding Department's rules, and shows what isn't eligible, what's over a cap and which documents you need.
             </p>
@@ -156,7 +156,7 @@ export default function Check() {
             </div>
             <textarea
               id="plan"
-              className="field min-h-48 resize-y py-3 leading-6 lg:min-h-56"
+              className="field min-h-40 resize-y py-3 leading-6 lg:min-h-56"
               value={plan}
               aria-describedby="privacy"
               aria-invalid={over || undefined}
@@ -227,7 +227,7 @@ export default function Check() {
       {busy && extraction && <p role="status" className="sr-only">Reading your plan…</p>}
 
       {extraction && check && source && (
-        <div className={`flex flex-col gap-4 animate-reveal lg:gap-6 ${busy ? 'opacity-60' : ''}`}>
+        <div className={`flex flex-col gap-4 lg:gap-6 ${busy ? 'opacity-60' : ''}`}>
           {/* ---------- Verdict, then flags ---------- */}
           <section aria-labelledby="result-h" className="flex scroll-mt-4 flex-col gap-4 lg:gap-6">
             <Verdict
@@ -255,7 +255,7 @@ export default function Check() {
               <div className="flex flex-col gap-4 lg:col-span-8 lg:gap-6">
                 <Flags check={check} extraction={extraction} />
               </div>
-              <div className="flex flex-col gap-4 lg:col-span-4 lg:gap-6">
+              <div className="flex animate-reveal flex-col gap-4 [animation-delay:160ms] lg:col-span-4 lg:gap-6">
                 {impact.length > 0 && (
                   <section aria-labelledby="asks-h" className="panel flex scroll-mt-4 flex-col gap-1 p-4 lg:p-5">
                     <h3 id="asks-h" className="m-0 text-lg font-semibold">{open ? `${plural(open, 'answer')} could change this` : 'Your answers'}</h3>
