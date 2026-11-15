@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, CalendarClock, Info, LoaderCircle, RotateCcw } from 'lucide-react';
-import type { Answers, ApiError, Ask, EventFacts, ExtractedItem, Extraction } from '../../shared/contracts';
+import type { Answers, ApiError, Ask, EventFacts, ExtractedItem, Extraction, ExtractResponse } from '../../shared/contracts';
 import { MAX_PLAN_CHARS } from '../../shared/contracts';
 import { SAMPLE_PLAN } from '../../fixtures/sample-plan';
 import { SAMPLE_EXTRACTION } from '../fixtures/sample-extraction';
@@ -12,7 +12,7 @@ import { DeadlineCardView, Documents, Flags, FundCard, MoneyCard, PostEvent, Ver
 import { DraftPanel } from '../components/DraftPanel';
 import { Fold, UsgQuote } from '../components/bits';
 
-type Source = { kind: 'live' | 'cached' | 'fixture'; model: string; ms: number };
+type Source = { kind: 'live' | 'cached' | 'fixture'; provider: Extract<ExtractResponse, { ok: true }>['provider'] };
 // ?fixture=1 skips the API with the sample; dev builds also accept worst | empty | 40 (break-ui data).
 const FIXTURE_KEY = new URLSearchParams(location.search).get('fixture');
 const loadWorst = () => import('../fixtures/worst-case');
@@ -46,12 +46,12 @@ export default function Check() {
     setBusy(true);
     setError(null);
     const res = FIXTURE_KEY != null
-      ? ({ ok: true, extraction: await (FIXTURES[FIXTURE_KEY]?.() ?? SAMPLE_EXTRACTION), source: 'fixture', model: 'none', ms: 0 } as const)
+      ? ({ ok: true, extraction: await (FIXTURES[FIXTURE_KEY]?.() ?? SAMPLE_EXTRACTION), source: 'fixture', provider: 'cache' } as const)
       : await api.extract(text);
     setBusy(false);
     if (!res.ok) return setError(res.error);
     setExtraction(structuredClone(res.extraction));
-    setSource({ kind: res.source, model: res.model, ms: res.ms });
+    setSource({ kind: res.source, provider: res.provider });
     setAnswers({});
     setKept([]);
     if (fixRef.current) fixRef.current.open = false;
@@ -234,9 +234,9 @@ export default function Check() {
               check={check}
               headingRef={verdictRef}
               note={
-                <p className="num m-0 text-sm text-ink-2">
-                  {source.kind === 'live' && `Read by ${source.model} in ${(source.ms / 1000).toFixed(1)} s`}
-                  {source.kind === 'fixture' && 'Dev fixture: no AI call was made'}
+                <p className="m-0 text-sm text-ink-2">
+                  {source.kind === 'live' && source.provider === 'workers-ai' && 'Read by our backup AI service. Double-check what we read.'}
+                  {source.kind === 'fixture' && 'Sample loaded without an AI call.'}
                   {source.kind === 'cached' && "AI didn't respond: a saved reading of the sample. Checks run live."}
                 </p>
               }

@@ -1,5 +1,3 @@
-import { rulesFile } from '../lib/rules';
-
 export function Mark({ size = 28 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden focusable="false">
@@ -31,7 +29,7 @@ export function Footer() {
   return (
     <footer className="mx-auto mt-16 flex w-full max-w-[1200px] flex-col gap-2 px-4 pb-10 text-sm text-ink-2 lg:px-8">
       <p className="m-0">
-        Rules from USG Funding Department Guidelines, current as of Oct 21, 2026 · rules version {rulesFile.version}
+        Rules from USG Funding Department Guidelines, current as of Oct 21, 2026
       </p>
       <p className="m-0">
         <a href="/evals">See how accurate the AI checks are</a>
