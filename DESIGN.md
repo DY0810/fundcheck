@@ -41,7 +41,7 @@ The palette follows the U.S. Web Design System (USWDS): a calm cool-grey base, o
 | `--color-usc-cardinal` | `#990000` | USC accent, two places only | graphic, 8.5 on ground |
 | `--color-usc-gold` | `#FFCC00` | USC accent, only inside the cardinal mark | 5.9 on cardinal |
 
-**USC accent, exactly two places:** the header mark (cardinal square, gold check) and a 4 px cardinal rule across the very top of the page. Cardinal and gold never appear in the paste area, the result, a panel, chip, bar, border, button, link, focus ring or severity. Gold is never text and never on a light surface. The header is not sticky, so the accent is off screen whenever "not eligible" red is on screen.
+**USC accent, exactly two places:** the header mark (cardinal square, gold check) and a 4 px cardinal rule across the very top of the page. Cardinal and gold never appear in the paste area, the result, a panel, chip, bar, border, button, link, focus ring or severity. Gold is never text and never on a light surface. The header is not sticky and the result scrolls to the top, so the accent is off screen while the result's red is on screen. The one exception is a paste-area error, which sits under the header in the red-tinted alert; separation there is by place and label, not hue.
 
 ### Severity
 

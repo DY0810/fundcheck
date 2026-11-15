@@ -32,6 +32,7 @@ export default function Check() {
   const [kept, setKept] = useState<Ask[]>([]); // asks the user has touched stay on screen after the engine drops them
   const verdictRef = useRef<HTMLHeadingElement>(null);
   const fixRef = useRef<HTMLDetailsElement>(null);
+  const loadingRef = useRef<HTMLElement>(null);
   const today = useMemo(() => todayIso(), []);
   const nextWin = useMemo(() => nextWindow(today), [today]);
 
@@ -67,6 +68,11 @@ export default function Check() {
     h.closest('section')?.scrollIntoView({ block: 'start' });
     h.focus({ preventScroll: true });
   }, [extraction]);
+
+  // On a phone the skeleton renders below "What it checks"; bring it on screen so the wait shows progress.
+  useEffect(() => {
+    if (busy && !extraction) loadingRef.current?.scrollIntoView({ block: 'nearest' });
+  }, [busy, extraction]);
 
   function openFix() {
     const d = fixRef.current;
@@ -211,7 +217,7 @@ export default function Check() {
 
       {/* ---------- Loading ---------- */}
       {busy && !extraction && (
-        <section aria-label="Reading your plan" className="flex flex-col gap-4">
+        <section ref={loadingRef} aria-label="Reading your plan" className="flex flex-col gap-4">
           <p role="status" className="m-0 text-base font-medium text-ink">Reading your plan…</p>
           <div className="panel flex flex-col gap-3 p-4 lg:p-6" aria-hidden>
             {[0, 1, 2, 3, 4].map((i) => (
