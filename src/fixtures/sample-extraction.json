@@ -1,0 +1,103 @@
+{
+  "facts": {
+    "name": "Spring Dance Showcase",
+    "date": "2027-04-09",
+    "endDate": null,
+    "time": "7pm",
+    "location": "Bovard Auditorium",
+    "onCampus": true,
+    "expectedAttendance": 300,
+    "ticketed": true,
+    "openToAll": null,
+    "travel": false,
+    "multiDay": false,
+    "summary": "A spring dance showcase performance at Bovard Auditorium."
+  },
+  "items": [
+    {
+      "id": "i1",
+      "description": "Catering from Wolfgang Puck Catering",
+      "vendor": "Wolfgang Puck Catering",
+      "quantity": null,
+      "unitCostCents": null,
+      "totalCents": 300000,
+      "category": "food",
+      "matches": [],
+      "evidence": "Catering from Wolfgang Puck Catering $3,000"
+    },
+    {
+      "id": "i2",
+      "description": "Helium balloon arch",
+      "vendor": null,
+      "quantity": null,
+      "unitCostCents": null,
+      "totalCents": 25000,
+      "category": "decoration",
+      "matches": [
+        {
+          "ruleId": "R1",
+          "confidence": "high",
+          "reason": "Balloons are not eligible for funding."
+        }
+      ],
+      "evidence": "Helium balloon arch $250"
+    },
+    {
+      "id": "i3",
+      "description": "DJ",
+      "vendor": null,
+      "quantity": null,
+      "unitCostCents": null,
+      "totalCents": 60000,
+      "category": "talent",
+      "matches": [
+        {
+          "ruleId": "R3.talent",
+          "confidence": "high",
+          "reason": "Payment to a DJ is a payment to talent."
+        }
+      ],
+      "evidence": "DJ $600"
+    },
+    {
+      "id": "i4",
+      "description": "Bovard rental + AV crew",
+      "vendor": null,
+      "quantity": null,
+      "unitCostCents": null,
+      "totalCents": 480000,
+      "category": "venue",
+      "matches": [
+        {
+          "ruleId": "R20",
+          "confidence": "low",
+          "reason": "Venue and staffing under the arts fund must come from a PO vendor; vendor status not stated."
+        }
+      ],
+      "evidence": "Bovard rental + AV crew $4,800"
+    },
+    {
+      "id": "i5",
+      "description": "Printed programs",
+      "vendor": null,
+      "quantity": null,
+      "unitCostCents": null,
+      "totalCents": 20000,
+      "category": "promo",
+      "matches": [],
+      "evidence": "Printed programs $200"
+    }
+  ],
+  "eventMatches": [
+    {
+      "ruleId": "R4",
+      "confidence": "high",
+      "reason": "The event sells tickets at the door.",
+      "evidence": "$10 tickets at the door"
+    }
+  ],
+  "fund": {
+    "fund": "performing_visual_cultural",
+    "reason": "A dance showcase is an arts performance event."
+  }
+}
