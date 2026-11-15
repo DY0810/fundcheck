@@ -5,7 +5,15 @@ FundCheck pre-checks a USC student organization's USG Funding Department applica
 **Live:** https://fundcheck.mayhu733.workers.dev (no login; try the Bovard dance showcase sample)
 **Accuracy page:** https://fundcheck.mayhu733.workers.dev/evals (one line: the score. Every case and result is in the repo, in `evals/` and `public/eval-results.json`)
 
-![FundCheck pre-check of the Bovard dance showcase sample](submission/screenshots/01-result.png)
+![Step 1, Check: the Bovard dance showcase sample with $7,200 eligible of $8,850 and the ticket-sales flag](submission/screenshots/01-result.png)
+
+| Step 2, Fix | Step 3, Hand off |
+|---|---|
+| ![Step 2 after Approve all 3: three fixes marked Applied, request $7,200](submission/screenshots/02-fixes.png) | ![Step 3: 1 item left for the board, amount, deadline estimate, fund, link to USG's funding page and budget CSV](submission/screenshots/03-handoff.png) |
+
+| Phone width | Accuracy page |
+|---|---|
+| ![Step 1 at phone width](submission/screenshots/04-mobile.png) | ![Accuracy page: 98 of 100 test plans checked correctly](submission/screenshots/05-accuracy.png) |
 
 ## Run it locally
 
@@ -40,6 +48,8 @@ The eval runner defaults to `http://localhost:8787`. Add `--only e01,e06` to run
 ## Architecture
 
 One Cloudflare Worker serves the React page as static assets plus two JSON endpoints. The rules engine is plain TypeScript that runs in the browser and in the eval runner and never calls a model.
+
+![Architecture: the browser, one Cloudflare Worker, Claude with the Workers AI fallback, and the rules engine](submission/screenshots/06-architecture.png)
 
 ```mermaid
 flowchart LR
