@@ -1,0 +1,54 @@
+# FundCheck video script
+
+Target 2:50, hard limit 3:00. Read slowly. Spoken words are on the left, the screen on the right.
+
+**Status.** The spoken words are final. The screen column and `shot-list.md` are **provisional**: the result page is being reordered so the verdict (counts, eligible amount, deadline, first flag) comes first and the editable table moves below it. Both get finalised against the frozen UI.
+
+**Timing.** 362 spoken words. At 150 words per minute that is about 2:25 of speech; at a slow 135 words per minute, about 2:41. The rest of the 2:50 is pauses for clicks. The 6-second model read is covered by the second line of section 2. If a take runs past 2:55, drop the line marked *(cut if long)*.
+
+Numbers are written as digits so the captions match the screen. Say "$356,100" as "three hundred fifty-six thousand dollars".
+
+---
+
+## 1. Problem (0:00 to 0:20) · 49 words · about 20 to 22 s
+
+| Voice-over | Screen |
+|---|---|
+| USG's Funding Department can give up to $356,100 a year to student events. The on-campus events it funds can't sell tickets and must be open to all students. | USG funding page, the line "the ability to allocate up to $356,100". Cut to Guidelines §5, the lines "Events that include ticket sales" and "On-campus events that are not open to all students". |
+| So when an application misses the deadline, USG says it's "automatically denied," and that's one fewer free event for every Trojan. | Guidelines §1, the "automatically denied" sentence highlighted. |
+
+## 2. Live golden path (0:20 to 2:10) · 222 words · about 89 to 99 s
+
+| Voice-over | Screen |
+|---|---|
+| FundCheck pre-checks that application. This sample is a spring dance showcase in Bovard, and USG funded nine of those last year. | FundCheck home page. Click "Try the Bovard dance showcase sample". The plan fills the box and the check starts. |
+| Anthropic's Claude Opus 5.5 reads the plan into line items and matches each one to a USG rule ID. | "Reading your plan…" loading state, then the result appears (about 6 s). |
+| Here's the verdict: three things not eligible, one over a cap, one for case-by-case review. The eligible request is $7,200 of an $8,850 plan. | Verdict at the top: 3 not eligible, 1 over cap, 1 review note, eligible request $7,200. |
+| The first flag is the $10 tickets at the door. Under it is USG's own sentence from section 5, plus the note that the board can still make an exception. | First flag (R4, ticket sales): the user's words "$10 tickets at the door", then the §5 quote, then the R2 exception line. |
+| The balloon arch and the DJ are flagged too, marked AI-judged. The model can only pick from a fixed list of rule IDs, so the quote on screen always comes from USG, never from the model. | Scroll to the R1 (balloons) and R3.talent (DJ) flags. Hover the "AI-judged" badge. |
+| Anything with a dollar sign is plain code. Bovard plus the AV crew is $4,800, so $800 is over the $4,000 venue cap. Food is $10 a person, under the $35 limit. | Money panel: venue and personnel $4,800 of $4,000, food $10 of $35. Then the R6 flag with its "Rule math" badge. |
+| The deadline counts six academic weeks back from April 9 and lands on Wednesday, February 3. USG's documents word this rule differently, so it's labelled an estimate. | Deadline card: "Submit by Wed, Feb 3, 2027", "Estimate", latest Feb 24. Open "Sources word this differently" for one second. |
+| Then the document checklist, with the file name USG wants for each vendor quote. Anything misread can be edited, and the check reruns. *(cut if long: It also drafts the form answers and a budget CSV.)* | Documents checklist, the quote file names. Then the editable table: change one cost and watch the totals move. Then "Draft my form answers" and "Download budget CSV". |
+
+## 3. How the AI is checked, and one handled failure (2:10 to 2:40) · 68 words · about 27 to 30 s
+
+| Voice-over | Screen |
+|---|---|
+| Here's a plan the model isn't sure about: dinner boxes for jazz musicians who aren't charging. Is that paying a performer? Instead of guessing, FundCheck asks. | Second tab, already checked: the "dinner for unpaid musicians" plan. The Ask chip: "Does 'dinner boxes for the 6 musicians…' fall under 'Payments to talent or performers'?" with Yes / No. |
+| On the evals page, 17 of 18 hand-written plans passed. The miss was a "suggested donation" at check-in: the model wasn't sure it was a ticket sale, so it asked instead of flagging. Eighteen cases is a small set, not a benchmark. | `/evals`: summary (17 of 18, precision 100%, recall 96%), then the failed e06 row "Missed R4". |
+
+## 4. Who adopts it (2:40 to 2:50) · 23 words · about 9 to 10 s
+
+| Voice-over | Screen |
+|---|---|
+| The owner would be USG's Funding Department, starting with RSO liaison office hours in spring 2027. Each year's update is data, not code. | End card: fundcheck.mayhu733.workers.dev and github.com/DY0810/fundcheck. |
+
+---
+
+## Notes for the recording
+
+- Every number spoken is on screen at the same moment, so the captions and the product agree.
+- Say "pre-check", "not eligible" and "ready for review". Anything stronger is in USG's own words: "automatically denied" is said once, as USG's quote.
+- No names of USG staff. Roles only.
+- Never show the draft application form on screen.
+- If the live read takes longer than 15 seconds on the sample, the page shows a labelled cached result. Re-record the take rather than narrate over the banner.
