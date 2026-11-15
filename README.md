@@ -118,12 +118,11 @@ Hand-written event plans in `evals/cases.json`, each labelled with the rules it 
 
 Limits: these are test plans we wrote by hand, not real applications, so the score is a check, not a benchmark. The sample plan (e01) is close to the prompt's few-shot examples. Scoring details are in `evals/README.md`.
 
-## Not built, and why
+## What's next
 
-- **Suggesting other funding sources.** USG's Guidelines list "RSO receiving funding from another University income source" among reasons an application can be turned down, so suggesting other sources without care could hurt an application. Cut first.
-- **A reviewer view for Funding Directors.** It needs the Funding Department's input on what reviewers want to see. The officer-side check came first.
-- **Filing directly into EngageSC.** USG's application sits on EngageSC behind USC sign-in, so FundCheck hands off instead. Filing from FundCheck would need USG to open an integration.
-- **Reading quotes from PDFs or images.** FundCheck takes pasted text only. Parsing uploads adds a failure point that the golden path didn't need for the hackathon.
+- **Filing into EngageSC.** With a USG integration, the packet the officer has checked and fixed goes straight into the application form. Today that form sits on EngageSC behind USC sign-in, so FundCheck hands off: answers to copy, the budget CSV, the documents and a link to USG's funding page.
+- **A reviewer view for Funding Directors.** Funding Directors run the same check on the applications they receive, with each flag and its USG quote, shaped with the Funding Department's input on what reviewers want to see.
+- **Quotes from a PDF or photo.** Vendor quotes are read straight into line items, so officers don't retype them. Today FundCheck takes pasted text.
 
 ## Notes for the Funding Department
 

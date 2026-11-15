@@ -44,9 +44,9 @@ Choosing the model: we benchmarked cheaper models on a 41-case subset of the tes
 - **Data:** public documents only. The yearly update is data, not code: the rules table, vendor sheet and calendar dates.
 - **Cost (measured):** each check is one model call, 1.4 to 3.7 cents on short plans like the sample and 6 to 8 cents on a 22-item budget, roughly $14 to $37 per thousand checks. Drafting form answers is a second, optional call we did not measure. Hosting fits Cloudflare's free tier.
 - **First rollout:** spring 2027 office hours with the RSO liaisons.
-- **Trained model, later:** once the Funding Department reviews applications through FundCheck, its decisions become labelled examples, with consent, for a small classifier that sorts line items beside Claude and sends disagreements to a reviewer. We trained none this weekend: no labelled data exists yet.
-- **Filing directly:** USG's form is on EngageSC behind USC sign-in, so filing from FundCheck needs USG to open an integration.
-- **Not built yet:** a reviewer view, PDF or photo quotes, and other funding sources.
+- **A smaller model, later:** with consent, the Funding Department's decisions on applications checked through FundCheck become labelled examples for a smaller model that sorts line items and sends disagreements to a reviewer. That data doesn't exist yet; no model is trained.
+- **Filing into EngageSC:** with a USG integration, the finished packet goes straight into the application form. Today the form sits behind USC sign-in, so FundCheck hands off.
+- **Next:** a reviewer view for Funding Directors and PDF or photo quotes.
 
 ## How this meets the judging criteria
 
