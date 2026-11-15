@@ -7,7 +7,8 @@ FundCheck is a task tool: an RSO officer pastes an event plan and reads a pre-ch
 Two voices, never mixed:
 
 - **USG's words** are set in a serif (Source Serif 4) on a quiet inset surface, always introduced by their source ("USG Funding Department Guidelines §5 says:"). Only text from `src/shared/rules.json` `quotes` may use this style.
-- **Our words** (messages, labels, notes) and **the AI's words** are set in the sans (Public Sans). AI text is always labelled "AI reasoning" or "AI draft".
+- **Our words** (messages, labels, notes) and **the AI's words** are set in the sans (Public Sans). AI text is always labelled "AI reasoning" or "AI draft". Flag cards show no AI reasoning: the "AI-judged" badge says the model matched it, and the USG quote says why. The reasoning stays in the data.
+- **Say it once.** Each fact appears once in its detail section; a summary number in the verdict with its detail lower down is the only repeat. No rule IDs on screen. A section never restates its own heading, and a limit that has its own flag card is not listed again in Money.
 
 A reader can tell at a glance whose words they are reading. That is the product's trust argument, made visual.
 
@@ -72,7 +73,7 @@ Fixed rem scale (ratio ≈ 1.25), no fluid type:
 
 | Token | Size / line height | Use |
 |---|---|---|
-| `text-xs` | 12 / 16 | rule IDs, file names, table meta |
+| `text-xs` | 12 / 16 | table meta |
 | `text-sm` | 14 / 20 | labels, chips, secondary lines |
 | `text-base` | 16 / 24 | body, inputs, quotes |
 | `text-lg` | 20 / 28 | panel headings |
@@ -103,7 +104,9 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 - **Inputs.** Panel fill, 1 px control border, 6 px radius, 44 px tall (40 in the table). Visible `<label>` always; placeholders are examples, never labels.
 - **Yes / no / unknown.** A three-option radio group, not a select.
 - **Chips.** Full radius, 14 px, 28 px tall; category chips are neutral (inset); match chips take their severity colours.
-- **Quote block.** Source line in sans 14 / ink-2 ("USG Funding Department Guidelines §5 says:"), then the quote in serif 16 / ink on inset, 10 px radius, 12 / 16 padding. No coloured side border.
+- **Quote block.** Source line in sans 14 / ink-2 ("USG Funding Department Guidelines §5 says:", the source name linked to the document), then the quote in serif 16 / ink on inset, 10 px radius, 12 / 16 padding. No coloured side border.
+- **Flag card.** Severity icon and title, "AI-judged" or "Rule math" badge, "In your plan:" only when the plan's words say more than the title, then the quote block. Nothing below the quote. Under "Not eligible per §5" the title is the thing itself: the line item and its amount, or a plain label for an event-level flag ("Ticket sales"). Other groups keep the engine's sentence without its trailing "(§3)", since the source line names the section.
+- **Exception.** Said once per group, as a link under the group heading ("The board may make an exception") that jumps to the R2 quote at the end of the group.
 - **Badges.** "Rule math" (`Calculator` icon) and "AI-judged" (`ScanText` icon), 12 px, on inset, ink-2 text. No sparkle icons anywhere.
 - **Skeleton.** Inset-coloured bars in the shape of the table, with an opacity pulse; "Reading your plan…" as live text.
 

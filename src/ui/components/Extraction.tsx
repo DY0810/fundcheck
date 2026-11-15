@@ -228,7 +228,6 @@ export function askValue(ask: Ask, answers: Answers, facts: EventFacts): AskValu
 
 export function AskRow({ ask, value, onAnswer }: { ask: Ask; value: AskValue; onAnswer: (v: AskValue) => void }) {
   const id = useId();
-  const r = rule(ask.ruleId);
   const input = (() => {
     switch (ask.kind) {
       case 'yesno':
@@ -255,7 +254,6 @@ export function AskRow({ ask, value, onAnswer }: { ask: Ask; value: AskValue; on
     <li className="flex flex-col gap-2 border-t border-line py-3 first:border-t-0 @md:flex-row @md:items-center @md:justify-between @md:gap-6">
       <div className="min-w-0">
         <p id={id} className="m-0 text-base text-ink">{ask.question}</p>
-        <p className="m-0 text-xs text-ink-2">{ask.ruleId}{r ? ` · ${r.title}` : ''}</p>
       </div>
       <div className="shrink-0">{input}</div>
     </li>

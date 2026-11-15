@@ -38,7 +38,13 @@ export function UsgQuote({ id, intro }: { id: RuleId; intro?: string }) {
   if (!r) return null;
   return (
     <figure className="m-0 flex flex-col gap-1.5">
-      <figcaption className="text-sm text-ink-2">{intro ?? `${r.source} says:`}</figcaption>
+      <figcaption className="text-sm text-ink-2">
+        {intro ?? (r.sourceUrl ? (
+          <>
+            <a href={r.sourceUrl} target="_blank" rel="noreferrer">{r.source}<span className="sr-only"> (opens in a new tab)</span></a> says:
+          </>
+        ) : `${r.source} says:`)}
+      </figcaption>
       <blockquote cite={r.sourceUrl || undefined} className="m-0 flex flex-col gap-2 rounded-panel bg-inset px-4 py-3 font-serif text-base text-ink">
         {r.quotes.map((q) => (
           <p key={q} className="m-0 max-w-[68ch]">“{q}”</p>
@@ -46,22 +52,6 @@ export function UsgQuote({ id, intro }: { id: RuleId; intro?: string }) {
       </blockquote>
       {r.note && <p className="m-0 text-sm text-ink-2">Our note: {r.note}</p>}
     </figure>
-  );
-}
-
-export function RuleRef({ id }: { id: RuleId }) {
-  const r = rule(id);
-  if (!r) return <span className="text-xs text-ink-2">{id}</span>;
-  return (
-    <span className="text-xs text-ink-2">
-      {r.id} · {r.title}
-      {r.sourceUrl && (
-        <>
-          {' · '}
-          <a href={r.sourceUrl} target="_blank" rel="noreferrer">Source<span className="sr-only"> for {r.id} (opens in a new tab)</span></a>
-        </>
-      )}
-    </span>
   );
 }
 

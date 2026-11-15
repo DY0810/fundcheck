@@ -1,10 +1,10 @@
-import type { ReactNode, Ref } from 'react';
+import { Fragment, type ReactNode, type Ref } from 'react';
 import { ChevronDown, Circle, CircleAlert, CircleCheck, CircleHelp } from 'lucide-react';
-import type { Answers, CheckResult, DeadlineCard, Extraction, Flag, Severity } from '../../shared/contracts';
+import type { Answers, CheckResult, DeadlineCard, ExtractedItem, Extraction, Flag, RuleId, Severity } from '../../shared/contracts';
 import { SEVERITY_ORDER } from '../../shared/contracts';
 import { date, money, pct, plural } from '../lib/format';
 import { rule } from '../lib/rules';
-import { AiText, BadgeTag, CopyButton, Fold, Panel, RuleRef, SEV, SevChip, UsgQuote } from './bits';
+import { AiText, BadgeTag, CopyButton, Fold, Panel, SEV, SevChip, UsgQuote } from './bits';
 
 // ---------- Summary ----------
 
@@ -74,31 +74,41 @@ export function Verdict({ check, note, headingRef, nav }: { check: CheckResult; 
 
 // ---------- Flags ----------
 
+// Event-level flags under "Not eligible per §5" get a plain label; the group heading already says why.
+const EVENT_LABEL: Partial<Record<RuleId, string>> = { R4: 'Ticket sales', 'R5.open': 'Not open to all students', 'R5.residence': 'Held in a private residence' };
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+function flagTitle(flag: Flag, item: ExtractedItem | null | undefined): string {
+  if (flag.severity === 'not_eligible') {
+    if (item) return flag.amountCents != null ? `${item.description} (${money(flag.amountCents)})` : item.description;
+    return EVENT_LABEL[flag.ruleId] ?? flag.message;
+  }
+  // The quote's attribution names the section, so drop the engine's trailing "(§3)".
+  return flag.message.replace(/ \((§\d+|funding page FAQ)\)\.$/, '.');
+}
+
 function FlagCard({ flag, extraction }: { flag: Flag; extraction: Extraction }) {
-  const r = rule(flag.ruleId);
   const s = SEV[flag.severity];
   const item = flag.itemId ? extraction.items.find((i) => i.id === flag.itemId) : null;
+  const title = flagTitle(flag, item);
   const evidence = flag.evidence ?? item?.evidence;
+  // "In your plan" only when the words from the plan say more than the title does.
+  const showEvidence = !!evidence && !!norm(evidence) && !norm(title).includes(norm(evidence));
   return (
     <li className="flex flex-col gap-3 border-t border-line pt-4 first:border-t-0 first:pt-0">
       <div className="flex items-start justify-between gap-3">
         <p className="m-0 flex min-w-0 items-start gap-2 text-base font-medium text-ink">
           <s.Icon aria-hidden size={18} strokeWidth={2} className={`mt-0.5 shrink-0 ${s.fg}`} />
-          <span className="min-w-0 [overflow-wrap:anywhere]">{flag.message}</span>
+          <span className="min-w-0 [overflow-wrap:anywhere]">{title}</span>
         </p>
         <BadgeTag badge={flag.badge} />
       </div>
-      {evidence && (
+      {showEvidence && (
         <p className="m-0 text-sm text-ink-2 [overflow-wrap:anywhere]">
           In your plan: <span className="text-ink">“{evidence}”</span>
         </p>
       )}
       <UsgQuote id={flag.ruleId} />
-      {flag.aiReason && <AiText>{flag.aiReason}</AiText>}
-      <p className="m-0 flex flex-wrap gap-x-2 gap-y-1">
-        <RuleRef id={flag.ruleId} />
-        {r?.discretionNote && <span className="text-xs text-ink-2">· The board may make an exception (R2, quoted below)</span>}
-      </p>
     </li>
   );
 }
@@ -128,20 +138,24 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
       ) : (
         // Verdict first, then each severity group in order: 80 ms, then 60 ms apart.
         <section key={sev} aria-labelledby={`g-${sev}`} className="panel flex animate-reveal flex-col gap-4 p-4 lg:p-6" style={{ animationDelay: `${80 + i * 60}ms` }}>
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
             <h3 id={`g-${sev}`} className={`m-0 flex items-center gap-2 text-lg font-semibold ${SEV[sev].fg}`}>
               {(() => { const I = SEV[sev].Icon; return <I aria-hidden size={20} strokeWidth={2} />; })()}
               {groupLabel(sev, flags)}
               <span className="num text-base font-medium text-ink-2">({flags.length})</span>
             </h3>
+            {flags.some((f) => rule(f.ruleId)?.discretionNote) && (
+              // One line on a phone, so the first quote stays in the first screen.
+              <a href={`#r2-${sev}`} className="text-sm">The board may make an exception</a>
+            )}
           </div>
           <ul className="m-0 flex list-none flex-col gap-4 p-0">
             {flags.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
           </ul>
           {/* R2 applies to every discretion rule; quoted once per group, after the flags so the first quote stays on screen. */}
           {flags.some((f) => rule(f.ruleId)?.discretionNote) && (
-            <div className="border-t border-line pt-4">
-              <UsgQuote id="R2" intro={`Exception at the board's discretion. ${rule('R2')?.source ?? 'The Guidelines'} says:`} />
+            <div id={`r2-${sev}`} className="scroll-mt-4 border-t border-line pt-4">
+              <UsgQuote id="R2" />
             </div>
           )}
         </section>
@@ -178,12 +192,16 @@ export function MoneyCard({ check, answers }: { check: CheckResult; answers: Ans
   const used = (received ?? 0) + Math.max(0, m.eligibleCents);
   const share = used / m.yearlyCapCents;
   const r9 = check.flags.find((f) => f.ruleId === 'R9');
+  // A limit that has its own flag card is said there, not again here.
+  const flagged = (id: RuleId) => check.flags.some((f) => f.ruleId === id);
+  const limits = [
+    !flagged('R6') && ['Venue and personnel', `${money(m.venuePersonnelCents)} of $4,000 cap`],
+    !flagged('R11') && ['Food per person', m.foodCents ? (m.foodPerPersonCents == null ? 'Unknown' : `${money(m.foodPerPersonCents)} of $35 limit`) : 'No food lines'],
+    // Unknown until answered; the bar's caption already says so.
+    !flagged('R9') && m.yearlyRemainingCents != null && ['Left this year', money(m.yearlyRemainingCents)],
+  ].filter((x): x is string[] => Array.isArray(x));
   return (
     <Panel title="Money" id="money-h">
-      <div>
-        <p className="m-0 text-sm text-ink-2">Eligible request</p>
-        <p className="num m-0 text-2xl font-semibold tracking-[-0.02em] text-ink">{money(m.eligibleCents)}</p>
-      </div>
       <div className="flex flex-col gap-1.5">
         <div className="h-3 overflow-hidden rounded-full border border-control bg-inset" aria-hidden>
           <div className="flex h-full">
@@ -203,14 +221,11 @@ export function MoneyCard({ check, answers }: { check: CheckResult; answers: Ans
         {r9?.amountCents ? <Row label="Yearly cap" value={r9.amountCents} minus /> : null}
         <Row label="Eligible request" value={m.eligibleCents} strong />
       </dl>
-      <dl className="m-0 grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 text-sm text-ink-2">
-        <dt>Venue and personnel</dt>
-        <dd className="num m-0 text-right">{money(m.venuePersonnelCents)} of $4,000 cap</dd>
-        <dt>Food per person</dt>
-        <dd className="num m-0 text-right">{m.foodCents ? (m.foodPerPersonCents == null ? 'Unknown' : `${money(m.foodPerPersonCents)} of $35 limit`) : 'No food lines'}</dd>
-        <dt>Left this year</dt>
-        <dd className="num m-0 text-right">{money(m.yearlyRemainingCents)}</dd>
-      </dl>
+      {limits.length > 0 && (
+        <dl className="m-0 grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 text-sm text-ink-2">
+          {limits.map(([k, v]) => <Fragment key={k}><dt>{k}</dt><dd className="num m-0 text-right">{v}</dd></Fragment>)}
+        </dl>
+      )}
     </Panel>
   );
 }
@@ -221,7 +236,7 @@ function headline(d: DeadlineCard): string {
   switch (d.status) {
     case 'safe': return `Submit by ${date(d.headline)}`;
     case 'next_open': return `Submit next Wednesday, ${date(d.headline)}`;
-    case 'past': return 'Past under every reading we found. Confirm with the Funding Department (usgfunds@usc.edu).';
+    case 'past': return 'Past under every reading we found.';
     case 'blackout': return "The event date falls in USG's no-funding window.";
     default: return 'Add the event date to estimate a deadline.';
   }
@@ -238,19 +253,20 @@ export function DeadlineCardView({ check }: { check: CheckResult }) {
         {d.latest && d.status !== 'blackout' && <p className="num m-0 text-sm text-ink-2">Latest date under the event-date wording: {date(d.latest)}</p>}
         {anchor && <p className="num m-0 text-sm text-ink-2">Counted {d.weeks} academic weeks back from the {anchor.kind === 'event' ? 'event' : 'first payment'} on {date(anchor.date)}.</p>}
       </div>
-      {d.status !== 'unknown_date' && <p className="m-0 flex items-center gap-2 text-base">
-        {d.blackout ? <CircleAlert aria-hidden size={18} className="text-ne" /> : <CircleCheck aria-hidden size={18} className="text-pass" />}
-        Blackout dates: {d.blackout ? 'the event is in a no-funding window' : 'clear'}
+      {/* A blackout is already the headline (and its own flag), so only "clear" is said here. */}
+      {d.status !== 'unknown_date' && !d.blackout && <p className="m-0 flex items-center gap-2 text-base">
+        <CircleCheck aria-hidden size={18} className="text-pass" />
+        Blackout dates: clear
       </p>}
       <UsgQuote id="R26" />
       <p className="m-0 text-sm text-ink-2">
-        Estimate. USG documents word this rule differently, so we show the earliest date. Confirm on USG's Funding Application Deadlines sheet or with usgfunds@usc.edu.
+        USG documents word this rule differently, so we show the earliest date. Confirm on USG's Funding Application Deadlines sheet or with usgfunds@usc.edu.
       </p>
       {r25?.alsoSee?.length ? (
         <details className="group">
           <summary className="flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-brand [&::-webkit-details-marker]:hidden">
             <ChevronDown aria-hidden size={16} className="transition-transform duration-200 group-open:rotate-180" />
-            Sources word this differently
+            Show the other wordings
           </summary>
           <ul className="m-0 mt-3 flex list-none flex-col gap-3 p-0">
             {r25.alsoSee.map((s) => (
@@ -292,7 +308,6 @@ export function Documents({ check, children }: { check: CheckResult; children?: 
                       {d.label} <span className={`text-sm font-medium ${s.cls}`}>· {s.label}</span>
                     </p>
                     {d.fileName && <p className="m-0 text-sm text-ink-2 [overflow-wrap:anywhere]">Name it {d.fileName}</p>}
-                    <p className="m-0 text-xs text-ink-2">{d.ruleId}{rule(d.ruleId) ? ` · ${rule(d.ruleId)!.title}` : ''}</p>
                   </div>
                 </div>
                 {d.fileName && <CopyButton text={d.fileName} what={`file name ${d.fileName}`} />}
