@@ -41,6 +41,7 @@ Choosing the model: we benchmarked cheaper models on a 41-case subset of the tes
 ## Future implementation
 
 - **Owner:** the USG Funding Department, so Funding Directors open complete applications.
+- **On USG's funding page first:** FundCheck can sit on the page USG already has, as a link or as one line of HTML that embeds it. We loaded the live tool inside a test page on another origin and the sample plan ran through all three steps in the frame. Nothing is on USG's site yet: this is the first step we would propose. A stand-in page with the live tool embedded is at https://fundcheck.cyberprivacy.workers.dev/embed-demo.
 - **Data:** public documents only. The yearly update is data, not code: the rules table, vendor sheet and calendar dates.
 - **Cost (measured):** each check is one model call, 1.4 to 3.7 cents on short plans like the sample and 6 to 8 cents on a 22-item budget, roughly $14 to $37 per thousand checks. Drafting form answers is a second, optional call we did not measure. Hosting fits Cloudflare's free tier.
 - **First rollout:** spring 2027 office hours with the RSO liaisons.

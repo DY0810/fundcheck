@@ -49,7 +49,7 @@ Numbers are written as digits so the captions match the screen. Say "$356,100" i
 
 | Voice-over | Screen |
 |---|---|
-| The owner would be USG's Funding Department, starting with RSO liaison office hours in spring 2027. Each year's update is data, not code: new Guidelines, new rules file. | End card: fundcheck.mayhu733.workers.dev and github.com/DY0810/fundcheck. |
+| The owner would be USG's Funding Department, starting with RSO liaison office hours in spring 2027. Each year's update is data, not code: new Guidelines, new rules file. | End card: fundcheck.cyberprivacy.workers.dev and github.com/DY0810/fundcheck. |
 
 ---
 

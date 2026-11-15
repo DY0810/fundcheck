@@ -2,7 +2,7 @@
 
 FundCheck pre-checks a USC student organization's USG Funding Department application. An officer pastes an event plan in plain words, and FundCheck works in three steps. **Check** shows which items USG's Guidelines don't fund (each with USG's own quote), the money against every cap, which fund to apply to, a deadline estimate and the documents to attach. **Fix** proposes a fix for each flag, and nothing changes until the officer approves it. **Hand off** gathers drafted form answers to copy, a budget CSV, the documents and a link to USG's funding page; filing itself needs the officer's USC sign-in. The on-campus events USG funds can't sell tickets and must be open to all students, so every application that comes back late or incomplete is one fewer free event for every Trojan. FundCheck exists so the application a Funding Director opens is already complete and inside the rules.
 
-**Live:** https://fundcheck.mayhu733.workers.dev (no login; try the Bovard dance showcase sample)
+**Live:** https://fundcheck.cyberprivacy.workers.dev (no login; try the Bovard dance showcase sample)
 **Accuracy:** FundCheck checked 98 of 100 hand-written test plans correctly. Every case and result is in this repo, in `evals/` and `public/eval-results.json`.
 
 ![Step 1, Check: the Bovard dance showcase sample with $7,200 eligible of $8,850 and the ticket-sales flag](submission/screenshots/01-result.png)
@@ -40,7 +40,7 @@ npm test
 ```
 
 ```bash
-npm run evals -- --url https://fundcheck.mayhu733.workers.dev
+npm run evals -- --url https://fundcheck.cyberprivacy.workers.dev
 ```
 
 The eval runner defaults to `http://localhost:8787`. Add `--only e01,e06` to run a subset (partial runs don't overwrite the results file).
@@ -117,6 +117,18 @@ Hand-written event plans in `evals/cases.json`, each labelled with the rules it 
 **Latest run:** FundCheck checked 98 of 100 test plans correctly, every one scored on a Claude answer (a case served by the fallback is re-run, never scored). Every case, its labels and its result are in `evals/` and `public/eval-results.json`.
 
 Limits: these are test plans we wrote by hand, not real applications, so the score is a check, not a benchmark. The sample plan (e01) is close to the prompt's few-shot examples. Scoring details are in `evals/README.md`.
+
+## Embed it
+
+**Embed demo:** https://fundcheck.cyberprivacy.workers.dev/embed-demo (a stand-in funding page with the live tool in a frame)
+
+FundCheck runs inside another site's page. One line puts it there:
+
+```html
+<iframe src="https://fundcheck.cyberprivacy.workers.dev" title="FundCheck pre-check" allow="clipboard-write" style="width:100%;height:900px;border:0"></iframe>
+```
+
+We loaded it from a test page on another origin and the sample plan ran through Check, Fix and Hand off in the frame. The page uses no cookies and no browser storage, so a frame on someone else's site has nothing to block. `allow="clipboard-write"` is there for the Copy buttons, which we have not tested inside a frame. Nothing is on USG's site: this is the first step we would propose.
 
 ## What's next
 

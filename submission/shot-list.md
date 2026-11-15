@@ -18,8 +18,8 @@ Checked against the live site on Nov 14 after the final UI freeze (tag `ui-v3-fi
 
 1. `https://docs.google.com/document/d/1noJFJ4SxrFGD1Zm-6EqUHpXSIOUuFIL-gIobWXcXCt0/edit` (USG Funding Department Guidelines, current as of Oct 21, 2026)
 2. `https://usg.usc.edu/branches/funding/`
-3. `https://fundcheck.mayhu733.workers.dev/` (fresh load, empty plan box)
-4. `https://fundcheck.mayhu733.workers.dev/` with the musicians plan below already checked (shot 15)
+3. `https://fundcheck.cyberprivacy.workers.dev/` (fresh load, empty plan box)
+4. `https://fundcheck.cyberprivacy.workers.dev/` with the musicians plan below already checked (shot 15)
 5. `submission/deck/deck.pdf` open at page 4 (slide 4), full screen
 
 Reload tab 3 between takes so the plan box is empty and no fixes or answers carry over.
@@ -73,7 +73,7 @@ Checked live on the final UI: step 1 "What we found" gives "No flags" and "Eligi
 | 14 | 1:57 | 3 | Scroll back up a little to the drafted answers under "Form answers · ready to copy, description to draft" (open by default). | "How does the event align with your mission/vision/goals?" with "AI draft" and "[your organization's mission]" |
 | 15 | 2:13 | 4, musicians plan | Click "Questions · 5 could change this" in the right column. Hover "Yes" and "No" without clicking. | "No flags", then "Is "dinner boxes for the 6 musicians before soundcheck, Mendocino Farms $90" a payment to a performer or other talent?" |
 | 16 | 2:27 | 5, deck | Switch to tab 5, the deck at slide 4, full screen. Hold on the "98 of 100" block. | "98 of 100" and "hand-written test plans checked correctly" |
-| 17 | 2:38 | End card | The repo page `github.com/DY0810/fundcheck` in a logged-out window, or the deck's closing slide. | `fundcheck.mayhu733.workers.dev` and `github.com/DY0810/fundcheck` |
+| 17 | 2:38 | End card | The repo page `github.com/DY0810/fundcheck` in a logged-out window, or the deck's closing slide. | `fundcheck.cyberprivacy.workers.dev` and `github.com/DY0810/fundcheck` |
 
 ## If something goes wrong on camera
 

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 // Eval runner: each case → real POST /api/extract → runCheck → score against hand labels.
-// Usage: npx tsx evals/run.ts [--url https://fundcheck.mayhu733.workers.dev] [--only e01,e03]
+// Usage: npx tsx evals/run.ts [--url https://fundcheck.cyberprivacy.workers.dev] [--only e01,e03]
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import type {
   CheckInput, CheckResult, EvalCase, EvalCaseResult, EvalRun, ExtractResponse, Provider, RuleId, RulesFile, VendorList,

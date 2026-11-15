@@ -5,7 +5,7 @@
 - **Clean plans:** about 1 in 6 are clean plans full of decoys, and must flag nothing.
 - **Ambiguous plans:** about 1 in 10 are ambiguous; there an Ask chip is the right answer and a hard flag is wrong.
 
-Run: `npx tsx evals/run.ts --url https://fundcheck.mayhu733.workers.dev`. Add `--only e01,e03` to run a subset; partial runs don't write results.
+Run: `npx tsx evals/run.ts --url https://fundcheck.cyberprivacy.workers.dev`. Add `--only e01,e03` to run a subset; partial runs don't write results.
 - Each case goes through the real `/api/extract`, then `runCheck` from `src/engine`. Up to 4 run at once, paced under the API's 20-per-minute limit, with a 30 s back-off on a 429.
 - Only answers from Claude are scored. A case that comes back from the fallback model, the saved sample or an error is re-run, never scored and never dropped.
 - The run writes `public/eval-results.json`. The headline is `summary.passed` out of `summary.cases`.

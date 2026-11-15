@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>FundCheck embed demo: a stand-in funding page</title>
+<!-- The hosted twin of submission/deck/embed-demo.html. A stand-in, not a copy of USG's page:
+     neutral greys and FundCheck's own tokens only. The iframe line is the whole embed. -->
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --panel: #ffffff; --inset: #f0f0ee; --ink: #1b1b1b; --ink-2: #565c65; --brand-tint: #fff2bf; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Public Sans', system-ui, sans-serif; color: var(--ink); background: var(--panel); }
+  .label { margin: 0; padding: 10px 16px; background: var(--brand-tint); font-size: 16px; line-height: 24px; font-weight: 600; text-align: center; }
+  .label a { color: inherit; }
+  .hdr { display: flex; align-items: center; gap: 28px; height: 56px; padding: 0 16px; background: #45494f; }
+  .hdr i { height: 12px; border-radius: 6px; background: #8d9299; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { margin: 0 0 12px; font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.025em; }
+  .ph { height: 14px; margin-top: 10px; border-radius: 7px; background: #e3e4e5; }
+  iframe { display: block; margin-top: 24px; }
+  .note { margin: 24px 0 8px; font-size: 14px; line-height: 20px; color: var(--ink-2); }
+  pre { margin: 0; padding: 12px 16px; border-radius: 10px; background: var(--inset); font-size: 13px; line-height: 20px; white-space: pre-wrap; overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<p class="label">Proposed placement, mockup. Not live on USG’s site. <a href="/">Open FundCheck on its own</a></p>
+<div class="hdr" aria-hidden="true"><i style="width:120px"></i><i style="width:72px"></i><i style="width:72px"></i><i style="width:72px"></i></div>
+<main class="wrap">
+  <h1>Funding</h1>
+  <div class="ph" style="width:78%" aria-hidden="true"></div>
+  <div class="ph" style="width:52%" aria-hidden="true"></div>
+  <iframe src="https://fundcheck.cyberprivacy.workers.dev" title="FundCheck pre-check" allow="clipboard-write" style="width:100%;height:900px;border:0"></iframe>
+  <p class="note">This grey page stands in for a funding page. The tool above is the live FundCheck, and the whole embed is one line:</p>
+  <pre>&lt;iframe src="https://fundcheck.cyberprivacy.workers.dev" title="FundCheck pre-check" allow="clipboard-write" style="width:100%;height:900px;border:0"&gt;&lt;/iframe&gt;</pre>
+</main>
+</body>
+</html>
