@@ -104,7 +104,7 @@ Every flag carries a rule ID internally, and the page renders USG's quote from `
 
 Hand-written event plans in `evals/cases.json`, each labelled with the rules it must and must not trigger, run through the live `/api/extract` and then the rules engine. Many are phrased indirectly ("entertainment by" a stage name for a paid DJ, Mylar letters for balloons, robotaxi rides for rideshare). Some are clean plans full of decoys, and some are ambiguous plans where the right answer is an Ask chip, not a flag.
 
-**Latest run:** FundCheck checked 96 of 100 test plans correctly, every one scored on a Claude answer (a case served by the fallback is re-run, never scored). Every case, its labels and its result are in `evals/` and `public/eval-results.json`.
+**Latest run:** FundCheck checked 98 of 100 test plans correctly, every one scored on a Claude answer (a case served by the fallback is re-run, never scored). Every case, its labels and its result are in `evals/` and `public/eval-results.json`.
 
 Limits: these are test plans we wrote by hand, not real applications, so the score is a check, not a benchmark. The sample plan (e01) is close to the prompt's few-shot examples. Scoring details are in `evals/README.md`.
 

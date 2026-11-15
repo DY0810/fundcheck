@@ -44,7 +44,7 @@ Numbers are written as digits so the captions match the screen. Say "$356,100" i
 | Voice-over | Screen |
 |---|---|
 | Here's a plan the model isn't sure about: dinner boxes for jazz musicians who aren't charging. Is that paying a performer? Instead of guessing, FundCheck asks. | Second tab, the musicians plan already checked: "No flags", and under "5 answers could change this": "Is 'dinner boxes for the 6 musicians before soundcheck, Mendocino Farms $90' a payment to a performer or other talent?" with "Yes" and "No". |
-| On the accuracy page, FundCheck checked 96 of 100 test plans correctly. They're hand-written test plans, not real applications. | "How accurate is it?" link, then `/evals`: the score line, then "See every test plan and its answer on GitHub". |
+| On the accuracy page, FundCheck checked 98 of 100 test plans correctly. They're hand-written test plans, not real applications. | "How accurate is it?" link, then `/evals`: the score line, then "See every test plan and its answer on GitHub". |
 
 ## 4. Who adopts it (2:35 to 2:50) · 28 words
 

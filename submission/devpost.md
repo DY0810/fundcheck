@@ -26,7 +26,7 @@ Plain TypeScript does the rest: every dollar, every date, the document checklist
 
 Guardrails: Zod validates the model's output and drops any rule ID outside the list. Low-confidence matches become Ask chips, not flags. The plan is wrapped as untrusted data, and the prompt tells the model to ignore instructions inside it. FundCheck stores nothing: the plan goes to the model for one call, and the server logs token counts, never the text. No traveller details are collected. If Claude fails, Cloudflare Workers AI (Llama 3.3 70B) takes over, and the sample plan has a labelled recorded fallback.
 
-Accuracy: FundCheck checked 96 of 100 hand-written test plans correctly, each labelled with the rules it must and must not trigger. They are not real applications, so the score is a check, not a benchmark.
+Accuracy: FundCheck checked 98 of 100 hand-written test plans correctly, each labelled with the rules it must and must not trigger. They are not real applications, so the score is a check, not a benchmark.
 
 Stack: TypeScript, React, Vite, Tailwind CSS, Zod and Vitest, all on one Cloudflare Worker. The API key is a Wrangler secret.
 
