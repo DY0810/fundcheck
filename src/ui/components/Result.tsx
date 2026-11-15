@@ -253,7 +253,7 @@ export function Vendors({ check, answers, onOverride }: { check: CheckResult; an
   return (
     <Panel title="Vendors" id="vendors-h">
       {food.length === 0 ? (
-        <p className="m-0 text-base text-ink-2">No food vendors named in your plan. The USG Vendor List covers food vendors only.</p>
+        <p className="m-0 text-base text-ink-2">No food vendors named in your plan. FundCheck checks food vendors against the USG Vendor List.</p>
       ) : (
         <ul className="m-0 flex list-none flex-col p-0">
           {food.map((v) => {

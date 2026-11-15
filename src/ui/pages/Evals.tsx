@@ -77,7 +77,7 @@ function Results({ run }: { run: EvalRun }) {
 
       <section aria-labelledby="rules-h" className="panel flex flex-col gap-4 p-4 lg:p-6">
         <h2 id="rules-h" className="m-0 text-lg font-semibold">By rule</h2>
-        <div className="-mx-4 overflow-x-auto px-4 lg:mx-0 lg:px-0">
+        <div tabIndex={0} role="region" aria-label="Per-rule table, scrolls sideways" className="-mx-4 overflow-x-auto px-4 lg:mx-0 lg:px-0">
           <table className="w-full min-w-[520px] border-collapse text-left text-base">
             <caption className="sr-only">True positives, misses and false flags per rule</caption>
             <thead>
