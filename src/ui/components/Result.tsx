@@ -310,7 +310,7 @@ export function Vendors({ check, answers, onOverride }: { check: CheckResult; an
   const unsure = food.filter((v) => v.status !== 'found').length;
   const meta = food.length === 0 ? 'No vendors named' : unsure ? `${unsure} not found on the list, verify` : `${food.length} found on the USG Vendor List`;
   return (
-    <Fold title="Vendors" id="vendors-h" meta={meta} open={unsure > 0}>
+    <Fold title="Vendors" id="vendors-h" meta={meta} open={unsure > 0 || Object.values(answers.vendorOnList ?? {}).some(Boolean)}>
       {food.length === 0 ? (
         <p className="m-0 text-base text-ink-2">No vendors named in your plan. FundCheck checks each named vendor against the USG Vendor List.</p>
       ) : (

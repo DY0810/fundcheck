@@ -85,8 +85,10 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 
 ## Layout
 
-- **Desktop (≥ 1024 px):** header; paste region (textarea 8 cols, notes 4 cols); "What we read" full width (facts grid, items table, asks); "Pre-check" as main (8 cols: summary, flags, documents, vendors, after the event) plus a sticky aside (4 cols: fund, money, deadline); draft full width; footer.
-- **Phone (< 1024 px):** one column in task order: paste, what we read, summary, fund, flags, money, deadline (never first), documents, vendors, after the event, draft. The items table becomes stacked rows; no horizontal scroll at 320 px.
+- **Verdict first.** After a check, the verdict (severity counts, eligible request vs plan total, deadline with its Estimate label, fund) is scrolled to the top and focused. The first flag and its USG quote must be on screen with no scrolling at 1280×800 and 375×812.
+- **Desktop (≥ 1024 px):** header; paste region (next application window, textarea 8 cols, notes 4 cols); verdict full width; flags (8 cols) beside answers that could change the result, money, deadline and fund (4 cols); then "Fix what we read" (folded), documents (with form-only answers), form answers and budget CSV, vendors (folded unless a vendor needs checking), after the event (folded); footer.
+- **Phone (< 1024 px):** one column in that same order. The items table becomes stacked rows; no horizontal scroll at 320 px.
+- **Folds.** Detail that doesn't change the verdict starts collapsed in a `<details>` panel with a one-line summary of what's inside. The documents checklist and form answers stay open.
 
 ## Components
 

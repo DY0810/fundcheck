@@ -237,7 +237,7 @@ export default function Check() {
                 <p className="num m-0 text-sm text-ink-2">
                   {source.kind === 'live' && `Read by ${source.model} in ${(source.ms / 1000).toFixed(1)} s`}
                   {source.kind === 'fixture' && 'Dev fixture: no AI call was made'}
-                  {source.kind === 'cached' && "AI service didn't respond, so this is a saved result for the sample plan. The checks still run live."}
+                  {source.kind === 'cached' && "AI didn't respond: a saved reading of the sample. Checks run live."}
                 </p>
               }
               nav={
