@@ -6,7 +6,7 @@ import type { DraftResponse, Extraction, ExtractResponse } from '../src/shared/c
 import { SAMPLE_PLAN } from '../src/fixtures/sample-plan';
 import sample from '../src/fixtures/sample-extraction.json';
 import worker from './index';
-import type { Env } from './llm';
+import { BUDGET_MS, type Env } from './llm';
 import { ModelExtraction, toExtraction } from './schema';
 
 const fixture = sample as Extraction;
@@ -111,6 +111,20 @@ describe('POST /api/extract', () => {
     expect(run).toHaveBeenCalledTimes(2);
     expect(r.status).toBe(502);
     expect(r.body).toMatchObject({ ok: false, error: { code: 'llm_invalid' } });
+  });
+
+  it('answers llm_failed within the budget when the forced fallback never returns on another plan', async () => {
+    vi.useFakeTimers();
+    try {
+      const run = vi.fn().mockReturnValue(new Promise(() => {}));
+      const pending = post('/api/extract', { plan: OTHER }, env({ AI: { run } as unknown as Ai }), { 'x-fundcheck-force-claude-fail': '1' });
+      await vi.advanceTimersByTimeAsync(BUDGET_MS);
+      const r = await pending;
+      expect(r.status).toBe(502);
+      expect(r.body).toMatchObject({ ok: false, error: { code: 'llm_failed' } });
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('returns 502 when both providers fail on another plan', async () => {

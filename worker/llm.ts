@@ -11,6 +11,8 @@ export type Task = 'extract' | 'draft';
 export type Effort = 'low' | 'medium' | 'high';
 /** Chosen by measurement on the sample plan (see the S2 report). */
 export const EFFORT: Record<Task, Effort> = { extract: 'low', draft: 'low' };
+/** Hard cap on one request's whole provider chain, well under the UI's 45 s abort. */
+export const BUDGET_MS = 25_000;
 
 export interface Env {
   AI: Ai;
@@ -47,7 +49,7 @@ async function callClaude<T>(env: Env, task: Task, system: string, user: string,
     apiKey: env.ANTHROPIC_API_KEY,
     authToken: null,
     baseURL: 'https://api.anthropic.com', // explicit, so no environment base URL is ever used
-    timeout: 45_000, // a 22-item plan took 19 s at effort low
+    timeout: BUDGET_MS, // a 22-item plan took 19 s at effort low
     maxRetries: 0, // Workers AI is the retry
   });
   const msg = await client.beta.messages.parse({
@@ -107,8 +109,24 @@ async function callWorkersAi<T>(env: Env, system: string, user: string, schema: 
   throw last;
 }
 
-/** Claude, then Workers AI. Throws LlmError when both fail; the caller decides on the cached sample. */
-export async function callJson<T>(
+/** Claude, then Workers AI, inside BUDGET_MS. Throws LlmError when both fail or time runs out; the caller decides on the cached sample. */
+export async function callJson<T>(...args: Parameters<typeof chain<T>>): Promise<LlmResult<T>> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const budget = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      console.warn(`${args[1]}: no answer within ${BUDGET_MS} ms`);
+      reject(new LlmError('llm_failed', `no answer within ${BUDGET_MS} ms`));
+    }, BUDGET_MS);
+  });
+  try {
+    // shortcut: the losing call is not aborted, it just stops mattering; pass a signal if Workers AI usage ever costs too much
+    return await Promise.race([chain(...args), budget]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function chain<T>(
   env: Env,
   task: Task,
   system: string,
