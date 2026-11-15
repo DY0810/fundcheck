@@ -13,8 +13,6 @@
   // ANTHROPIC_API_KEY is a Worker secret (wrangler secret put); never put it in vars.
   "vars": {
     "LLM_PROVIDER": "claude",
-    "CLAUDE_MODEL": "claude-opus-5-5",
-    "WORKERS_AI_MODEL": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
     "ALLOW_FORCE_FAIL": "1"
   }
 }
