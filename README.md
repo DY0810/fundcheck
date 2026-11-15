@@ -130,4 +130,4 @@ While building the rules table we found a few places where USG's documents word 
 
 ## Built with
 
-TypeScript, React 18, Vite 6, Tailwind CSS v4, Zod 4, Vitest, Cloudflare Workers with static assets, Cloudflare Workers AI, and the Anthropic SDK. The code was written during the hackathon (Nov 14 to 15, 2026) with Claude Code as the coding assistant. The colours are USC cardinal and gold; spacing and the type scale follow IBM Carbon; the single column and one job per screen follow GOV.UK. FundCheck is a student project and is not affiliated with USC or USG.
+TypeScript, React 18, Vite 6, Tailwind CSS v4, Zod 4, Vitest, Cloudflare Workers with static assets, Cloudflare Workers AI, and the Anthropic SDK. The code was written during the hackathon (Nov 14 to 15, 2026) with Claude Code as the coding assistant. The colours are USC cardinal and gold; spacing and the type scale follow IBM Carbon; one job per screen follows GOV.UK, and on desktop each step is two columns in a 1,280 px page. FundCheck is a student project and is not affiliated with USC or USG.
