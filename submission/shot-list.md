@@ -1,6 +1,6 @@
 # FundCheck shot list
 
-Checked against the live site on Nov 14 after the 19:10 UI freeze (shots 7 to 9 get a last check once the flag-card change is live), at 1536×864 CSS pixels (a 1920×1080 screen at 125% zoom). Pair this with `video-script.md`: the times match its sections. Things are named by their on-screen labels.
+Checked against the live site on Nov 14 after the 19:19 UI freeze, at 1536×864 CSS pixels (a 1920×1080 screen at 125% zoom). Pair this with `video-script.md`: the times match its sections. Things are named by their on-screen labels.
 
 ## Recording settings
 
@@ -62,9 +62,9 @@ Checked live after the freeze: it gives "No flags", "Eligible request $1,390", a
 | 4 | 0:28 | 3, FundCheck home | Hold on the heading, then point at the window line. | "Pre-check your USG funding application." and "Next application window: Wed, Nov 18, 2026, 8:00 AM to 11:59 PM" |
 | 5 | 0:35 | 3 | Click "Try the Bovard dance showcase sample". Do nothing while it reads; the page scrolls to the result by itself. | The plan in "Your event plan", then "Reading your plan…" (about 6 s) |
 | 6 | 0:48 | 3 | Hold on the summary at the top of the result. | "Pre-check", "3 not eligible", "1 over cap", "1 review note", "Eligible request $7,200 of $8,850 planned", "Deadline · Estimate · Submit by Wed, Feb 3, 2027", "Fund · Performing, Visual Arts, & Cultural Fund" |
-| 7 | 1:00 | 3 | Point at the "Not eligible per §5" heading and the exception note under it, then the first flag. | The ticket flag: its title, the plan line "$10 tickets at the door", and USG's quote "Events that include ticket sales" |
-| 8 | 1:08 | 3 | Scroll down slowly through the balloon arch and DJ flags. | Each flag's title and USG's quote ("… Balloons", "Payments to talent or performers") |
-| 9 | 1:20 | 3 | Keep scrolling to "Over cap". | The venue and personnel flag: $4,800, $800 over the $4,000 cap, with USG's §3 quote |
+| 7 | 1:00 | 3 | Point at the "Not eligible per §5 (3)" heading and "The board may make an exception" beside it, then the first card. | "Ticket sales", "AI-judged", In your plan: "$10 tickets at the door", "USG Funding Department Guidelines §5 says:" "Events that include ticket sales" |
+| 8 | 1:08 | 3 | Scroll down slowly. Hover the "AI-judged" chip on "Helium balloon arch ($250)". | "Helium balloon arch ($250)" ("… Balloons") and "DJ ($600)" ("Payments to talent or performers"), each with "AI-judged" |
+| 9 | 1:20 | 3 | Keep scrolling to "Over cap (1)". Hover "Rule math". | "Venue and personnel come to $4,800, $800 over the $4,000 cap." with "Rule math" and the §3 quote |
 | 10 | 1:30 | 3 | In the side panel "5 answers could change this" (sometimes 6; the count depends on the read), click "How much has your org already received from USG Funding this year?", type 2000, press Tab. Scroll up to the summary. | "1 over cap" becomes "2 over cap"; "Eligible request $6,000 of $8,850 planned"; "Capped at the $6,000 your org has left of its $8,000 for the year" |
 | 11 | 1:45 | 3 | Click "Documents" in the summary's links. | "Documents checklist", "Quote from Wolfgang Puck Catering · Needed", "Name it RSO_Lastname_Firstname_WolfgangPuckCatering_Quote.pdf" |
 | 12 | 1:52 | 3 | Click "Form answers and budget CSV", then "Draft my form answers" (about 5 to 8 s; cut the wait in editing). Point at "Download budget CSV". | "Form answers", "Filled by FundCheck" rows, then "How does the event align with your mission/vision/goals?" with "AI draft" and "[your organization's mission]"; "The budget CSV leaves out 2 lines that aren't eligible: Helium balloon arch, DJ." |
