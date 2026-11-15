@@ -161,15 +161,15 @@ export interface DocItem {
 export interface VendorCheck {
   itemId: string;
   vendor: string;
-  status: 'found' | 'not_found_verify' | 'not_applicable'; // list is food-only: non-food → not_applicable
+  status: 'found' | 'not_found_verify' | 'not_applicable'; // not_applicable = the line names no vendor
   matchedName?: string;
 }
-export type VendorList = { name: string; cuisine?: string; website?: string; active: boolean }[];
+export type VendorList = { name: string; cuisine?: string; website?: string; active: boolean; kind?: 'food' | 'other'; category?: string }[]; // kind = which tab of USG's vendor sheet
 export interface DeadlineCard {
   status: 'safe' | 'next_open' | 'past' | 'blackout' | 'unknown_date';
   headline: IsoDate | null;  // submit by (safe) or next open Wednesday (next_open)
   latest: IsoDate | null;    // latest date under the event-date wording
-  weeks: 6 | 8 | 9;          // 9 if travel/lodging line, 8 if a food vendor not found, else 6
+  weeks: 6 | 8 | 9;          // 9 if travel/lodging line, 8 if a named vendor is not found, else 6
   anchors: { kind: 'event' | 'payment'; date: IsoDate; weeks: 6 | 8 | 9 }[];
   blackout: boolean;         // R24
   ruleIds: RuleId[];         // ['R23', 'R24', 'R25', 'R26']
