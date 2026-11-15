@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap');
+@import 'tailwindcss';
+
+/* FundCheck tokens. DESIGN.md is the source of truth for every value here. */
+@theme {
+  --font-sans: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+
+  --color-ground: #f6f5f2;
+  --color-panel: #ffffff;
+  --color-inset: #efede9;
+  --color-line: #dcd8d2;
+  --color-control: #8c857d;
+  --color-ink: #1c1917;
+  --color-ink-2: #57534e;
+  --color-cardinal: #990000;
+  --color-cardinal-press: #7a0000;
+  --color-gold: #ffcc00;
+
+  --color-ne: #990000;
+  --color-ne-bg: #fbefef;
+  --color-cap: #8a4600;
+  --color-cap-bg: #fcf1e4;
+  --color-note: #1d4f80;
+  --color-note-bg: #ebf2f9;
+  --color-confirm: #6b5300;
+  --color-confirm-bg: #fff7d6;
+  --color-pass: #1f6b3a;
+  --color-pass-bg: #eaf5ee;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.75rem;
+  --text-xl--line-height: 2.125rem;
+  --text-2xl: 2.5rem;
+  --text-2xl--line-height: 2.75rem;
+
+  --radius-ctl: 6px;
+  --radius-panel: 10px;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --animate-reveal: reveal 240ms var(--ease-out) both;
+  --animate-pulse-soft: pulse-soft 1.4s ease-in-out infinite;
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pulse-soft {
+    50% { opacity: 0.55; }
+  }
+}
+
+:root {
+  --dur-press: 120ms;
+  --dur-hover: 150ms;
+  --dur-ui: 200ms;
+}
+
+@layer base {
+  html {
+    background: var(--color-ground);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body { margin: 0; min-height: 100dvh; }
+  ::selection { background: var(--color-gold); color: var(--color-ink); }
+  input, textarea, select { caret-color: var(--color-cardinal); }
+  :focus-visible { outline: 2px solid var(--color-cardinal); outline-offset: 2px; }
+  h1, h2, h3 { letter-spacing: -0.01em; text-wrap: balance; }
+  a { color: var(--color-cardinal); text-decoration-line: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 44px; padding: 0 1rem; border-radius: var(--radius-ctl);
+    font-weight: 500; font-size: var(--text-base); line-height: 1.25rem; white-space: nowrap;
+    transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-hover) ease, color var(--dur-hover) ease;
+    cursor: pointer;
+  }
+  .btn:active:not(:disabled) { transform: scale(0.98); }
+  .btn:disabled { cursor: not-allowed; opacity: 0.6; }
+  .btn-primary { background: var(--color-cardinal); color: #fff; }
+  .btn-secondary { background: var(--color-panel); color: var(--color-ink); border: 1px solid var(--color-control); }
+  .btn-ghost { color: var(--color-cardinal); padding: 0 0.5rem; min-height: 36px; }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover:not(:disabled) { background: var(--color-cardinal-press); }
+    .btn-secondary:hover:not(:disabled) { background: var(--color-inset); }
+    .btn-ghost:hover { text-decoration: underline; }
+  }
+  .field {
+    width: 100%; min-height: 44px; padding: 0.5rem 0.75rem;
+    background: var(--color-panel); color: var(--color-ink);
+    border: 1px solid var(--color-control); border-radius: var(--radius-ctl);
+    font: inherit; font-size: 1rem;
+  }
+  .field::placeholder { color: var(--color-ink-2); opacity: 0.8; }
+  .panel { background: var(--color-panel); border: 1px solid var(--color-line); border-radius: var(--radius-panel); }
+  .label { font-size: var(--text-sm); line-height: 1.25rem; font-weight: 500; color: var(--color-ink); }
+  .num { font-variant-numeric: tabular-nums; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 120ms !important; animation-iteration-count: 1 !important; }
+  .animate-reveal { animation-name: fade !important; }
+  .btn:active:not(:disabled) { transform: none; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+}
