@@ -5,5 +5,6 @@ import vendorsJson from '../shared/vendors.json';
 export { runCheck } from './check';
 export { deadlineCard, nextWindow } from './deadline';
 export { budgetCsv, BUDGET_FILE_NAME } from './csv';
+export { applyFixes, proposeFixes } from './fixes';
 export const rules = rulesJson as RulesFile;
 export const vendors = vendorsJson as VendorList;
