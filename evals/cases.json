@@ -1,0 +1,450 @@
+[
+  {
+    "id": "e01",
+    "title": "Sample plan: Spring Dance Showcase",
+    "plan": "Spring Dance Showcase — Bovard Auditorium, Fri Apr 9 2027, 7pm\n~300 people, $10 tickets at the door\nCatering from Wolfgang Puck Catering $3,000\nHelium balloon arch $250\nDJ $600\nBovard rental + AV crew $4,800\nPrinted programs $200",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R4"
+        },
+        {
+          "ruleId": "R1",
+          "itemContains": "balloon"
+        },
+        {
+          "ruleId": "R3.talent",
+          "itemContains": "dj"
+        },
+        {
+          "ruleId": "R6"
+        },
+        {
+          "ruleId": "R7"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.restaurant",
+        "R3.durable",
+        "R5.residence",
+        "R24"
+      ],
+      "fund": "performing_visual_cultural",
+      "eligibleCents": 720000
+    },
+    "why": "The golden path: three AI-judged items, the $4,000 venue cap and exact dollar math in one short plan."
+  },
+  {
+    "id": "e02",
+    "title": "DJ described as 'entertainment'",
+    "plan": "Lunar New Year Night 🧧 Thurs Feb 11 2027, 6-9pm, Ronald Tutor Campus Center Ballroom\nopen to everyone, free!! expecting 150ish\n- entertainment by Kev Beats (house + kpop sets all night) $450\n- dumplings + noodles from Panda Express, $1,350 total\n- red paper lanterns & table runners $120\n- flyers/insta ads $60",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R3.talent",
+          "itemContains": "kev"
+        }
+      ],
+      "mustNotFlag": [
+        "R1",
+        "R4",
+        "R5.open"
+      ]
+    },
+    "why": "The paid performer is never called a DJ or performer, only 'entertainment by' a stage name."
+  },
+  {
+    "id": "e03",
+    "title": "Balloons without the word 'balloon'",
+    "plan": "welcome back GM + social, Trojan Robotics (spring '27)\nwhen: wed jan 20 2027 7pm. where: SGM 101 (lecture hall, booked thru EMS)\nwho: anyone interested in robotics, ~70 ppl\nbudget:\nMylar letters spelling TROJANS, filled + weighted at Party City — $95\ncardinal & gold crepe streamers $18\nChick-fil-A nugget trays x6 — $420\nname tags + markers $25",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R1",
+          "itemContains": "mylar"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.durable",
+        "R4",
+        "R5.open"
+      ]
+    },
+    "why": "Filled, weighted Mylar letters are balloons, but neither 'balloon' nor 'helium' appears; streamers are a decoy."
+  },
+  {
+    "id": "e04",
+    "title": "Gift codes as prizes, club already got $7,000",
+    "plan": "Trivia Night!! Taper Hall 101, Tues Mar 2 2027 8pm\nOpen to all students, free. ~90 people based on last time\nfood: Yameel Pizza, 35 pies @ $30 = $1,050\nprizes: $25 Amazon e-codes for the top 3 teams (4 ppl each) so 12 codes = $300\nprinting answer sheets + pencils $30\nmic + speaker rental from USC Event Services $250",
+    "answers": {
+      "receivedThisYearCents": 700000
+    },
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R3.gifts",
+          "itemContains": "amazon"
+        },
+        {
+          "ruleId": "R9"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.durable",
+        "R4",
+        "R5.open"
+      ]
+    },
+    "why": "Prize e-codes are gift cards by another name, and the officer's $7,000 already received leaves only $1,000 under the yearly cap."
+  },
+  {
+    "id": "e05",
+    "title": "Two-day hackathon buying gear the club keeps",
+    "plan": "TrojanHacks 2027 — Sat Feb 27 to Sun Feb 28 2027 (24 hrs straight), Fertitta Hall\nfree + open to all USC students, ~200 hackers\n- 2 JBL portable speakers for opening/closing ceremony (we'll keep them for GMs after) $360\n- meals: Mendocino Farms boxed lunches + dinner Sat, Everytable breakfast Sun = $5,600\n- Fertitta room booking + overnight security guard $1,200",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R3.durable",
+          "itemContains": "speaker"
+        },
+        {
+          "ruleId": "R8"
+        }
+      ],
+      "mustNotFlag": [
+        "R4",
+        "R5.open",
+        "R31",
+        "R6"
+      ]
+    },
+    "why": "Speakers the club keeps are durable goods though the word never appears, and the event spans two days."
+  },
+  {
+    "id": "e06",
+    "title": "Suggested donation at check-in",
+    "plan": "Spill the Ink: open mic + poetry night\nFri April 16, 2027 · 7:30–10pm · Annenberg (ASC) room 207\nanyone can come + sign up to read. we're asking a suggested $5 donation when ppl check in to help cover costs\n~60 people\n- Dulce coffee + pastries $380\n- mic/PA rental from the AV office $120\n- chalkboard sign + posters $45",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R4"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.talent",
+        "R3.charity",
+        "R3.durable"
+      ]
+    },
+    "why": "Money collected for entry is a ticket sale even when it is called a suggested donation; the readers are unpaid and the money is not for charity."
+  },
+  {
+    "id": "e07",
+    "title": "Members-only mixer on campus",
+    "plan": "Spring Mixer: MEMBERS ONLY (dues-paying members, we check names against the roster)\nThurs Apr 1 2027, 6–8pm, Ronald Tutor Campus Center room 450\n~45 members\nBella Pita catering $630\nmocktail bar supplies (sparkling cider, juices, cups) $90\nphoto backdrop + props $75",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R5.open"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.alcohol",
+        "R4",
+        "R5.residence"
+      ]
+    },
+    "why": "An on-campus event restricted to dues-paying members is not open to all students; the mocktails are an alcohol decoy."
+  },
+  {
+    "id": "e08",
+    "title": "Potluck at the president's apartment",
+    "plan": "end of semester potluck 🍲 Korean Student Assoc\nat our president's apartment (few blocks off Figueroa), Sat Apr 24 2027 6pm\neveryone brings a dish, club just covers the basics:\n- Kobunga Korean Grill bulgogi party tray $260\n- plates, cups, utensils, napkins $45\n- drinks (soda, barley tea) $55\n~35 people",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R5.residence"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.raw_food",
+        "R3.restaurant",
+        "R4"
+      ]
+    },
+    "why": "The venue is a private residence, stated only as 'our president's apartment'; a ready-made party tray is not raw food or a restaurant dinner."
+  },
+  {
+    "id": "e09",
+    "title": "Winter formal in the blackout window, with prosecco",
+    "plan": "Winter Formal ❄️ Thursday Dec 10, 2026, 8–11pm\nTown & Gown ballroom, open to all students, free w/ RSVP, ~180 expected\n- Wolfgang Puck Catering heavy apps $4,200\n- 6 cases of prosecco for the 10pm toast (21+ only, IDs checked) $540\n- Town & Gown rental $1,500\n- photo booth rental $650\n- snowflake decor $200",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R24"
+        },
+        {
+          "ruleId": "R3.alcohol",
+          "itemContains": "prosecco"
+        }
+      ],
+      "mustNotFlag": [
+        "R4",
+        "R5.open",
+        "R1",
+        "R3.durable"
+      ]
+    },
+    "why": "Dec 10 2026 falls in USG's no-funding window, and prosecco is alcohol that the plan never calls alcohol."
+  },
+  {
+    "id": "e10",
+    "title": "Beach cleanup: robotaxi rides and a gift to a nonprofit",
+    "plan": "Coastal Cleanup Day w/ Heal the Bay — Sat Mar 6 2027, 9am–1pm, Dockweiler State Beach\ncommunity service, open to any USC student, ~40 volunteers\n- Waymo rides campus → beach and back (about 10 cars each way) $520\n- gloves + heavy-duty trash bags $90\n- Everytable breakfast burritos + water $360\n- $500 contribution to Heal the Bay, presented at the end",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R3.rideshare",
+          "itemContains": "waymo"
+        },
+        {
+          "ruleId": "R3.charity",
+          "itemContains": "contribution"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.durable",
+        "R4",
+        "R5.residence"
+      ],
+      "fund": "philanthropy"
+    },
+    "why": "Robotaxi rides are rideshare and a 'contribution' to a nonprofit is a charity donation, though neither rule's words appear."
+  },
+  {
+    "id": "e11",
+    "title": "Train to a conference in San Diego",
+    "plan": "Latinx Engineers @ USC → regional leadership conference, San Diego\nFri Feb 19 – Sun Feb 21 2027\n6 e-board members going\n- Pacific Surfliner round trip LA Union Station ⇄ San Diego Santa Fe Depot, 6 x $72 = $432\n- conference registration 6 x $95 = $570\n- hotel near the convention center, 3 rooms x 2 nights @ $189/night = $1,134",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R3.rideshare",
+          "itemContains": "surfliner"
+        },
+        {
+          "ruleId": "R8"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.international",
+        "R3.p2p",
+        "R5.residence"
+      ],
+      "fund": "professional_academic"
+    },
+    "why": "The Pacific Surfliner is an Amtrak train, never named as one; San Diego is domestic, so international travel is a decoy."
+  },
+  {
+    "id": "e12",
+    "title": "Catering at $40 a head",
+    "plan": "South Asian Students Assoc: Spring Banquet\nSat Apr 10 2027, 6:30pm, Grand Ballroom (TCC)\nopen to all students, free, RSVP on Engage, expecting 60\n- Urban Masala full buffet catering, $2,400 (60 x $40)\n- Grand Ballroom rental $900\n- marigold garlands + table decor $150",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R11"
+        }
+      ],
+      "mustNotFlag": [
+        "R1",
+        "R4",
+        "R6"
+      ],
+      "eligibleCents": 315000
+    },
+    "why": "Food is $40 per person against the $35 cap, so code must cut $300 and eligible must be exactly $3,150."
+  },
+  {
+    "id": "e13",
+    "title": "Professional panel with an entry fee",
+    "plan": "Women in Finance panel: breaking into IB & PE\nWed Feb 24 2027, 5–7pm, Popovich Hall (JKP) 112\nspeakers: 3 alumnae from industry (unpaid, they're volunteering their time)\nopen to all majors, $10 entry fee at registration (covers food), ~80 students\n- Mendocino Farms sandwich platters $640\n- printed resume books $180\n- name tags $15",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [
+        {
+          "ruleId": "R31"
+        }
+      ],
+      "mustNotFlag": [
+        "R3.talent",
+        "R5.open"
+      ],
+      "fund": "professional_academic"
+    },
+    "why": "Professional-fund events must be free, and this one charges at registration; the unpaid speakers are a talent decoy."
+  },
+  {
+    "id": "e14",
+    "title": "Clean: free study night with pizza",
+    "plan": "Finals-prep study night (CS club)\nTue Apr 27 2027, 7–10pm, Leavey Library collab rooms (booked)\nfree + open to any USC student, ~50\n- Yameel Pizza, 15 pies @ $30 = $450\n- Nitropod ice cream truck?? nah too pricey, skip\n- whiteboard markers + sticky notes $25\n- printed practice exam packets $60",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [],
+      "mustNotFlag": [
+        "R1",
+        "R3.reimbursement",
+        "R3.charity",
+        "R3.alcohol",
+        "R3.gifts",
+        "R3.durable",
+        "R3.raw_food",
+        "R3.restaurant",
+        "R3.rideshare",
+        "R3.deposit",
+        "R3.p2p",
+        "R3.talent",
+        "R3.subscription",
+        "R3.international",
+        "R3.jewelry",
+        "R20",
+        "R4",
+        "R5.open",
+        "R5.residence",
+        "R31",
+        "R6",
+        "R9",
+        "R24"
+      ]
+    },
+    "why": "Nothing here is ineligible; it measures false positives, including an item the officer crossed out."
+  },
+  {
+    "id": "e15",
+    "title": "Clean: resume workshop with a volunteer photographer",
+    "plan": "Resume + LinkedIn workshop w/ a Career Center advisor\nThurs Feb 4 2027, 12–1:30pm, THH 202\nfree, everyone welcome (all majors / years), ~40\n- Dulce coffee carafes + pastries $220\n- headshot photographer for 2 hrs: she's a student volunteer, $0\n- printed handouts $35",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [],
+      "mustNotFlag": [
+        "R1",
+        "R3.reimbursement",
+        "R3.charity",
+        "R3.alcohol",
+        "R3.gifts",
+        "R3.durable",
+        "R3.raw_food",
+        "R3.restaurant",
+        "R3.rideshare",
+        "R3.deposit",
+        "R3.p2p",
+        "R3.talent",
+        "R3.subscription",
+        "R3.international",
+        "R3.jewelry",
+        "R20",
+        "R4",
+        "R5.open",
+        "R5.residence",
+        "R31",
+        "R6",
+        "R9",
+        "R24"
+      ],
+      "fund": "professional_academic"
+    },
+    "why": "A free, open professional event with an unpaid photographer: no talent payment and no fee, so nothing should be flagged."
+  },
+  {
+    "id": "e16",
+    "title": "Clean: Holi on the quad with rentals and lanterns",
+    "plan": "Holi on McCarthy Quad 🎨 Fri Mar 26 2027, 2–5pm\nfree, open to all students, ~250\n- organic gulal color powder, single-use bags $375\n- rented string lights + 2 pop-up tents from USC Event Services (returned same day) $480\n- Radhika restaurant samosa + chai catering $1,500\n- water bottles (cases) $120\n- paper lanterns for the entrance $80",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [],
+      "mustNotFlag": [
+        "R1",
+        "R3.reimbursement",
+        "R3.charity",
+        "R3.alcohol",
+        "R3.gifts",
+        "R3.durable",
+        "R3.raw_food",
+        "R3.restaurant",
+        "R3.rideshare",
+        "R3.deposit",
+        "R3.p2p",
+        "R3.talent",
+        "R3.subscription",
+        "R3.international",
+        "R3.jewelry",
+        "R20",
+        "R4",
+        "R5.open",
+        "R5.residence",
+        "R31",
+        "R6",
+        "R9",
+        "R24"
+      ]
+    },
+    "why": "Rentals look like durable goods, paper lanterns look like balloons, and restaurant catering looks like a restaurant dinner; none of them is."
+  },
+  {
+    "id": "e17",
+    "title": "Ambiguous: dinner for unpaid musicians",
+    "plan": "Jazz in the Courtyard: spring showcase\nFri Apr 2 2027, 6–8pm, Annenberg courtyard\nfree, open to all, ~120\nthe Thornton jazz combo isn't charging us, we just want to feed them:\n- dinner boxes for the 6 musicians before soundcheck, Mendocino Farms $90\n- Crepes Bonaparte crepe cart for the audience $1,100\n- music stand + amp rental $140\n- programs $60",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [],
+      "mustNotFlag": [
+        "R3.talent",
+        "R3.durable",
+        "R4"
+      ]
+    },
+    "why": "Feeding performers may or may not count as paying them, so the right answer is an Ask chip, never a hard flag."
+  },
+  {
+    "id": "e18",
+    "title": "Ambiguous: venue deposit, refundable or not",
+    "plan": "Model UN spring banquet\nSat Apr 17 2027, 6–9pm, event room at the California Science Center (off campus, walking distance)\nfor members + anyone who did a conference with us this year, free, ~70\n- venue fee $1,800\n- venue deposit $300 (due at booking)\n- Casa Sanchez Mexican buffet $1,750\n- printed certificates $40",
+    "answers": {},
+    "today": "2026-11-14",
+    "expect": {
+      "mustFlag": [],
+      "mustNotFlag": [
+        "R3.deposit",
+        "R5.open",
+        "R4"
+      ]
+    },
+    "why": "The plan never says whether the deposit is refundable, and only refundable deposits are ineligible, so this must be an Ask, not a flag."
+  }
+]
