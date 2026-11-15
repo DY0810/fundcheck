@@ -69,7 +69,7 @@ Checked live after the freeze: it gives "No flags", "Eligible request $1,390", a
 | 11 | 1:45 | 3 | Click "Documents" in the summary's links. | "Documents checklist", "Quote from Wolfgang Puck Catering · Needed", "Name it RSO_Lastname_Firstname_WolfgangPuckCatering_Quote.pdf" |
 | 12 | 1:52 | 3 | Click "Form answers and budget CSV", then "Draft my form answers" (about 5 to 8 s; cut the wait in editing). Point at "Download budget CSV". | "Form answers", "Filled by FundCheck" rows, then "How does the event align with your mission/vision/goals?" with "AI draft" and "[your organization's mission]"; "The budget CSV leaves out 2 lines that aren't eligible: Helium balloon arch, DJ." |
 | 13 | 2:10 | 4, musicians plan | Scroll to "5 answers could change this". Hover "Yes" and "No" without clicking. | "No flags", then "Is 'dinner boxes for the 6 musicians before soundcheck, Mendocino Farms $90' a payment to a performer or other talent?" |
-| 14 | 2:24 | 4, then 5 | Click "How accurate is it?" in the header (or switch to tab 5). Hold on the score, then point at the GitHub link. | "How accurate are the AI checks?", the score line, "See every test plan and its answer on GitHub" |
+| 14 | 2:24 | 4, then 5 | Click "How accurate is it?" in the header (or switch to tab 5). Hold on the score. | The whole page: "98% Accuracy" and "98 of 100 test plans checked correctly" |
 | 15 | 2:35 | End card | The repo page `github.com/DY0810/fundcheck` in a logged-out window, or the deck's closing slide. | `fundcheck.mayhu733.workers.dev` and `github.com/DY0810/fundcheck` |
 
 ## If something goes wrong on camera
