@@ -94,6 +94,18 @@ describe('POST /api/extract', () => {
     expect(r.body).toMatchObject({ ok: true, provider: 'claude' });
   });
 
+  it('rate-limits after 20 calls a minute per IP, but still serves the sample from cache', async () => {
+    claudeOk();
+    const e = env();
+    const from = { 'cf-connecting-ip': '192.0.2.7' };
+    for (let i = 0; i < 20; i++) expect((await post('/api/extract', { plan: 'Bake sale, cookies $50' }, e, from)).status).toBe(200);
+    const r = await post('/api/extract', { plan: 'Bake sale, cookies $50' }, e, from);
+    expect(r.status).toBe(429);
+    expect(r.body).toMatchObject({ ok: false, error: { code: 'rate_limited' } });
+    expect((await post('/api/extract', { plan: SAMPLE_PLAN }, e, from)).body).toMatchObject({ ok: true, source: 'cached' });
+    expect((await post('/api/extract', { plan: 'Bake sale, cookies $50' }, e)).status).toBe(200); // other IPs unaffected
+  });
+
   it('sends no temperature, budget_tokens or tool_choice, and sets effort and fallbacks', async () => {
     claudeOk();
     await post('/api/extract', { plan: SAMPLE_PLAN }, env());

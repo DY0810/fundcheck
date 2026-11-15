@@ -40,7 +40,7 @@ function llmFailure(err: unknown) {
 
 const CACHED_MODEL = 'claude-opus-5-5 (recorded)';
 const cached = (t0: number) =>
-  json({ ok: true, extraction: sampleExtraction as Extraction, source: 'cached', provider: 'cache', model: CACHED_MODEL, ms: Date.now() - t0 } satisfies ExtractResponse);
+  json({ ok: true, source: 'cached', provider: 'cache', model: CACHED_MODEL, ms: Date.now() - t0, extraction: sampleExtraction as Extraction } satisfies ExtractResponse);
 
 async function extract(req: Request, env: Env, limited: boolean): Promise<Response> {
   const t0 = Date.now();
@@ -52,7 +52,8 @@ async function extract(req: Request, env: Env, limited: boolean): Promise<Respon
   if (limited) return isSample ? cached(t0) : fail('rate_limited', 'Too many checks from this network. Wait a minute and try again.', 429);
   try {
     const r = await callJson(env, 'extract', EXTRACT_SYSTEM, extractUser(plan), ModelExtraction, forceOpts(req, env));
-    return json({ ok: true, extraction: toExtraction(r.data, plan), source: 'live', provider: r.provider, model: r.model, ms: r.ms } satisfies ExtractResponse);
+    // Metadata first, so a truncated response (head -c) still shows the provider.
+    return json({ ok: true, source: 'live', provider: r.provider, model: r.model, ms: r.ms, extraction: toExtraction(r.data, plan) } satisfies ExtractResponse);
   } catch (err) {
     return isSample && err instanceof LlmError ? cached(t0) : llmFailure(err);
   }
@@ -71,7 +72,7 @@ async function draft(req: Request, env: Env, limited: boolean): Promise<Response
   if (limited) return fail('rate_limited', 'Too many requests from this network. Wait a minute and try again.', 429);
   try {
     const r = await callJson(env, 'draft', DRAFT_SYSTEM, draftUser(parsed.data), ModelDraft, forceOpts(req, env));
-    return json({ ok: true, draft: toDraft(r.data, parsed.data.extraction), source: 'live', provider: r.provider, model: r.model, ms: r.ms } satisfies DraftResponse);
+    return json({ ok: true, source: 'live', provider: r.provider, model: r.model, ms: r.ms, draft: toDraft(r.data, parsed.data.extraction) } satisfies DraftResponse);
   } catch (err) {
     return llmFailure(err);
   }
