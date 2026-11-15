@@ -35,7 +35,7 @@ Numbers are written as digits so the captions match the screen. Say "$356,100" i
 | Voice-over | Screen |
 |---|---|
 | Here's a plan the model isn't sure about: dinner boxes for jazz musicians who aren't charging. Is that paying a performer? Instead of guessing, FundCheck asks. | Second tab, already checked: the "dinner for unpaid musicians" plan. The Ask chip: "Does 'dinner boxes for the 6 musicians…' fall under 'Payments to talent or performers'?" with Yes / No. |
-| On the evals page, 17 of 18 hand-written plans passed. The miss was a "suggested donation" at check-in: the model wasn't sure it was a ticket sale, so it asked instead of flagging. Eighteen cases is a small set, not a benchmark. | `/evals`: summary (17 of 18, precision 100%, recall 96%), then the failed e06 row "Missed R4". |
+| On the evals page, 17 of 18 hand-written plans passed. The miss was a "suggested donation" at check-in: the model wasn't sure it was a ticket sale, so it asked instead of flagging. Eighteen cases is a small set, not a benchmark. | `/evals`: "17 of 18 test plans checked correctly". Then the e06 entry in `public/eval-results.json` on GitHub ("misses": ["R4"]). |
 
 ## 4. Who adopts it (2:40 to 2:50) · 23 words · about 9 to 10 s
 

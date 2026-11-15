@@ -3,7 +3,7 @@
 FundCheck pre-checks a USC student organization's USG Funding Department application. An officer pastes an event plan in plain words, and FundCheck shows which items USG's Guidelines don't fund (each with USG's own quote), the money against every cap, which fund to apply to, a deadline estimate, the documents to attach, and drafted form answers plus a budget CSV. The on-campus events USG funds can't sell tickets and must be open to all students, so every application that comes back late or incomplete is one fewer free event for every Trojan. FundCheck exists so the application a Funding Director opens is already complete and inside the rules.
 
 **Live:** https://fundcheck.mayhu733.workers.dev (no login; try the Bovard dance showcase sample)
-**Accuracy page:** https://fundcheck.mayhu733.workers.dev/evals
+**Accuracy page:** https://fundcheck.mayhu733.workers.dev/evals (the headline score; every case and result is in `evals/` and `public/eval-results.json`)
 
 ![FundCheck pre-check of the Bovard dance showcase sample](submission/screenshots/01-result.png)
 
@@ -108,7 +108,7 @@ Latest run (from `public/eval-results.json`, Nov 14 2026, every case served by `
 
 | Cases passed | Precision | Recall |
 |---|---|---|
-| 17 of 18 | 1.0 | 0.955 (the `/evals` page rounds it to 96%) |
+| 17 of 18 | 1.0 | 0.955 |
 
 The one miss is e06, "Suggested donation at check-in": a poetry night asking a "suggested $5 donation" at the door. The label expects a ticket-sale flag (R4). The model matched R4 with low confidence, so the officer got an Ask chip instead of a flag.
 

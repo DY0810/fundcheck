@@ -68,7 +68,7 @@ Checked live on Nov 14: this plan raises the Ask chip "Does 'dinner boxes for th
 | 10 | 1:22 | Tab 3 | *(provisional)* Scroll to Deadline. Click "Sources word this differently", hold one second, close it. | "Submit by Wed, Feb 3, 2027", "Estimate", "Latest date under the event-date wording: Wed, Feb 24, 2027" |
 | 11 | 1:35 | Tab 3 | *(provisional)* Scroll to the documents checklist. Then in the line-items table change "Printed programs" from 200 to 150 and watch the totals update. Then click "Draft my form answers" (about 5 s; cut the wait in editing) and point at "Download budget CSV". | Quote file names such as `RSO_Lastname_Firstname_WolfgangPuckCatering_Quote.pdf`; the plan total changing; the drafted "Description of event" |
 | 12 | 2:10 | Tab 4, musicians plan *(provisional)* | Scroll to the Ask chip. Hover "Yes" and "No" without clicking. | "Does 'dinner boxes for the 6 musicians…' fall under 'Payments to talent or performers'?" |
-| 13 | 2:22 | Tab 5, `/evals` *(provisional: numbers change after the final eval run)* | Hold on the summary, then scroll to e06. | "17 of 18", "Precision 100%", "Recall 96%", then "Fail · Suggested donation at check-in (e06)", "Missed R4." |
+| 13 | 2:22 | Tab 5, `/evals` *(provisional: numbers change after the final eval run)* | Hold on the score. Then switch to `github.com/DY0810/fundcheck/blob/main/public/eval-results.json` and Cmd+F "e06". | "17 of 18 test plans checked correctly", then the e06 entry: "Suggested donation at check-in", "misses": ["R4"] |
 | 14 | 2:40 | End card | The repo page `github.com/DY0810/fundcheck` in a logged-out window, or S6's closing slide. | `fundcheck.mayhu733.workers.dev` and `github.com/DY0810/fundcheck` |
 
 ## If something goes wrong on camera
