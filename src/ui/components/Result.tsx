@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode, type Ref } from 'react';
 import { ChevronDown, Circle, CircleAlert, CircleCheck, CircleHelp } from 'lucide-react';
-import type { Answers, CheckResult, DeadlineCard, ExtractedItem, Extraction, Flag, RuleId, Severity } from '../../shared/contracts';
+import type { Answers, Cents, CheckResult, DeadlineCard, ExtractedItem, Extraction, Flag, RuleId, Severity } from '../../shared/contracts';
 import { SEVERITY_ORDER } from '../../shared/contracts';
 import { date, money, pct, plural } from '../lib/format';
 import { rule } from '../lib/rules';
@@ -31,8 +31,8 @@ export function Summary({ check }: { check: CheckResult }) {
 
 const Estimate = () => <span className="rounded-full bg-brand-tint px-2 py-px text-xs font-semibold text-ink">Estimate</span>;
 
-/** The answer, first: counts, eligible request, deadline and fund. Everything else is detail below. */
-export function Verdict({ check, note, headingRef, nav }: { check: CheckResult; note?: ReactNode; headingRef: Ref<HTMLHeadingElement>; nav: ReactNode }) {
+/** The answer, first: one count line and the eligible request, then the step's one action. */
+export function Verdict({ check, note, headingRef, action }: { check: CheckResult; note?: ReactNode; headingRef: Ref<HTMLHeadingElement>; action: ReactNode }) {
   const m = check.money;
   const r9 = check.flags.find((f) => f.ruleId === 'R9');
   // Worst severity present; no flags at all (nothing read yet) stays neutral rather than a green all-clear.
@@ -40,34 +40,26 @@ export function Verdict({ check, note, headingRef, nav }: { check: CheckResult; 
   return (
     <div className={`panel flex animate-reveal flex-col gap-4 border-t-4 p-4 lg:p-6 ${worst ? SEV[worst].top : 'border-t-line'}`}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 id="result-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Pre-check</h2>
+        <h2 id="result-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">What we found</h2>
         {note}
       </div>
       <Summary check={check} />
-      <dl className="m-0 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-[1.1fr_1fr_1fr] sm:gap-x-6">
-        <div className="col-span-2 flex flex-col gap-0.5 sm:col-span-1">
-          <dt className="text-sm text-ink-2">Eligible request</dt>
-          <dd className="num m-0 flex flex-wrap items-baseline gap-x-2">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-0.5">
+          <p className="m-0 text-sm text-ink-2">Eligible request</p>
+          <p className="num m-0 flex flex-wrap items-baseline gap-x-2">
             <span className="text-2xl font-semibold tracking-[-0.02em] text-ink">{money(Math.max(0, m.eligibleCents))}</span>
             <span className="text-base text-ink-2">of {money(m.totalCents)} planned</span>
-          </dd>
+          </p>
           {r9 && m.yearlyRemainingCents != null && (
-            <dd className="num m-0 text-sm text-cap">Capped at the {money(m.yearlyRemainingCents)} your org has left of its $8,000 for the year</dd>
+            <p className="num m-0 text-sm text-cap">Capped at the {money(m.yearlyRemainingCents)} your org has left of its $8,000 for the year</p>
           )}
           {m.yearlyRemainingCents == null && m.eligibleCents > m.yearlyCapCents && (
-            <dd className="num m-0 text-sm text-cap">More than the $8,000 USG funds per org each year</dd>
+            <p className="num m-0 text-sm text-cap">More than the $8,000 USG funds per org each year</p>
           )}
         </div>
-        <div className="flex min-w-0 flex-col gap-0.5">
-          <dt className="flex items-center gap-2 text-sm text-ink-2">Deadline <Estimate /></dt>
-          <dd className="num m-0 text-base font-semibold text-ink">{headline(check.deadline)}</dd>
-        </div>
-        <div className="flex min-w-0 flex-col gap-0.5">
-          <dt className="text-sm text-ink-2">Fund</dt>
-          <dd className="m-0 text-base font-semibold text-ink">{check.fund.label}</dd>
-        </div>
-      </dl>
-      {nav}
+        {action}
+      </div>
     </div>
   );
 }
@@ -78,7 +70,7 @@ export function Verdict({ check, note, headingRef, nav }: { check: CheckResult; 
 const EVENT_LABEL: Partial<Record<RuleId, string>> = { R4: 'Ticket sales', 'R5.open': 'Not open to all students', 'R5.residence': 'Held in a private residence' };
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-function flagTitle(flag: Flag, item: ExtractedItem | null | undefined): string {
+export function flagTitle(flag: Flag, item: ExtractedItem | null | undefined): string {
   if (flag.severity === 'not_eligible') {
     if (item) return flag.amountCents != null ? `${item.description} (${money(flag.amountCents)})` : item.description;
     return EVENT_LABEL[flag.ruleId] ?? flag.message;
@@ -127,9 +119,8 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
       </Panel>
     );
   }
-  return (
-    <div className="flex flex-col gap-4 lg:gap-6">
-      {groups.map(([sev, flags], i) => sev === 'pass' ? (
+  // Desktop: the worst group on the left, the rest stacked beside it, so step 1 stays about two screens tall.
+  const cards = groups.map(([sev, flags], i) => sev === 'pass' ? (
         <Fold key={sev} title={`Passed (${flags.length})`} id={`g-${sev}`}>
           <ul className="m-0 flex list-none flex-col gap-4 p-0">
             {flags.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
@@ -159,19 +150,24 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
             </div>
           )}
         </section>
-      ))}
+      ));
+  if (cards.length === 1) return cards[0];
+  return (
+    <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start lg:gap-6">
+      {cards[0]}
+      <div className="flex flex-col gap-4 lg:gap-6">{cards.slice(1)}</div>
     </div>
   );
 }
 
 // ---------- Fund ----------
 
-export function FundCard({ check }: { check: CheckResult }) {
+export function FundBody({ check }: { check: CheckResult }) {
   return (
-    <Fold title="Why this fund" id="fund-h" meta={check.fund.label}>
+    <>
       <UsgQuote id={check.fund.ruleId} />
       <AiText>{check.fund.aiReason}</AiText>
-    </Fold>
+    </>
   );
 }
 
@@ -186,7 +182,17 @@ function Row({ label, value, strong, minus }: { label: string; value: number | n
   );
 }
 
-export function MoneyCard({ check, answers }: { check: CheckResult; answers: Answers }) {
+/** The closed row's key fact: what comes off the plan. */
+export function moneyMeta(m: CheckResult['money'], yearly: Cents) {
+  const off = [
+    m.ineligibleCents && `−${money(m.ineligibleCents)} not eligible`,
+    m.capReductionCents && `−${money(m.capReductionCents)} over a cap`,
+    yearly && `−${money(yearly)} yearly cap`,
+  ].filter(Boolean);
+  return off.length ? off.join(', ') : 'Nothing taken off';
+}
+
+export function MoneyBody({ check, answers }: { check: CheckResult; answers: Answers }) {
   const m = check.money;
   const received = answers.receivedThisYearCents ?? null;
   const used = (received ?? 0) + Math.max(0, m.eligibleCents);
@@ -201,7 +207,7 @@ export function MoneyCard({ check, answers }: { check: CheckResult; answers: Ans
     !flagged('R9') && m.yearlyRemainingCents != null && ['Left this year', money(m.yearlyRemainingCents)],
   ].filter((x): x is string[] => Array.isArray(x));
   return (
-    <Panel title="Money" id="money-h">
+    <>
       <div className="flex flex-col gap-1.5">
         <div className="h-3 overflow-hidden rounded-full border border-control bg-inset" aria-hidden>
           <div className="flex h-full">
@@ -226,13 +232,13 @@ export function MoneyCard({ check, answers }: { check: CheckResult; answers: Ans
           {limits.map(([k, v]) => <Fragment key={k}><dt>{k}</dt><dd className="num m-0 text-right">{v}</dd></Fragment>)}
         </dl>
       )}
-    </Panel>
+    </>
   );
 }
 
 // ---------- Deadline ----------
 
-function headline(d: DeadlineCard): string {
+export function headline(d: DeadlineCard): string {
   switch (d.status) {
     case 'safe': return `Submit by ${date(d.headline)}`;
     case 'next_open': return `Submit next Wednesday, ${date(d.headline)}`;
@@ -242,14 +248,13 @@ function headline(d: DeadlineCard): string {
   }
 }
 
-export function DeadlineCardView({ check }: { check: CheckResult }) {
+export function DeadlineBody({ check }: { check: CheckResult }) {
   const d = check.deadline;
   const r25 = rule('R25');
   const anchor = d.anchors[0];
   return (
-    <Panel title="Deadline" id="deadline-h" aside={<span className="rounded-full bg-brand-tint px-2.5 py-0.5 text-sm font-semibold text-ink">Estimate</span>}>
+    <>
       <div className="flex flex-col gap-1">
-        <p className="num m-0 text-lg font-semibold text-ink">{headline(d)}</p>
         {d.latest && d.status !== 'blackout' && <p className="num m-0 text-sm text-ink-2">Latest date under the event-date wording: {date(d.latest)}</p>}
         {anchor && <p className="num m-0 text-sm text-ink-2">Counted {d.weeks} academic weeks back from the {anchor.kind === 'event' ? 'event' : 'first payment'} on {date(anchor.date)}.</p>}
       </div>
@@ -278,7 +283,7 @@ export function DeadlineCardView({ check }: { check: CheckResult }) {
           </ul>
         </details>
       ) : null}
-    </Panel>
+    </>
   );
 }
 
@@ -290,9 +295,14 @@ const DOC_STATUS = {
   invalid: { label: 'Check the format', Icon: CircleAlert, cls: 'text-ne' },
 } as const;
 
+export const docsMeta = (check: CheckResult) => {
+  const n = check.documents.filter((d) => d.status !== 'done').length;
+  return check.documents.length === 0 ? 'None found yet' : n ? `${n} needed` : 'All done';
+};
+
 export function Documents({ check, children }: { check: CheckResult; children?: ReactNode }) {
   return (
-    <Panel title="Documents checklist" id="docs-h" className="scroll-mt-4">
+    <>
       {check.documents.length === 0 ? (
         <p className="m-0 text-base text-ink-2">No documents found for this plan yet.</p>
       ) : (
@@ -317,18 +327,22 @@ export function Documents({ check, children }: { check: CheckResult; children?: 
         </ul>
       )}
       {children}
-    </Panel>
+    </>
   );
 }
 
 // ---------- Vendors ----------
 
+export function vendorsMeta(check: CheckResult) {
+  const named = check.vendors.filter((v) => v.status !== 'not_applicable');
+  const unsure = named.filter((v) => v.status !== 'found').length;
+  return named.length === 0 ? 'No vendors named' : unsure ? `${unsure} not found on the list, verify` : `${named.length} found on the USG Vendor List`;
+}
+
 export function Vendors({ check, answers, onOverride }: { check: CheckResult; answers: Answers; onOverride: (itemId: string, on: boolean) => void }) {
   const food = check.vendors.filter((v) => v.status !== 'not_applicable');
-  const unsure = food.filter((v) => v.status !== 'found').length;
-  const meta = food.length === 0 ? 'No vendors named' : unsure ? `${unsure} not found on the list, verify` : `${food.length} found on the USG Vendor List`;
   return (
-    <Fold title="Vendors" id="vendors-h" meta={meta} open={unsure > 0 || Object.values(answers.vendorOnList ?? {}).some(Boolean)}>
+    <>
       {food.length === 0 ? (
         <p className="m-0 text-base text-ink-2">No vendors named in your plan. FundCheck checks each named vendor against the USG Vendor List.</p>
       ) : (
@@ -358,16 +372,10 @@ export function Vendors({ check, answers, onOverride }: { check: CheckResult; an
         </ul>
       )}
       <UsgQuote id="R18" />
-    </Fold>
+    </>
   );
 }
 
 // ---------- After the event ----------
 
-export function PostEvent({ check }: { check: CheckResult }) {
-  return (
-    <Fold title="After the event" id="post-h" meta="What to send USG once the event is over">
-      <UsgQuote id={check.postEventRuleId} />
-    </Fold>
-  );
-}
+export const PostEvent = ({ check }: { check: CheckResult }) => <UsgQuote id={check.postEventRuleId} />;

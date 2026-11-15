@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, CalendarClock, Info, LoaderCircle, RotateCcw } from 'lucide-react';
-import type { Answers, ApiError, Ask, EventFacts, ExtractedItem, Extraction, ExtractResponse } from '../../shared/contracts';
+import type { Answers, ApiError, Ask, CheckInput, EventFacts, ExtractedItem, Extraction, ExtractResponse } from '../../shared/contracts';
 import { MAX_PLAN_CHARS } from '../../shared/contracts';
 import { SAMPLE_PLAN } from '../../fixtures/sample-plan';
 import { SAMPLE_EXTRACTION } from '../fixtures/sample-extraction';
-import { nextWindow, rules, runCheck, vendors } from '../engine';
+import { applyFixes, nextWindow, proposeFixes, rules, runCheck, vendors } from '../engine';
 import * as api from '../lib/api';
 import { date, money, plural, todayIso } from '../lib/format';
 import { AskRow, askValue, FactsFields, ItemsTable } from '../components/Extraction';
-import { DeadlineCardView, Documents, Flags, FundCard, MoneyCard, PostEvent, Verdict, Vendors } from '../components/Result';
-import { DraftPanel } from '../components/DraftPanel';
-import { Fold, UsgQuote } from '../components/bits';
+import { DeadlineBody, docsMeta, Documents, Flags, FundBody, headline, MoneyBody, moneyMeta, Verdict, Vendors, vendorsMeta } from '../components/Result';
+import { type Choice, FixReview, Handoff, type Step, StepNav } from '../components/Steps';
+import { Fold, Rows, UsgQuote } from '../components/bits';
 
 type Source = { kind: 'live' | 'cached' | 'fixture'; provider: Extract<ExtractResponse, { ok: true }>['provider'] };
 // ?fixture=1 skips the API with the sample; dev builds also accept worst | empty | 40 (break-ui data).
@@ -30,16 +30,32 @@ export default function Check() {
   const [source, setSource] = useState<Source | null>(null);
   const [answers, setAnswers] = useState<Answers>({});
   const [kept, setKept] = useState<Ask[]>([]); // asks the user has touched stay on screen after the engine drops them
-  const verdictRef = useRef<HTMLHeadingElement>(null);
-  const fixRef = useRef<HTMLDetailsElement>(null);
+  const [step, setStep] = useState<Step>(1);
+  const [choices, setChoices] = useState<Record<string, Choice>>({});
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef<HTMLElement>(null);
   const today = useMemo(() => todayIso(), []);
   const nextWin = useMemo(() => nextWindow(today), [today]);
 
-  const check = useMemo(
-    () => (extraction ? runCheck({ extraction, answers, today, rules, vendors }) : null),
-    [extraction, answers, today],
+  const input = useMemo<CheckInput | null>(() => (extraction ? { extraction, answers, today, rules, vendors } : null), [extraction, answers, today]);
+  const check = useMemo(() => (input ? runCheck(input) : null), [input]);
+  // Fixes are only offered: nothing is applied until the officer picks "Apply" (or "Approve all").
+  const fixes = useMemo(() => (input && check ? proposeFixes(input, check) : []), [input, check]);
+  const approved = fixes.filter((f) => choices[f.id] === 'apply').map((f) => f.id);
+  const approvedKey = approved.join('|');
+  const resolution = useMemo(
+    () => (input && check ? applyFixes(input, check, approvedKey ? approvedKey.split('|') : []) : null),
+    [input, check, approvedKey],
   );
+  // An edit or an answer re-runs the check; choices for fixes that no longer exist are dropped.
+  const fixKey = fixes.map((f) => f.id).join('|');
+  useEffect(() => {
+    setChoices((c) => {
+      const live = Object.fromEntries(Object.entries(c).filter(([id]) => fixKey.split('|').includes(id)));
+      return Object.keys(live).length === Object.keys(c).length ? c : live;
+    });
+  }, [fixKey]);
 
   async function submit(text = plan) {
     if (!text.trim()) return setError({ code: 'empty', message: 'Paste your event plan first, or try the sample.' });
@@ -55,32 +71,25 @@ export default function Check() {
     setSource({ kind: res.source, provider: res.provider });
     setAnswers({});
     setKept([]);
-    if (fixRef.current) fixRef.current.open = false;
-    toVerdict.current = true;
+    setChoices({});
+    setStep(1);
+    toStep.current = true;
   }
 
-  // The verdict is the answer: once a new extraction renders, put it at the top of the screen and move focus there.
-  const toVerdict = useRef(false);
+  // A new result or a new step: put the step at the top of the screen and move focus to its heading.
+  const toStep = useRef(false);
   useEffect(() => {
-    const h = verdictRef.current;
-    if (!toVerdict.current || !h) return;
-    toVerdict.current = false;
-    h.closest('section')?.scrollIntoView({ block: 'start' });
-    h.focus({ preventScroll: true });
-  }, [extraction]);
+    if (!toStep.current || !headingRef.current) return;
+    toStep.current = false;
+    resultRef.current?.scrollIntoView({ block: 'start' });
+    headingRef.current.focus({ preventScroll: true });
+  }, [extraction, step]);
+  const go = (s: Step) => { toStep.current = true; setStep(s); };
 
   // On a phone the skeleton renders below "What it checks"; bring it on screen so the wait shows progress.
   useEffect(() => {
     if (busy && !extraction) loadingRef.current?.scrollIntoView({ block: 'nearest' });
   }, [busy, extraction]);
-
-  function openFix() {
-    const d = fixRef.current;
-    if (!d) return;
-    d.open = true;
-    d.scrollIntoView({ block: 'start' });
-    d.querySelector('summary')?.focus({ preventScroll: true });
-  }
 
   const patchItem = (id: string, patch: Partial<ExtractedItem>) =>
     setExtraction((x) => x && { ...x, items: x.items.map((i) => (i.id === id ? { ...i, ...patch } : i)) });
@@ -232,79 +241,99 @@ export default function Check() {
       )}
       {busy && extraction && <p role="status" className="sr-only">Reading your plan…</p>}
 
-      {extraction && check && source && (
-        <div className={`flex flex-col gap-4 lg:gap-6 ${busy ? 'opacity-60' : ''}`}>
-          {/* ---------- Verdict, then flags ---------- */}
-          <section aria-labelledby="result-h" className="flex scroll-mt-4 flex-col gap-4 lg:gap-6">
-            <Verdict
-              check={check}
-              headingRef={verdictRef}
-              note={
-                <p className="m-0 text-sm text-ink-2">
-                  {source.kind === 'live' && source.provider === 'workers-ai' && 'Read by our backup AI service. Double-check what we read.'}
-                  {source.kind === 'fixture' && 'Sample loaded without an AI call.'}
-                  {source.kind === 'cached' && "AI didn't respond: a saved reading of the sample. Checks run live."}
-                </p>
-              }
-              nav={
-                <nav aria-label="Pre-check sections" className="flex flex-wrap gap-x-5 gap-y-1 border-t border-line pt-3 text-sm font-medium">
-                  {impact.length > 0 && <a href="#asks-h">{open ? `${plural(open, 'answer')} could change this` : 'Your answers'}</a>}
-                  <a href="#docs-h">Documents</a>
-                  <a href="#draft-h">Form answers and budget CSV</a>
-                  <button type="button" className="cursor-pointer border-0 bg-transparent p-0 font-medium text-brand underline underline-offset-2" onClick={openFix}>
-                    Fix what we read ({plural(extraction.items.length, 'line')})
-                  </button>
-                </nav>
-              }
-            />
-            <div className="flex flex-col gap-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-6">
-              <div className="flex flex-col gap-4 lg:col-span-8 lg:gap-6">
+      {extraction && check && source && resolution && (
+        <div ref={resultRef} className={`flex scroll-mt-4 flex-col gap-4 lg:gap-6 ${busy ? 'opacity-60' : ''}`}>
+          <StepNav step={step} onGo={go} />
+
+          {step === 1 && (
+            <>
+              <section aria-labelledby="result-h" className="flex flex-col gap-4 lg:gap-6">
+                <Verdict
+                  check={check}
+                  headingRef={headingRef}
+                  note={
+                    <p className="m-0 text-sm text-ink-2">
+                      {source.kind === 'live' && source.provider === 'workers-ai' && 'Read by our backup AI service. Double-check what we read.'}
+                      {source.kind === 'fixture' && 'Sample loaded without an AI call.'}
+                      {source.kind === 'cached' && "AI didn't respond: a saved reading of the sample. Checks run live."}
+                    </p>
+                  }
+                  action={
+                    <button type="button" className="btn btn-primary shrink-0" onClick={() => go(fixes.length ? 2 : 3)}>
+                      {fixes.length ? 'Review fixes' : 'Continue'} <ArrowRight aria-hidden size={18} />
+                    </button>
+                  }
+                />
                 <Flags check={check} extraction={extraction} />
-              </div>
-              <div className="flex animate-reveal flex-col gap-4 [animation-delay:160ms] lg:col-span-4 lg:gap-6">
+              </section>
+              <Rows label="Details">
                 {impact.length > 0 && (
-                  <section aria-labelledby="asks-h" className="panel flex scroll-mt-4 flex-col gap-1 p-4 lg:p-5">
-                    <h3 id="asks-h" className="m-0 text-lg font-semibold">{open ? `${plural(open, 'answer')} could change this` : 'Your answers'}</h3>
+                  <Fold flat title="Questions" id="asks-h" meta={open ? `${open} could change this` : 'All answered'}>
                     <p className="m-0 text-sm text-ink-2">Each answer reruns the pre-check right away.</p>
                     {askRows(impact)}
-                  </section>
+                  </Fold>
                 )}
-                <MoneyCard check={check} answers={answers} />
-                <DeadlineCardView check={check} />
-                <FundCard check={check} />
-              </div>
-            </div>
-          </section>
+                <Fold flat title="Money" meta={moneyMeta(check.money, check.flags.find((f) => f.ruleId === 'R9')?.amountCents ?? 0)}>
+                  <MoneyBody check={check} answers={answers} />
+                </Fold>
+                <Fold flat title="Deadline" meta={headline(check.deadline).replace(/\.$/, '') + (check.deadline.status === 'safe' || check.deadline.status === 'next_open' ? ' (estimate)' : '')}>
+                  <DeadlineBody check={check} />
+                </Fold>
+                <Fold flat title="Fund" meta={check.fund.label}>
+                  <FundBody check={check} />
+                </Fold>
+                <Fold flat title="Documents" meta={docsMeta(check)}>
+                  <Documents check={check} />
+                </Fold>
+                <Fold flat title="Vendors" meta={vendorsMeta(check)}>
+                  <Vendors check={check} answers={answers} onOverride={setVendorOverride} />
+                </Fold>
+                <Fold flat title="Edit the plan" id="read-h" meta={`${plural(extraction.items.length, 'line')}, ${money(check.money.totalCents)}`}>
+                  <p className="m-0 text-base text-ink-2">Fix anything we got wrong. The pre-check reruns as you type.</p>
+                  <section aria-labelledby="facts-h" className="flex flex-col gap-4">
+                    <h3 id="facts-h" className="m-0 text-base font-semibold">Event</h3>
+                    <FactsFields facts={extraction.facts} onChange={patchFacts} />
+                  </section>
+                  <section aria-labelledby="items-h" className="flex flex-col gap-4 border-t border-line pt-4">
+                    <h3 id="items-h" className="m-0 text-base font-semibold">Line items</h3>
+                    <ItemsTable items={extraction.items} onChange={patchItem} onAdd={addItem} onRemove={removeItem} />
+                  </section>
+                </Fold>
+              </Rows>
+            </>
+          )}
 
-          {/* ---------- What we read, folded ---------- */}
-          <Fold
-            detailsRef={fixRef}
-            title="Fix what we read"
-            id="read-h"
-            meta={<span className="num">{extraction.facts.name ?? 'Unnamed event'} · {plural(extraction.items.length, 'line')} · {money(check.money.totalCents)}</span>}
-          >
-            <p className="m-0 text-base text-ink-2">Fix anything we got wrong. The pre-check above reruns as you type.</p>
-            <section aria-labelledby="facts-h" className="flex flex-col gap-4">
-              <h3 id="facts-h" className="m-0 text-base font-semibold">Event</h3>
-              <FactsFields facts={extraction.facts} onChange={patchFacts} />
-            </section>
-            <section aria-labelledby="items-h" className="flex flex-col gap-4 border-t border-line pt-4">
-              <h3 id="items-h" className="m-0 text-base font-semibold">Line items</h3>
-              <ItemsTable items={extraction.items} onChange={patchItem} onAdd={addItem} onRemove={removeItem} />
-            </section>
-          </Fold>
+          {step === 2 && (
+            <FixReview
+              fixes={fixes}
+              choices={choices}
+              onChoose={(id, c) => setChoices((x) => ({ ...x, [id]: c }))}
+              onApproveAll={() => setChoices((x) => ({ ...x, ...Object.fromEntries(fixes.filter((f) => f.auto).map((f) => [f.id, 'apply' as const])) }))}
+              requestCents={resolution.requestCents}
+              totalCents={check.money.totalCents}
+              headingRef={headingRef}
+              onBack={() => go(1)}
+              onContinue={() => go(3)}
+            />
+          )}
 
-          <Documents check={check}>
-            {paperwork.length > 0 && (
-              <div className="flex flex-col gap-1 border-t border-line pt-4">
-                <p className="m-0 text-base font-medium text-ink">For the form</p>
-                {askRows(paperwork)}
-              </div>
-            )}
-          </Documents>
-          <DraftPanel extraction={extraction} check={check} answers={answers} />
-          <Vendors check={check} answers={answers} onOverride={setVendorOverride} />
-          <PostEvent check={check} />
+          {step === 3 && (
+            <Handoff
+              resolution={resolution}
+              original={extraction}
+              answers={answers}
+              headingRef={headingRef}
+              onBack={() => go(fixes.length ? 2 : 1)}
+              backLabel={fixes.length ? 'Back to the fixes' : 'Back to what we found'}
+              documents={<Documents check={resolution.check} />}
+              paperwork={paperwork.length > 0 && (
+                <div className="flex flex-col gap-1 border-t border-line pt-4">
+                  <p className="m-0 text-base font-medium text-ink">For the form</p>
+                  {askRows(paperwork)}
+                </div>
+              )}
+            />
+          )}
         </div>
       )}
     </main>

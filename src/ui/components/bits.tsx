@@ -98,14 +98,14 @@ export function Panel({ title, id, children, className = '', aside }: { title: s
   );
 }
 
-/** A panel that starts collapsed (or open), for the long tail of the result. */
-export function Fold({ title, meta, open, id, detailsRef, children }: { title: string; meta?: ReactNode; open?: boolean; id?: string; detailsRef?: Ref<HTMLDetailsElement>; children: ReactNode }) {
+/** A one-line row that expands: its title and key fact when closed. `flat` rows sit inside a <Rows> panel. */
+export function Fold({ title, meta, open, id, detailsRef, flat, children }: { title: string; meta?: ReactNode; open?: boolean; id?: string; detailsRef?: Ref<HTMLDetailsElement>; flat?: boolean; children: ReactNode }) {
   return (
-    <details ref={detailsRef} open={open} className="panel group scroll-mt-4">
-      <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 rounded-panel px-4 py-3 lg:px-6 [&::-webkit-details-marker]:hidden">
-        <span className="flex min-w-0 flex-col">
-          <span id={id} className="text-lg font-semibold text-ink">{title}</span>
-          {meta && <span className="text-sm text-ink-2 [overflow-wrap:anywhere]">{meta}</span>}
+    <details ref={detailsRef} open={open} className={`group scroll-mt-4 ${flat ? '' : 'panel'}`}>
+      <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-panel px-4 py-3 lg:px-6 [&::-webkit-details-marker]:hidden">
+        <span className="min-w-0 text-base [overflow-wrap:anywhere]">
+          <span id={id} className="font-semibold text-ink">{title}</span>
+          {meta && <span className="num text-ink-2"> · {meta}</span>}
         </span>
         <ChevronDown aria-hidden size={20} className="shrink-0 text-ink-2 transition-transform duration-200 group-open:rotate-180" />
       </summary>
@@ -113,3 +113,8 @@ export function Fold({ title, meta, open, id, detailsRef, children }: { title: s
     </details>
   );
 }
+
+/** One panel holding a list of one-line rows. */
+export const Rows = ({ label, children }: { label: string; children: ReactNode }) => (
+  <section aria-label={label} className="panel flex flex-col divide-y divide-line">{children}</section>
+);

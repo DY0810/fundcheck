@@ -24,25 +24,40 @@ function Field({ label, value, ai, wide, children }: { label: string; value: str
   );
 }
 
-// Lines flagged not eligible stay out of the budget USG sees.
-const notEligible = (check: CheckResult) => new Set(check.flags.filter((f) => f.severity === 'not_eligible' && f.itemId).map((f) => f.itemId));
-
-function downloadCsv(extraction: Extraction, check: CheckResult, draft: Draft | null) {
-  const out = notEligible(check);
-  const blob = new Blob([budgetCsv(extraction.items.filter((i) => !out.has(i.id)), draft?.budgetJustifications ?? {})], { type: 'text/csv;charset=utf-8' });
+// The revised plan already has the lines the officer removed taken out; lines they kept stay, for the board to decide.
+function downloadCsv(extraction: Extraction, draft: Draft | null) {
+  const blob = new Blob([budgetCsv(extraction.items, draft?.budgetJustifications ?? {})], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = Object.assign(document.createElement('a'), { href: url, download: BUDGET_FILE_NAME });
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-export function DraftPanel({ extraction, check, answers }: { extraction: Extraction; check: CheckResult; answers: Answers }) {
-  const [draft, setDraft] = useState<Draft | null>(null);
+/** Step 3: the budget CSV of the revised plan, with what it holds said in one line. */
+export function CsvButton({ extraction, check, draft }: { extraction: Extraction; check: CheckResult; draft: Draft | null }) {
+  const kept = check.flags.filter((f) => f.severity === 'not_eligible' && f.itemId).length;
+  return (
+    <div className="flex flex-col gap-1.5">
+      <button type="button" className="btn btn-secondary self-start" onClick={() => downloadCsv(extraction, draft)} aria-describedby="csv-note">
+        <Download aria-hidden size={16} /> Download budget CSV
+      </button>
+      <p id="csv-note" className="m-0 max-w-[75ch] text-sm text-ink-2 [overflow-wrap:anywhere]">
+        {plural(extraction.items.length, 'line')}
+        {kept ? `, including ${kept} you kept to ask the board about.` : '.'}
+        {check.money.venuePersonnelCents > 0 && ' Venue and personnel are listed at full cost; USG funds up to $4,000 of them.'}
+      </p>
+    </div>
+  );
+}
+
+/** Step 3: the form answers for the revised plan. `requestCents` is what the officer chose to request. */
+export function DraftPanel({ extraction, check, answers, requestCents, draft, setDraft }: {
+  extraction: Extraction; check: CheckResult; answers: Answers; requestCents: number; draft: Draft | null; setDraft: (d: Draft) => void;
+}) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
   const f = extraction.facts;
   const other = answers.otherFundingSources?.trim() || 'N/A';
-  const out = extraction.items.filter((i) => notEligible(check).has(i.id));
 
   async function run() {
     setBusy(true);
@@ -54,28 +69,14 @@ export function DraftPanel({ extraction, check, answers }: { extraction: Extract
   }
 
   return (
-    <section aria-labelledby="draft-h" className="panel flex flex-col gap-5 p-4 lg:p-6">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div className="max-w-[60ch]">
-          <h2 id="draft-h" className="m-0 text-lg font-semibold">Form answers</h2>
-          <p className="m-0 mt-1 text-base text-ink-2">Each answer uses the form's exact label. Copy them into the application, then check every line.</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <button type="button" className="btn btn-primary" onClick={run} disabled={busy} aria-busy={busy}>
-            {busy && <LoaderCircle aria-hidden size={16} className="animate-spin" />}
-            {draft ? 'Redraft my form answers' : 'Draft my form answers'}
-          </button>
-          <button type="button" className="btn btn-secondary" onClick={() => downloadCsv(extraction, check, draft)} aria-describedby="csv-note">
-            <Download aria-hidden size={16} /> Download budget CSV
-          </button>
-        </div>
+        <p className="m-0 max-w-[60ch] text-base text-ink-2">Each answer uses the form's exact label. Copy them into the application, then check every line.</p>
+        <button type="button" className="btn btn-secondary shrink-0" onClick={run} disabled={busy} aria-busy={busy}>
+          {busy && <LoaderCircle aria-hidden size={16} className="animate-spin" />}
+          {draft ? 'Redraft my form answers' : 'Draft my form answers'}
+        </button>
       </div>
-      <p id="csv-note" className="m-0 max-w-[75ch] text-sm text-ink-2 [overflow-wrap:anywhere]">
-        {out.length
-          ? `The budget CSV leaves out ${plural(out.length, 'line')} that ${out.length === 1 ? "isn't" : "aren't"} eligible: ${out.map((i) => i.description || 'unnamed line').join(', ')}.`
-          : 'The budget CSV lists every line.'}
-        {check.money.venuePersonnelCents > 0 && ' Venue and personnel are listed at full cost; USG funds up to $4,000 of them.'}
-      </p>
 
       {error && (
         <div role="alert" className="flex flex-col gap-3 rounded-panel bg-ne-bg p-4 text-ne sm:flex-row sm:items-center sm:justify-between">
@@ -91,7 +92,7 @@ export function DraftPanel({ extraction, check, answers }: { extraction: Extract
         <Field label="Time of event" value={f.time} />
         <Field label="Location of event" value={f.location} />
         <Field label="Expected number of participants" value={f.expectedAttendance == null ? null : String(f.expectedAttendance)} />
-        <Field label="Amount of funds being requested" value={moneyExact(Math.max(0, check.money.eligibleCents))} />
+        <Field label="Amount of funds being requested" value={moneyExact(Math.max(0, requestCents))} />
         <Field wide label="List of other funding sources. Enter N/A if there are none." value={other}>
           {other !== 'N/A' && <UsgQuote id="R33" intro="Before you list another University source: USG Funding Department Guidelines §6 lists this among the reasons an application may not be approved:" />}
         </Field>
@@ -108,6 +109,6 @@ export function DraftPanel({ extraction, check, answers }: { extraction: Extract
           </p>
         )}
       </div>
-    </section>
+    </div>
   );
 }
