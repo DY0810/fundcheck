@@ -12,9 +12,9 @@ The timing is this week. Under the event-date wording in USG's FAQ, an event bet
 
 ## Solution
 
-FundCheck is one web page with no login, in three steps. An officer pastes an event plan and step one, Check, shows the line items it read, what the Guidelines don't fund with USG's quote, the money against each cap, the fund, a deadline estimate and the documents to attach with USG's file names. Step two, Fix, proposes a fix for each flag, and nothing changes until the officer approves it. Step three, Hand off, gives drafted answers to copy, the budget CSV, the documents and a link to USG's funding page.
+FundCheck is one web page with no login, in three steps. An officer pastes an event plan and step one, Check, shows the line items it read, what the Guidelines don't fund, with USG's quote and a note that the board may make an exception, the money against each cap, the fund, a deadline estimate and the documents to attach. Step two, Fix, proposes a fix for each flag, and nothing changes until the officer approves it. Step three, Hand off, gives drafted answers to copy, the budget CSV, the documents and a link to USG's funding page.
 
-Facts only the officer knows, like money already received this year, become questions instead of guesses.
+Facts only the officer knows become questions, not guesses.
 
 The sample is a Bovard dance showcase (USG's Performing Arts fund paid for 9 in FY26) with $10 tickets, a balloon arch and a DJ. FundCheck flags all three, trims $800 over the venue cap, and turns an $8,850 plan into a $7,200 request.
 
