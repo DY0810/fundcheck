@@ -81,10 +81,31 @@ export default function Check() {
   useEffect(() => {
     if (!toStep.current || !headingRef.current) return;
     toStep.current = false;
-    resultRef.current?.scrollIntoView({ block: 'start' });
+    window.scrollTo(0, 0); // the step indicator sits above the step, so show the page from the top
     headingRef.current.focus({ preventScroll: true });
   }, [extraction, step]);
   const go = (s: Step) => { toStep.current = true; setStep(s); };
+
+  // "Edit the plan" opens the editor on step 1; "Check another plan" brings the paste box back with the text kept.
+  const planRef = useRef<HTMLTextAreaElement>(null);
+  const editRef = useRef<HTMLDetailsElement>(null);
+  const [editReq, setEditReq] = useState(0);
+  useEffect(() => {
+    const d = editRef.current;
+    if (!editReq || !d) return;
+    d.open = true;
+    d.scrollIntoView({ block: 'start' });
+    d.querySelector('summary')?.focus({ preventScroll: true });
+  }, [editReq]);
+  const editPlan = () => { setStep(1); setEditReq((n) => n + 1); };
+  const toPaste = useRef(false);
+  useEffect(() => {
+    if (extraction || !toPaste.current) return;
+    toPaste.current = false;
+    window.scrollTo(0, 0);
+    planRef.current?.focus();
+  }, [extraction]);
+  const newPlan = () => { toPaste.current = true; setExtraction(null); setSource(null); setChoices({}); setStep(1); };
 
   // On a phone the skeleton renders below "What it checks"; bring it on screen so the wait shows progress.
   useEffect(() => {
@@ -132,36 +153,16 @@ export default function Check() {
   );
 
   return (
-    <main className="mx-auto flex w-full max-w-[1200px] flex-col gap-12 px-4 lg:gap-16 lg:px-8">
-      {/* ---------- Paste ---------- */}
-      <section aria-labelledby="paste-h" className="grid grid-cols-1 gap-6 pt-4 lg:grid-cols-12 lg:gap-8 lg:pt-8">
-        <div className="flex flex-col gap-5 lg:col-span-8">
-          <div className="flex flex-col gap-2">
-            <h1 id="paste-h" className="m-0 text-[1.75rem] leading-[2.125rem] font-semibold tracking-[-0.02em] lg:text-[2.5rem] lg:leading-[2.875rem]">Pre-check your USG funding application.</h1>
+    <main className="mx-auto flex w-full max-w-page flex-col gap-12 px-4 lg:gap-16 lg:px-8">
+      {/* ---------- Paste: the whole screen until a result exists, then one row ---------- */}
+      {!extraction ? (
+        <section aria-labelledby="paste-h" className="flex max-w-main flex-col gap-6 pt-4 lg:pt-10">
+          <div className="flex flex-col gap-3">
+            <h1 id="paste-h" className="m-0 text-xl font-semibold tracking-[-0.02em] lg:text-2xl">Pre-check your USG funding application.</h1>
             <p className="m-0 max-w-[62ch] text-base text-ink-2">
               Paste your event plan. FundCheck reads it, checks it against the USG Funding Department's rules, and shows what isn't eligible, what's over a cap and which documents you need.
             </p>
           </div>
-          {nextWin && (
-            <div className="flex flex-col gap-2 rounded-panel border border-line bg-panel px-4 py-3">
-              <p className="num m-0 flex items-start gap-2 text-base text-ink">
-                <CalendarClock aria-hidden size={18} className="mt-0.5 shrink-0 text-brand" />
-                <span>
-                  <span className="font-semibold">Next application window: </span>
-                  {nextWin === today ? 'today, ' : ''}{date(nextWin)}, 8:00 AM to 11:59 PM
-                </span>
-              </p>
-              <details className="group pl-[26px]">
-                <summary className="cursor-pointer text-sm font-medium text-brand [&::-webkit-details-marker]:hidden">
-                  Our estimate. See USG's wording
-                </summary>
-                <div className="mt-2 flex flex-col gap-2">
-                  <UsgQuote id="R23" />
-                  <p className="m-0 text-sm text-ink-2">FundCheck skips Wednesdays that fall in USC's academic breaks and holidays. Confirm on USG's Funding Application Deadlines sheet.</p>
-                </div>
-              </details>
-            </div>
-          )}
           <div className="flex flex-col gap-2">
             <div className="flex items-baseline justify-between gap-3">
               <label htmlFor="plan" className="label">Your event plan</label>
@@ -171,7 +172,8 @@ export default function Check() {
             </div>
             <textarea
               id="plan"
-              className="field min-h-40 resize-y py-3 leading-6 lg:min-h-56"
+              ref={planRef}
+              className="field min-h-36 resize-y py-3 leading-6 lg:min-h-52"
               value={plan}
               aria-describedby="privacy"
               aria-invalid={over || undefined}
@@ -208,27 +210,58 @@ export default function Check() {
               )}
             </div>
           )}
+          {nextWin && (
+            <div className="flex flex-col gap-1">
+              <p className="num m-0 flex items-start gap-2 text-base text-ink">
+                <CalendarClock aria-hidden size={18} className="mt-0.5 shrink-0 text-ink-2" />
+                <span>
+                  <span className="font-semibold">Next application window: </span>
+                  {nextWin === today ? 'today, ' : ''}{date(nextWin)}, 8:00 AM to 11:59 PM
+                </span>
+              </p>
+              <details className="group pl-[26px]">
+                <summary className="inline-flex min-h-target cursor-pointer items-center text-sm font-medium text-brand underline underline-offset-3 [&::-webkit-details-marker]:hidden">
+                  Our estimate. See USG's wording
+                </summary>
+                <div className="mt-1 flex flex-col gap-2">
+                  <UsgQuote id="R23" />
+                  <p className="m-0 text-sm text-ink-2">FundCheck skips Wednesdays that fall in USC's academic breaks and holidays. Confirm on USG's Funding Application Deadlines sheet.</p>
+                </div>
+              </details>
+            </div>
+          )}
+          <Fold title="What it checks">
+            <ul className="m-0 flex list-disc flex-col gap-2 pl-5 text-base text-ink-2 marker:text-control">
+              <li>Items USG's rules don't fund, quoted from the Guidelines</li>
+              <li>The $4,000 venue cap, $35 food limit and $8,000 yearly cap</li>
+              <li>Which fund to apply to, and a deadline estimate</li>
+              <li>The documents to attach, with the exact file names</li>
+            </ul>
+            <p className="m-0 text-sm text-ink-2">
+              AI reads your plan. Every dollar and date is computed by code you can{' '}
+              <a href="https://github.com/DY0810/fundcheck" target="_blank" rel="noreferrer">read on GitHub<span className="sr-only"> (opens in a new tab)</span></a>.
+            </p>
+          </Fold>
+        </section>
+      ) : (
+        <div className="flex max-w-main flex-col gap-1 pt-2 lg:pt-4">
+          <h1 className="sr-only">Pre-check of {extraction.facts.name ?? 'your event plan'}</h1>
+          <div className="flex flex-wrap items-center justify-between gap-x-4">
+            <p className="m-0 hidden min-w-0 truncate text-sm font-medium text-ink sm:block">{extraction.facts.name ?? 'Your event plan'}</p>
+            <div className="-mr-2 ml-auto flex items-center">
+              <button type="button" className="btn btn-ghost text-sm" onClick={editPlan}>Edit the plan</button>
+              <button type="button" className="btn btn-ghost text-sm" onClick={newPlan}>Check another plan</button>
+            </div>
+          </div>
+          <StepNav step={step} onGo={go} noFixes={!fixes.length} />
         </div>
-        <aside aria-label="What FundCheck checks" className="flex flex-col gap-3 text-base text-ink-2 lg:col-span-4 lg:pt-[4.5rem]">
-          <p className="m-0 font-medium text-ink">What it checks</p>
-          <ul className="m-0 flex list-disc flex-col gap-2 pl-5 marker:text-control">
-            <li>Items USG's rules don't fund, quoted from the Guidelines</li>
-            <li>The $4,000 venue cap, $35 food limit and $8,000 yearly cap</li>
-            <li>Which fund to apply to, and a deadline estimate</li>
-            <li>The documents to attach, with the exact file names</li>
-          </ul>
-          <p className="m-0 text-sm">
-            AI reads your plan. Every dollar and date is computed by code you can{' '}
-            <a href="https://github.com/DY0810/fundcheck" target="_blank" rel="noreferrer">read on GitHub<span className="sr-only"> (opens in a new tab)</span></a>.
-          </p>
-        </aside>
-      </section>
+      )}
 
       {/* ---------- Loading ---------- */}
       {busy && !extraction && (
         <section ref={loadingRef} aria-label="Reading your plan" className="flex flex-col gap-4">
           <p role="status" className="m-0 text-base font-medium text-ink">Reading your plan…</p>
-          <div className="panel flex flex-col gap-3 p-4 lg:p-6" aria-hidden>
+          <div className="panel flex flex-col gap-3 p-card lg:p-card-lg" aria-hidden>
             {[0, 1, 2, 3, 4].map((i) => (
               <div key={i} className="flex gap-3">
                 <div className="h-10 flex-[3] animate-pulse-soft rounded-ctl bg-inset" />
@@ -242,12 +275,11 @@ export default function Check() {
       {busy && extraction && <p role="status" className="sr-only">Reading your plan…</p>}
 
       {extraction && check && source && resolution && (
-        <div ref={resultRef} className={`flex scroll-mt-4 flex-col gap-4 lg:gap-6 ${busy ? 'opacity-60' : ''}`}>
-          <StepNav step={step} onGo={go} noFixes={!fixes.length} />
+        <div ref={resultRef} className={`-mt-8 flex max-w-main scroll-mt-4 flex-col gap-6 lg:-mt-12 lg:gap-group ${busy ? 'opacity-60' : ''}`}>
 
           {step === 1 && (
             <>
-              <section aria-labelledby="result-h" className="flex flex-col gap-4 lg:gap-6">
+              <section aria-labelledby="result-h" className="flex flex-col gap-6 lg:gap-group">
                 <Verdict
                   check={check}
                   headingRef={headingRef}
@@ -288,7 +320,7 @@ export default function Check() {
                 <Fold flat title="Vendors" meta={vendorsMeta(check)}>
                   <Vendors check={check} answers={answers} onOverride={setVendorOverride} />
                 </Fold>
-                <Fold flat title="Edit the plan" id="read-h" meta={`${plural(extraction.items.length, 'line')}, ${money(check.money.totalCents)}`}>
+                <Fold flat title="Edit the plan" id="read-h" detailsRef={editRef} meta={`${plural(extraction.items.length, 'line')}, ${money(check.money.totalCents)}`}>
                   <p className="m-0 text-base text-ink-2">Fix anything we got wrong. The pre-check reruns as you type.</p>
                   <section aria-labelledby="facts-h" className="flex flex-col gap-4">
                     <h3 id="facts-h" className="m-0 text-base font-semibold">Event</h3>

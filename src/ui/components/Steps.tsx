@@ -19,7 +19,7 @@ export function StepNav({ step, onGo, noFixes }: { step: Step; onGo: (s: Step) =
         {STEPS.map((label, i) => {
           const n = (i + 1) as Step;
           const mark = (
-            <span className={`num flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${n === step ? 'bg-brand text-white' : n < step ? 'bg-brand-tint text-brand-press' : 'bg-inset text-ink-2'}`}>
+            <span className={`num flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${n === step ? 'bg-ink text-white' : n < step ? 'bg-brand-tint text-brand-press' : 'bg-inset text-ink-2'}`}>
               {n < step ? <Check aria-hidden size={14} strokeWidth={2.5} /> : n}
             </span>
           );
@@ -27,11 +27,11 @@ export function StepNav({ step, onGo, noFixes }: { step: Step; onGo: (s: Step) =
             <li key={label} className="flex items-center gap-2">
               {i > 0 && <span aria-hidden className="h-px w-4 bg-control sm:w-8" />}
               {n < step && !(n === 2 && noFixes) ? (
-                <button type="button" className="flex min-h-9 cursor-pointer items-center gap-2 border-0 bg-transparent p-0 font-medium text-brand underline-offset-2 hover:underline" onClick={() => onGo(n)}>
+                <button type="button" className="flex min-h-target cursor-pointer items-center gap-2 border-0 bg-transparent p-0 font-medium text-brand underline-offset-2 hover:underline" onClick={() => onGo(n)}>
                   {mark}{label}<span className="sr-only"> (done, go back)</span>
                 </button>
               ) : (
-                <span aria-current={n === step ? 'step' : undefined} className={`flex min-h-9 items-center gap-2 ${n === step ? 'font-semibold text-ink' : 'text-ink-2'}`}>
+                <span aria-current={n === step ? 'step' : undefined} className={`flex min-h-target items-center gap-2 ${n === step ? 'font-semibold text-ink' : 'text-ink-2'}`}>
                   {mark}{label}{n === 2 && noFixes && <span className="sr-only"> (nothing to fix)</span>}
                 </span>
               )}
@@ -56,52 +56,61 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
   requestCents: number; totalCents: number; headingRef: Ref<HTMLHeadingElement>; onBack: () => void; onContinue: () => void;
 }) {
   const auto = fixes.filter((f) => f.auto);
+  const manual = fixes.filter((f) => !f.auto);
   const allAuto = auto.length > 0 && auto.every((f) => choices[f.id] === 'apply');
+  const rows = (list: Fix[]) => list.map((f) => (
+    <fieldset key={f.id} className="m-0 flex min-w-0 flex-col gap-3 border-0 px-card py-4 sm:flex-row sm:items-center sm:justify-between lg:px-card-lg">
+      <legend className="sr-only">{f.label}</legend>
+      <p className="m-0 min-w-0 text-base text-ink [overflow-wrap:anywhere]" aria-hidden>{f.label}</p>
+      <div className="flex shrink-0 rounded-ctl bg-inset p-1" role="presentation">
+        {(['apply', 'keep'] as const).map((c) => (
+          <label key={c} className="flex min-h-target cursor-pointer items-center rounded-[calc(var(--radius-ctl)-2px)] px-3 text-sm font-medium text-ink has-checked:bg-brand has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink">
+            <input type="radio" name={`fix-${f.id}`} className="sr-only" checked={choices[f.id] === c} onChange={() => onChoose(f.id, c)} />
+            {c === 'apply' ? 'Apply' : 'Keep and ask the board'}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  ));
   return (
-    <div className="flex flex-col gap-4 lg:gap-6">
-      <section aria-labelledby="fixes-h" className="panel flex animate-reveal flex-col gap-4 p-4 lg:p-6">
+    <div className="flex flex-col gap-6 lg:gap-group">
+      <section aria-labelledby="fixes-h" className="panel flex animate-reveal flex-col gap-4 p-card lg:p-card-lg">
         <div className="flex flex-col gap-1">
           <h2 id="fixes-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Review fixes</h2>
           <p className="m-0 max-w-[62ch] text-base text-ink-2">Nothing changes until you choose. Apply a fix to take it out of your request, or keep the line and ask the board.</p>
         </div>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-4 rounded-panel bg-brand-tint p-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-0.5" aria-live="polite" aria-atomic="true">
-            <p className="m-0 text-sm text-ink-2">You'll request</p>
+            <p className="m-0 text-sm text-ink">You'll request</p>
             <p className="num m-0 flex flex-wrap items-baseline gap-x-2">
-              <span className="text-2xl font-semibold tracking-[-0.02em] text-ink">{money(requestCents)}</span>
-              <span className="text-base text-ink-2">of {money(totalCents)} planned</span>
+              <span className="text-xl font-semibold tracking-[-0.02em] text-ink lg:text-2xl">{money(requestCents)}</span>
+              <span className="text-base text-ink">of {money(totalCents)} planned</span>
             </p>
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row-reverse">
-            <button type="button" className="btn btn-primary" onClick={onContinue}>Continue <ArrowRight aria-hidden size={18} /></button>
-            {auto.length > 0 && (
-              <button type="button" className="btn btn-secondary" onClick={onApproveAll} disabled={allAuto}>
-                {allAuto ? `All ${auto.length} applied` : `Approve all ${auto.length}`}
-              </button>
-            )}
-          </div>
+          <button type="button" className="btn btn-primary" onClick={onContinue}>Continue <ArrowRight aria-hidden size={18} /></button>
         </div>
       </section>
 
-      <section aria-label="Fixes" className="panel flex animate-reveal flex-col divide-y divide-line [animation-delay:80ms]">
-        {fixes.map((f) => (
-          <fieldset key={f.id} className="m-0 flex min-w-0 flex-col gap-3 border-0 px-4 py-4 sm:flex-row sm:items-center sm:justify-between lg:px-6">
-            <legend className="sr-only">{f.label}</legend>
-            <div className="flex min-w-0 flex-col gap-0.5" aria-hidden>
-              <p className="m-0 text-base text-ink [overflow-wrap:anywhere]">{f.label}</p>
-              {!f.auto && <p className="m-0 text-sm text-ink-2">This changes the event itself, so it's never part of Approve all.</p>}
-            </div>
-            <div className="flex shrink-0 rounded-ctl bg-inset p-1" role="presentation">
-              {(['apply', 'keep'] as const).map((c) => (
-                <label key={c} className="flex min-h-10 cursor-pointer items-center rounded-[calc(var(--radius-ctl)-2px)] px-3 text-sm font-medium text-ink has-checked:bg-brand has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-brand">
-                  <input type="radio" name={`fix-${f.id}`} className="sr-only" checked={choices[f.id] === c} onChange={() => onChoose(f.id, c)} />
-                  {c === 'apply' ? 'Apply' : 'Keep and ask the board'}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-        ))}
-      </section>
+      {auto.length > 0 && (
+        <section aria-label="Fixes" className="panel flex animate-reveal flex-col divide-y divide-line [animation-delay:80ms]">
+          <div className="flex flex-col gap-3 px-card py-4 sm:flex-row sm:items-center sm:justify-between lg:px-card-lg">
+            <p className="m-0 text-base font-semibold text-ink">{plural(auto.length, 'change')} that follow USG's rules</p>
+            <button type="button" className="btn btn-secondary" onClick={onApproveAll} disabled={allAuto}>
+              {allAuto ? `All ${auto.length} applied` : `Approve all ${auto.length}`}
+            </button>
+          </div>
+          {rows(auto)}
+        </section>
+      )}
+      {manual.length > 0 && (
+        <section aria-labelledby="manual-h" className="panel flex animate-reveal flex-col divide-y divide-line [animation-delay:140ms]">
+          <div className="flex flex-col gap-1 px-card py-4 lg:px-card-lg">
+            <p id="manual-h" className="m-0 text-base font-semibold text-ink">Changes to the event</p>
+            <p className="m-0 text-sm text-ink-2">These change the event itself, so they are never part of Approve all.</p>
+          </div>
+          {rows(manual)}
+        </section>
+      )}
       <Back onClick={onBack}>Back to what we found</Back>
     </div>
   );
@@ -117,8 +126,8 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
   const ai = draft ? 'drafted' : 'to draft';
   const item = (id: string | null) => (id ? r.extraction.items.find((i) => i.id === id) ?? original.items.find((i) => i.id === id) : null);
   return (
-    <div className="flex flex-col gap-4 lg:gap-6">
-      <section aria-labelledby="handoff-h" className="panel flex animate-reveal flex-col gap-4 p-4 lg:p-6">
+    <div className="flex flex-col gap-6 lg:gap-group">
+      <section aria-labelledby="handoff-h" className="panel flex animate-reveal flex-col gap-4 p-card lg:p-card-lg">
         <h2 id="handoff-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Hand off to USG</h2>
         {r.open.length === 0 ? (
           <p className="m-0 flex items-center gap-2 text-base font-medium text-ink">

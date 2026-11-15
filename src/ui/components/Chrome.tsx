@@ -9,7 +9,7 @@ export function Mark({ size = 28 }: { size?: number }) {
 
 export function Header({ page }: { page: 'check' | 'evals' }) {
   return (
-    <header className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-4 lg:px-8">
+    <header className="mx-auto flex w-full max-w-page items-center justify-between gap-4 px-4 py-4 lg:px-8">
       <a href="/" className="flex items-center gap-2.5 text-ink no-underline" aria-label="FundCheck home">
         <Mark />
         <span className="text-lg font-semibold tracking-[-0.01em]">FundCheck</span>
@@ -27,14 +27,14 @@ export function Header({ page }: { page: 'check' | 'evals' }) {
 
 export function Footer() {
   return (
-    <footer className="mx-auto mt-16 flex w-full max-w-[1200px] flex-col gap-2 px-4 pb-10 text-sm text-ink-2 lg:px-8">
+    <footer className="mx-auto mt-16 flex w-full max-w-page flex-col gap-2 px-4 pb-10 text-sm text-ink-2 lg:px-8">
       <p className="m-0">
         Rules from USG Funding Department Guidelines, current as of Oct 21, 2026
       </p>
       <p className="m-0">
         <a href="/evals">See how accurate the AI checks are</a>
       </p>
-      <p className="m-0">Not affiliated with USG. A pre-check, not an approval.</p>
+      <p className="m-0">Not affiliated with USC or USG. A pre-check, not an approval.</p>
     </footer>
   );
 }

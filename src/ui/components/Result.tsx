@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode, type Ref } from 'react';
+import { Fragment, useState, type ReactNode, type Ref } from 'react';
 import { ChevronDown, Circle, CircleAlert, CircleCheck, CircleHelp } from 'lucide-react';
 import type { Answers, Cents, CheckResult, DeadlineCard, ExtractedItem, Extraction, Flag, RuleId, Severity } from '../../shared/contracts';
 import { SEVERITY_ORDER } from '../../shared/contracts';
@@ -38,7 +38,7 @@ export function Verdict({ check, note, headingRef, action }: { check: CheckResul
   // Worst severity present; no flags at all (nothing read yet) stays neutral rather than a green all-clear.
   const worst = SEVERITY_ORDER.find((s) => check.flags.some((f) => f.severity === s));
   return (
-    <div className={`panel flex animate-reveal flex-col gap-4 border-t-4 p-4 lg:p-6 ${worst ? SEV[worst].top : 'border-t-line'}`}>
+    <div className={`panel flex animate-reveal flex-col gap-4 border-t-4 p-card lg:p-card-lg ${worst ? SEV[worst].top : 'border-t-line'}`}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 id="result-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">What we found</h2>
         {note}
@@ -48,7 +48,7 @@ export function Verdict({ check, note, headingRef, action }: { check: CheckResul
         <div className="flex flex-col gap-0.5">
           <p className="m-0 text-sm text-ink-2">Eligible request</p>
           <p className="num m-0 flex flex-wrap items-baseline gap-x-2">
-            <span className="text-2xl font-semibold tracking-[-0.02em] text-ink">{money(Math.max(0, m.eligibleCents))}</span>
+            <span className="text-xl font-semibold tracking-[-0.02em] text-ink lg:text-2xl">{money(Math.max(0, m.eligibleCents))}</span>
             <span className="text-base text-ink-2">of {money(m.totalCents)} planned</span>
           </p>
           {r9 && m.yearlyRemainingCents != null && (
@@ -110,6 +110,49 @@ function groupLabel(sev: Severity, flags: Flag[]) {
   return flags.every((f) => rule(f.ruleId)?.source.includes('§5')) ? 'Not eligible per §5' : 'Not eligible';
 }
 
+// Groups open by default; review notes and passed checks are one-line rows.
+const FOLDED: Severity[] = ['review_note', 'pass'];
+const SHOW = 3;
+
+function Group({ sev, flags, extraction, i }: { sev: Severity; flags: Flag[]; extraction: Extraction; i: number }) {
+  const [all, setAll] = useState(false);
+  const [r2, setR2] = useState(false);
+  const S = SEV[sev];
+  const head = <span className={`inline-flex items-center gap-2 ${S.fg}`}><S.Icon aria-hidden size={20} strokeWidth={2} />{groupLabel(sev, flags)} <span className="num font-medium text-ink-2">({flags.length})</span></span>;
+  const list = (fs: Flag[]) => (
+    <ul className="m-0 flex list-none flex-col gap-4 p-0">
+      {fs.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
+    </ul>
+  );
+  if (FOLDED.includes(sev)) {
+    const first = flagTitle(flags[0], flags[0].itemId ? extraction.items.find((x) => x.id === flags[0].itemId) : null).replace(/\.$/, '');
+    return <Fold title={head} id={`g-${sev}`} meta={sev === 'pass' ? undefined : flags.length > 1 ? `${first} and ${flags.length - 1} more` : first}>{list(flags)}</Fold>;
+  }
+  const discretion = flags.some((f) => rule(f.ruleId)?.discretionNote);
+  return (
+    // Verdict first, then each group: 80 ms, then 60 ms apart.
+    <section aria-labelledby={`g-${sev}`} className="panel flex animate-reveal flex-col gap-4 p-card lg:p-card-lg" style={{ animationDelay: `${80 + i * 60}ms` }}>
+      <div className="flex flex-wrap items-center gap-x-4">
+        <h3 id={`g-${sev}`} className="m-0 text-lg font-semibold">{head}</h3>
+        {discretion && (
+          // Stays visible: it keeps a flag from reading as final. Opens USG's own words on exceptions.
+          <button type="button" aria-expanded={r2} aria-controls={`r2-${sev}`} className="inline-flex min-h-target cursor-pointer items-center gap-1 border-0 bg-transparent p-0 text-sm text-ink underline underline-offset-3" onClick={() => setR2(!r2)}>
+            The board may make an exception
+            <ChevronDown aria-hidden size={16} className={`transition-transform duration-200 ${r2 ? 'rotate-180' : ''}`} />
+          </button>
+        )}
+      </div>
+      {discretion && <div id={`r2-${sev}`} hidden={!r2}><UsgQuote id="R2" /></div>}
+      {list(all ? flags : flags.slice(0, SHOW))}
+      {flags.length > SHOW && (
+        <button type="button" className="btn btn-ghost -ml-2 self-start" aria-expanded={all} onClick={() => setAll(!all)}>
+          {all ? 'Show fewer' : `Show ${flags.length - SHOW} more`}
+        </button>
+      )}
+    </section>
+  );
+}
+
 export function Flags({ check, extraction }: { check: CheckResult; extraction: Extraction }) {
   const groups = SEVERITY_ORDER.map((s) => [s, check.flags.filter((f) => f.severity === s)] as const).filter(([, f]) => f.length);
   if (!groups.length) {
@@ -119,45 +162,7 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
       </Panel>
     );
   }
-  // Desktop: the worst group on the left, the rest stacked beside it, so step 1 stays about two screens tall.
-  const cards = groups.map(([sev, flags], i) => sev === 'pass' ? (
-        <Fold key={sev} title={`Passed (${flags.length})`} id={`g-${sev}`}>
-          <ul className="m-0 flex list-none flex-col gap-4 p-0">
-            {flags.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
-          </ul>
-        </Fold>
-      ) : (
-        // Verdict first, then each severity group in order: 80 ms, then 60 ms apart.
-        <section key={sev} aria-labelledby={`g-${sev}`} className="panel flex animate-reveal flex-col gap-4 p-4 lg:p-6" style={{ animationDelay: `${80 + i * 60}ms` }}>
-          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <h3 id={`g-${sev}`} className={`m-0 flex items-center gap-2 text-lg font-semibold ${SEV[sev].fg}`}>
-              {(() => { const I = SEV[sev].Icon; return <I aria-hidden size={20} strokeWidth={2} />; })()}
-              {groupLabel(sev, flags)}
-              <span className="num text-base font-medium text-ink-2">({flags.length})</span>
-            </h3>
-            {flags.some((f) => rule(f.ruleId)?.discretionNote) && (
-              // One line on a phone, so the first quote stays in the first screen.
-              <a href={`#r2-${sev}`} className="text-sm">The board may make an exception</a>
-            )}
-          </div>
-          <ul className="m-0 flex list-none flex-col gap-4 p-0">
-            {flags.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
-          </ul>
-          {/* R2 applies to every discretion rule; quoted once per group, after the flags so the first quote stays on screen. */}
-          {flags.some((f) => rule(f.ruleId)?.discretionNote) && (
-            <div id={`r2-${sev}`} className="scroll-mt-4 border-t border-line pt-4">
-              <UsgQuote id="R2" />
-            </div>
-          )}
-        </section>
-      ));
-  if (cards.length === 1) return cards[0];
-  return (
-    <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start lg:gap-6">
-      {cards[0]}
-      <div className="flex flex-col gap-4 lg:gap-6">{cards.slice(1)}</div>
-    </div>
-  );
+  return <>{groups.map(([sev, flags], i) => <Group key={sev} sev={sev} flags={flags} extraction={extraction} i={i} />)}</>;
 }
 
 // ---------- Fund ----------
@@ -211,8 +216,8 @@ export function MoneyBody({ check, answers }: { check: CheckResult; answers: Ans
       <div className="flex flex-col gap-1.5">
         <div className="h-3 overflow-hidden rounded-full border border-control bg-inset" aria-hidden>
           <div className="flex h-full">
-            {received ? <div className="h-full bg-ink-2" style={{ width: `${Math.min(100, (received / m.yearlyCapCents) * 100)}%` }} /> : null}
-            <div className="h-full bg-brand" style={{ width: `${Math.min(100, (Math.max(0, m.eligibleCents) / m.yearlyCapCents) * 100)}%` }} />
+            {received ? <div className="h-full bg-control" style={{ width: `${Math.min(100, (received / m.yearlyCapCents) * 100)}%` }} /> : null}
+            <div className="h-full bg-ink" style={{ width: `${Math.min(100, (Math.max(0, m.eligibleCents) / m.yearlyCapCents) * 100)}%` }} />
           </div>
         </div>
         <p className="num m-0 text-sm text-ink-2">
@@ -361,7 +366,7 @@ export function Vendors({ check, answers, onOverride }: { check: CheckResult; an
                   </span>
                 </p>
                 {(!found || overridden) && (
-                  <label className="flex min-h-10 cursor-pointer items-center gap-2 pl-6 text-sm">
+                  <label className="flex min-h-target cursor-pointer items-center gap-2 pl-6 text-sm">
                     <input type="checkbox" className="size-4 accent-brand" checked={overridden} onChange={(e) => onOverride(v.itemId, e.target.checked)} />
                     I checked: this vendor is on the USG Vendor List
                   </label>

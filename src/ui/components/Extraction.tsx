@@ -66,7 +66,7 @@ export function TriState({ legend, value, onChange, wide }: { legend: string; va
       <legend className="label mb-1.5 p-0">{legend}</legend>
       <div className="flex rounded-ctl border border-control bg-panel p-0.5">
         {opts.map(([l, v]) => (
-          <label key={l} className={`flex min-h-10 flex-1 cursor-pointer items-center justify-center rounded-[4px] px-2 text-sm font-medium transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${value === v ? 'bg-brand text-white' : 'text-ink'}`}>
+          <label key={l} className={`flex min-h-target flex-1 cursor-pointer items-center justify-center rounded-[4px] px-2 text-sm font-medium transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ink ${value === v ? 'bg-brand text-white' : 'text-ink'}`}>
             <input type="radio" name={name} className="sr-only" checked={value === v} onChange={() => onChange(v)} />
             {l}
           </label>
@@ -159,18 +159,18 @@ export function ItemsTable({ items, onChange, onAdd, onRemove }: {
                 <tr key={it.id} className="relative grid grid-cols-2 gap-x-3 gap-y-2.5 rounded-panel border border-line p-3 lg:table-row lg:border-0 lg:border-t lg:p-0">
                   <td className="col-span-2 order-0 lg:px-2 lg:py-2 lg:align-top">
                     <label className={cellLabel} htmlFor={`${it.id}-d`}>Item</label>
-                    <input id={`${it.id}-d`} className="field lg:min-h-10" value={it.description} onChange={(e) => onChange(it.id, { description: e.target.value })} />
+                    <input id={`${it.id}-d`} className="field" value={it.description} onChange={(e) => onChange(it.id, { description: e.target.value })} />
                   </td>
                   <td className="order-1 min-w-0 lg:px-2 lg:py-2 lg:align-top">
                     <label className={cellLabel} htmlFor={`${it.id}-v`}>Vendor</label>
-                    <input id={`${it.id}-v`} className="field lg:min-h-10" value={it.vendor ?? ''} placeholder="Unknown" onChange={(e) => onChange(it.id, { vendor: e.target.value || null })} />
+                    <input id={`${it.id}-v`} className="field" value={it.vendor ?? ''} placeholder="Unknown" onChange={(e) => onChange(it.id, { vendor: e.target.value || null })} />
                   </td>
                   <td className="order-3 lg:px-2 lg:py-2 lg:align-top">
                     <span className={cellLabel} aria-hidden>Qty</span>
                     <NumberInput
                       label={`Quantity for ${name}`}
                       placeholder="1"
-                      className="lg:min-h-10 lg:px-2"
+                      className="lg:px-2"
                       value={it.quantity}
                       onChange={(q) => onChange(it.id, it.unitCostCents == null ? { quantity: q } : { quantity: q, totalCents: (q ?? 1) * it.unitCostCents })}
                     />
@@ -179,14 +179,14 @@ export function ItemsTable({ items, onChange, onAdd, onRemove }: {
                     <span className={cellLabel} aria-hidden>Cost</span>
                     <MoneyInput
                       label={`Line cost for ${name}`}
-                      className="lg:min-h-10 lg:pr-2"
+                      className="lg:pr-2"
                       value={lineTotal(it)}
                       onChange={(c) => onChange(it.id, { totalCents: c, unitCostCents: c != null && it.quantity ? Math.round(c / it.quantity) : it.unitCostCents })}
                     />
                   </td>
                   <td className="order-2 min-w-0 lg:px-2 lg:py-2 lg:align-top">
                     <label className={cellLabel} htmlFor={`${it.id}-c`}>Category</label>
-                    <select id={`${it.id}-c`} className="field lg:min-h-10" value={it.category} onChange={(e) => onChange(it.id, { category: e.target.value as ItemCategory })}>
+                    <select id={`${it.id}-c`} className="field" value={it.category} onChange={(e) => onChange(it.id, { category: e.target.value as ItemCategory })}>
                       {CATEGORIES.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
                     </select>
                   </td>
@@ -194,7 +194,7 @@ export function ItemsTable({ items, onChange, onAdd, onRemove }: {
                     <MatchChips item={it} />
                   </td>
                   <td className="absolute top-1 right-1 lg:static lg:px-1 lg:py-2 lg:align-top">
-                    <button type="button" className="btn btn-ghost min-h-10 min-w-10 justify-center px-0 text-ink-2" aria-label={`Remove ${name}`} onClick={() => onRemove(it.id)}>
+                    <button type="button" className="btn btn-ghost min-h-target min-w-target justify-center px-0 text-ink-2" aria-label={`Remove ${name}`} onClick={() => onRemove(it.id)}>
                       <Trash2 aria-hidden size={16} />
                     </button>
                   </td>
@@ -234,7 +234,7 @@ export function AskRow({ ask, value, onAnswer }: { ask: Ask; value: AskValue; on
         return (
           <div role="radiogroup" aria-labelledby={id} className="flex gap-2">
             {([['Yes', true], ['No', false]] as const).map(([l, v]) => (
-              <button key={l} type="button" role="radio" aria-checked={value === v} className={`btn min-h-10 px-4 ${value === v ? 'bg-brand text-white' : 'btn-secondary'}`} onClick={() => onAnswer(v)}>
+              <button key={l} type="button" role="radio" aria-checked={value === v} className={`btn min-h-target px-4 ${value === v ? 'bg-brand text-white' : 'btn-secondary'}`} onClick={() => onAnswer(v)}>
                 {l}
               </button>
             ))}

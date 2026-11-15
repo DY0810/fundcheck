@@ -6,28 +6,28 @@
   --font-sans: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 
-  --color-ground: #f7f9fa;
+  --color-ground: #fafafa;
   --color-panel: #ffffff;
-  --color-inset: #edeff0;
-  --color-line: #dfe1e2;
-  --color-control: #71767a;
+  --color-inset: #f0f0ee;
+  --color-line: #dcdcdc;
+  --color-control: #767676;
   --color-ink: #1b1b1b;
   --color-ink-2: #565c65;
-  --color-brand: #005ea2;
-  --color-brand-press: #1a4480;
-  --color-brand-tint: #d9e8f6;
-  /* USC accent: the header mark and the 4 px top rule only (DESIGN.md). */
+  --color-brand: #990000;
+  --color-brand-press: #7a0000;
+  --color-brand-tint: #fff2bf;
+  /* The header mark. Gold only on cardinal or ink (DESIGN.md). */
   --color-usc-cardinal: #990000;
   --color-usc-gold: #ffcc00;
 
-  --color-ne: #b50909;
-  --color-ne-bg: #f4e3db;
+  --color-ne: #b3124a;
+  --color-ne-bg: #fbe7ee;
   --color-cap: #8c471c;
   --color-cap-bg: #f2e4d4;
   --color-note: #0e4f5c;
   --color-note-bg: #e7f6f8;
-  --color-confirm: #5c4809;
-  --color-confirm-bg: #faf3d1;
+  --color-confirm: #54378f;
+  --color-confirm-bg: #efeaf7;
   --color-pass: #216e1f;
   --color-pass-bg: #ecf3ec;
 
@@ -40,9 +40,17 @@
   --text-lg: 1.25rem;
   --text-lg--line-height: 1.75rem;
   --text-xl: 1.75rem;
-  --text-xl--line-height: 2.125rem;
-  --text-2xl: 2.5rem;
-  --text-2xl--line-height: 2.75rem;
+  --text-xl--line-height: 2.25rem;
+  --text-2xl: 2.625rem;
+  --text-2xl--line-height: 3.125rem;
+
+  /* GOV.UK page width and two-thirds column; Carbon card, group and target sizes. */
+  --container-page: 63.75rem;
+  --container-main: 42.5rem;
+  --spacing-card: 1.5rem;
+  --spacing-card-lg: 2rem;
+  --spacing-group: 2rem;
+  --spacing-target: 2.75rem;
 
   --radius-ctl: 6px;
   --radius-panel: 10px;
@@ -76,8 +84,8 @@
   }
   body { margin: 0; min-height: 100dvh; }
   ::selection { background: var(--color-brand-tint); color: var(--color-ink); }
-  input, textarea, select { caret-color: var(--color-brand); }
-  :focus-visible { outline: 3px solid var(--color-brand); outline-offset: 2px; }
+  input, textarea, select { caret-color: var(--color-ink); }
+  :focus-visible { outline: 3px solid var(--color-ink); outline-offset: 2px; }
   h1, h2, h3 { letter-spacing: -0.01em; text-wrap: balance; }
   a { color: var(--color-brand); text-decoration-line: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 }
@@ -93,9 +101,9 @@
   .btn:active:not(:disabled) { transform: scale(0.98); }
   .btn:disabled { cursor: not-allowed; opacity: 0.6; }
   .btn-primary { background: var(--color-brand); color: #fff; }
-  /* USWDS outline button: brand text, 2 px inset brand stroke. */
+  /* Outline button: brand text, 2 px inset brand stroke. */
   .btn-secondary { background: var(--color-panel); color: var(--color-brand); box-shadow: inset 0 0 0 2px var(--color-brand); }
-  .btn-ghost { color: var(--color-brand); padding: 0 0.5rem; min-height: 36px; }
+  .btn-ghost { color: var(--color-brand); padding: 0 0.5rem; min-height: 44px; }
   @media (hover: hover) and (pointer: fine) {
     .btn-primary:hover:not(:disabled) { background: var(--color-brand-press); }
     .btn-secondary:hover:not(:disabled) { background: var(--color-brand-tint); color: var(--color-brand-press); box-shadow: inset 0 0 0 2px var(--color-brand-press); }

@@ -19,8 +19,6 @@ export default function App() {
   return (
     <div className="flex min-h-dvh flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:rounded-ctl focus:bg-panel focus:px-3 focus:py-2">Skip to content</a>
-      {/* USC accent place 2 of 2 (DESIGN.md). */}
-      <div aria-hidden className="h-1 bg-usc-cardinal" />
       <Header page={page} />
       <div id="main" className="flex-1">{page === 'evals' ? <Evals /> : <Check />}</div>
       <Footer />

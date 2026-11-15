@@ -41,7 +41,7 @@ export function UsgQuote({ id, intro }: { id: RuleId; intro?: string }) {
       <figcaption className="text-sm text-ink-2">
         {intro ?? (r.sourceUrl ? (
           <>
-            <a href={r.sourceUrl} target="_blank" rel="noreferrer">{r.source}<span className="sr-only"> (opens in a new tab)</span></a> says:
+            <a href={r.sourceUrl} target="_blank" rel="noreferrer" className="text-ink">{r.source}<span className="sr-only"> (opens in a new tab)</span></a> says:
           </>
         ) : `${r.source} says:`)}
       </figcaption>
@@ -68,7 +68,7 @@ export function CopyButton({ text, what }: { text: string; what: string }) {
   return (
     <button
       type="button"
-      className="btn btn-secondary min-h-9 shrink-0 px-3 text-sm"
+      className="btn btn-secondary shrink-0 px-3 text-sm"
       aria-label={done ? `Copied ${what}` : `Copy ${what}`}
       onClick={async () => {
         try {
@@ -88,7 +88,7 @@ export function CopyButton({ text, what }: { text: string; what: string }) {
 
 export function Panel({ title, id, children, className = '', aside }: { title: string; id?: string; children: ReactNode; className?: string; aside?: ReactNode }) {
   return (
-    <section aria-labelledby={id} className={`panel flex flex-col gap-4 p-4 lg:p-6 ${className}`}>
+    <section aria-labelledby={id} className={`panel flex flex-col gap-4 p-card lg:p-card-lg ${className}`}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 id={id} className="m-0 text-lg font-semibold">{title}</h3>
         {aside}
@@ -99,17 +99,17 @@ export function Panel({ title, id, children, className = '', aside }: { title: s
 }
 
 /** A one-line row that expands: its title and key fact when closed. `flat` rows sit inside a <Rows> panel. */
-export function Fold({ title, meta, open, id, detailsRef, flat, children }: { title: string; meta?: ReactNode; open?: boolean; id?: string; detailsRef?: Ref<HTMLDetailsElement>; flat?: boolean; children: ReactNode }) {
+export function Fold({ title, meta, open, id, detailsRef, flat, children }: { title: ReactNode; meta?: ReactNode; open?: boolean; id?: string; detailsRef?: Ref<HTMLDetailsElement>; flat?: boolean; children: ReactNode }) {
   return (
     <details ref={detailsRef} open={open} className={`group scroll-mt-4 ${flat ? '' : 'panel'}`}>
-      <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-panel px-4 py-3 lg:px-6 [&::-webkit-details-marker]:hidden">
+      <summary className="flex min-h-target cursor-pointer list-none items-center justify-between gap-3 rounded-panel px-card py-3 lg:px-card-lg [&::-webkit-details-marker]:hidden">
         <span className="min-w-0 text-base [overflow-wrap:anywhere]">
           <span id={id} className="font-semibold text-ink">{title}</span>
           {meta && <span className="num text-ink-2"> · {meta}</span>}
         </span>
         <ChevronDown aria-hidden size={20} className="shrink-0 text-ink-2 transition-transform duration-200 group-open:rotate-180" />
       </summary>
-      <div className="flex flex-col gap-4 px-4 pb-4 lg:px-6 lg:pb-6">{children}</div>
+      <div className="flex flex-col gap-4 px-card pb-card lg:px-card-lg lg:pb-card-lg">{children}</div>
     </details>
   );
 }

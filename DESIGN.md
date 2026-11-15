@@ -1,146 +1,135 @@
-# FundCheck design system
+# FundCheck design system (v2)
 
-FundCheck is a task tool: an RSO officer pastes an event plan and reads a pre-check of their USG funding application. It is judged on a phone and a laptop, often in a video. This file is the design system. **Where any design skill disagrees with this file, this file wins.**
+FundCheck is a task tool: an RSO officer pastes an event plan and gets a pre-check of their USG funding application in three steps: Check, Fix, Hand off. It is judged on a phone and a laptop, often in a video. This file is the design system. **Where any design skill disagrees with this file, this file wins.**
+
+v2 replaces the USWDS palette with USC cardinal as the brand, and lowers density. The layout values come from IBM Carbon (expressive type and spacing) and the GOV.UK Design System (column width, line length, one job per screen). The source notes are in `research/design-v2.md`.
 
 ## The idea
 
 Two voices, never mixed:
 
 - **USG's words** are set in a serif (Source Serif 4) on a quiet inset surface, always introduced by their source ("USG Funding Department Guidelines §5 says:"). Only text from `src/shared/rules.json` `quotes` may use this style.
-- **Our words** (messages, labels, notes) and **the AI's words** are set in the sans (Public Sans). AI text is always labelled "AI reasoning" or "AI draft". Flag cards show no AI reasoning: the "AI-judged" badge says the model matched it, and the USG quote says why. The reasoning stays in the data.
-- **Say it once.** Each fact appears once in its detail section; a summary number in the verdict with its detail lower down is the only repeat. No rule IDs on screen. A section never restates its own heading, and a limit that has its own flag card is not listed again in Money.
-
-A reader can tell at a glance whose words they are reading. That is the product's trust argument, made visual.
-
-The live part of the page is the check itself: every edit to an item, a fact or an answer reruns the rules in the browser at once.
+- **Our words** (messages, labels, notes) and **the AI's words** are set in the sans (Public Sans). AI text is always labelled "AI reasoning" or "AI draft". Flag cards show no AI reasoning: the "AI-judged" badge says the model matched it, and the USG quote says why.
+- **Say it once.** Each fact appears once in its detail section; a summary number in the verdict with its detail lower down is the only repeat. No rule IDs on screen.
 
 ## Mode and rejected skill rules
 
-Mode is **Operate** (a tool, not a landing page). Restraint, familiar controls, fast feedback. These skill defaults are rejected here:
+Mode is **Operate** (a tool, not a landing page). Restraint, familiar controls, fast feedback. Rejected here: eyebrow labels, pill badges above headings, section numbers, tiny tracked caps; double-bezel cards, glass, gradients, glows, shadows at rest; `py-24`+ section padding and scroll-entry animation; stock photography and decorative illustration; coloured side bars on cards (the icon and label already say it).
 
-- Eyebrow labels, pill badges above headings, section numbers, tiny tracked caps.
-- Double-bezel cards, glass, gradients, glows, shadows on anything at rest.
-- `py-24`+ section padding, scroll-entry animation on every block, landing-page image floors and moving-element counts.
-- Stock photography or decorative illustration. The interface is the picture.
+## Screens
+
+One job per screen. Once a result exists, the paste area collapses to one row (the event name from 640 px, "Edit the plan", "Check another plan"; the pasted text is kept) and the step indicator ("Check · Fix · Hand off") sits at the top. Each screen has exactly one primary button.
+
+- **Step 1, What we found.** Verdict (eligible request of plan total, one count line, the "Review fixes" button), then the flag groups. Not eligible, over cap and confirm groups are open; review notes and passed checks are one-line rows. Each open group shows 3 flags, then "Show N more". Below, one-line rows with their key fact when closed: Questions, Money, Deadline, Fund, Documents, Vendors, Edit the plan.
+- **Step 2, Review fixes.** The "You'll request $X" figure on a gold-tint surface, "Approve all N" (secondary), then one row per fix with Apply / Keep and ask the board. Fixes covered by Approve all come first; a fix that changes the event (ticket sales) comes last, set apart.
+- **Step 3, Hand off.** Status line ("Nothing left to flag" or "N items left for the board"), amount, deadline and fund, the budget CSV, "Open USG's funding page" (primary) with "Filing needs your USC sign-in. FundCheck doesn't submit for you.", then form answers, documents and after-the-event rows.
+
+**Fold rule.** At 1280×800 the verdict, the primary button and the first flag with its USG quote are on the first screen. At 375×812 the verdict and the primary button are, with the first flag title just under. At most two disclosure levels: the screen, and one expandable row. No folds inside folds.
 
 ## Colour
 
-The palette follows the U.S. Web Design System (USWDS): a calm cool-grey base, one blue for every action, and a separate colour family per severity. Blue never means "not eligible" and red never means "click here". A small USC accent (cardinal and gold) appears in exactly two places, listed below, and nowhere else.
-
 | Token | Value | Use | Contrast |
 |---|---|---|---|
-| `--color-ground` | `#F7F9FA` | page background (USWDS gray-cool-2) | ink 16.3, ink-2 6.4, brand 6.4 |
-| `--color-panel` | `#FFFFFF` | panels, inputs, table | ink 17.2, ink-2 6.7, brand 6.7 |
-| `--color-inset` | `#EDEFF0` | USG quote surface, fold header, skeleton (gray-cool-5) | ink 14.9, ink-2 5.9, brand 5.8 |
-| `--color-line` | `#DFE1E2` | separators only, never the only edge of a control (base-lighter) | decorative |
-| `--color-control` | `#71767A` | input borders (base) | 4.6 on panel |
-| `--color-ink` | `#1B1B1B` | body text (base-darkest) | |
-| `--color-ink-2` | `#565C65` | secondary text (base-dark) | |
-| `--color-brand` | `#005EA2` | primary button, links, focus ring, caret, cap-bar fill (primary) | white on it 6.7 |
-| `--color-brand-press` | `#1A4480` | primary button hover and press (primary-dark) | white on it 9.6 |
-| `--color-brand-tint` | `#D9E8F6` | "Estimate" tag, text selection, secondary-button hover. Fill only, ink text on it (13.8) | |
-| `--color-usc-cardinal` | `#990000` | USC accent, two places only | graphic, 8.5 on ground |
-| `--color-usc-gold` | `#FFCC00` | USC accent, only inside the cardinal mark | 5.9 on cardinal |
+| `--color-ground` | `#FAFAFA` | page background | ink 16.5, ink-2 6.5, brand 8.6 |
+| `--color-panel` | `#FFFFFF` | cards, inputs | ink 17.2, ink-2 6.7, brand 8.9 |
+| `--color-inset` | `#F0F0EE` | USG quote surface, skeleton, neutral chips | ink 15.1, ink-2 5.9, brand 7.8 |
+| `--color-line` | `#DCDCDC` | separators only | decorative |
+| `--color-control` | `#767676` | input borders (USC Gray 70K) | 4.5 on panel |
+| `--color-ink` | `#1B1B1B` | body text, focus ring, caret, links inside flag cards | |
+| `--color-ink-2` | `#565C65` | secondary text | |
+| `--color-brand` | `#990000` | USC Cardinal: primary button fill, secondary button text and outline, ghost buttons, links, selected options | white on it 8.9 |
+| `--color-brand-press` | `#7A0000` | hover and press (cardinal +20% K, approximate) | white on it 11.5 |
+| `--color-brand-tint` | `#FFF2BF` | USC Gold 25% tint: selection, "Estimate" tag, the "You'll request" surface, secondary hover. Cardinal tints are not allowed by USC, so the tint is gold | ink 15.3, cardinal 7.9 |
+| `--color-usc-cardinal` | `#990000` | the header mark | |
+| `--color-usc-gold` | `#FFCC00` | only on cardinal (5.9) or ink | fails on white (1.5) |
 
-**USC accent, exactly two places:** the header mark (cardinal square, gold check) and a 4 px cardinal rule across the very top of the page. Cardinal and gold never appear in the paste area, the result, a panel, chip, bar, border, button, link, focus ring or severity. Gold is never text and never on a light surface. The header is not sticky and the result scrolls to the top, so the accent is off screen while the result's red is on screen. The one exception is a paste-area error, which sits under the header in the red-tinted alert; separation there is by place and label, not hue.
+**Form rule (binding).** Cardinal only on things you can click. Severity colours only on status you cannot click: chips, icons, group headings, the verdict's 4 px top rule. The brand never sits on a severity surface, and a severity colour never fills a button or a link. Links inside flag cards, including the USG source link and the exception toggle, are ink with an underline.
+
+**Gold** is never text, never an underline, icon or step marker on a light surface, and never a fill under white text. It appears as the check inside the header mark and as the 25% tint.
+
+**USC marks.** No USC logo, seal, shield, monogram or wordmark. The header mark (a cardinal square with a gold check) is FundCheck's own. The footer says "Not affiliated with USC or USG. A pre-check, not an approval." The v1 4 px cardinal page-top rule is dropped: cardinal is the brand now, and the rule would sit above the verdict's severity rule.
 
 ### Severity
 
-Severity never relies on colour alone: each has an icon and a text label. Pairs are USWDS state and system colours; each text colour passes AA on its own surface and on white.
+Severity never relies on colour alone: each has an icon and a text label. None uses cardinal or gold.
 
-| Severity | Label (exact) | Icon (lucide) | Text | Surface | Ratio |
+| Severity | Label (exact) | Icon (lucide) | Text | Surface | Text on surface / on white |
 |---|---|---|---|---|---|
-| `not_eligible` | "Not eligible per §5" (or "Not eligible" when the rule is not §5) | `Ban` | `#B50909` | `#F4E3DB` | 5.6 |
-| `over_cap` | "Over cap" | `Gauge` | `#8C471C` | `#F2E4D4` | 5.6 |
-| `review_note` | "Review note" | `MessageSquareText` | `#0E4F5C` | `#E7F6F8` | 8.3 |
-| `confirm` | "Confirm" | `CircleHelp` | `#5C4809` | `#FAF3D1` | 7.9 |
-| `pass` | "Passed" | `CircleCheck` | `#216E1F` | `#ECF3EC` | 5.6 |
+| `not_eligible` | "Not eligible per §5" (or "Not eligible") | `Ban` | `#B3124A` rose | `#FBE7EE` | 5.7 / 6.8 |
+| `over_cap` | "Over cap" | `Gauge` | `#8C471C` | `#F2E4D4` | 5.6 / 6.9 |
+| `review_note` | "Review note" | `MessageSquareText` | `#0E4F5C` | `#E7F6F8` | 8.3 / 9.2 |
+| `confirm` | "Confirm" | `CircleHelp` | `#54378F` violet | `#EFEAF7` | 7.7 / 9.1 |
+| `pass` | "Passed" | `CircleCheck` | `#216E1F` | `#ECF3EC` | 5.6 / 6.3 |
 
-**No coloured side bars.** USWDS alerts carry a 4 px coloured bar on the left; the design skills used here reject coloured side stripes on cards as decoration that repeats what the icon and label already say. Flags show severity through the icon, the label and the chip, not a stripe. The verdict panel is the one exception: a 4 px top rule in the worst severity present (red if anything is not eligible, green if only passed checks; neutral line grey when nothing has been read), because it summarises the whole page's state. It is never brand blue or USC cardinal. The quote block keeps no side border either.
+Rose sits 21° from cardinal on the hue wheel, so hue alone does not separate them; the form rule, the `Ban` icon and the "Not eligible" label do. Fallback if that is not enough: `--color-ne-bg: #F0F0EE` (inset), rose only in the icon and label (5.9 on inset).
 
-**Not copied from USWDS:** the government banner, flag, `.gov` or lock icons, GSA or USWDS logos, "Official" wording, the USWDS icon set and illustrations, USWDS page copy, and the USWDS `secondary` red. Gold never sits on or next to the blue.
+The verdict panel carries a 4 px top rule in the worst severity present, neutral line grey when nothing has been read. It is never cardinal.
 
-Banned words in the UI: "violation", "denied", "rejected", "fail" (except on `/evals`, where a test case passes or fails). The only "denied" on screen is inside a USG quote (R26), set as a quote.
+Banned words in the UI: "violation", "denied", "rejected", "fail" (except on `/evals`), "approved", "will be funded", "submitted". The only "denied" on screen is inside a USG quote, set as a quote.
 
 ## Type
 
-Two families, loaded from Google Fonts by the first line of `src/ui/tokens.css`, with system fallbacks.
-
-- Sans: `Public Sans`, then `system-ui`. Everything that is ours.
-- Serif: `Source Serif 4`, then `Georgia`. USG quotes only.
-
-Fixed rem scale (ratio ≈ 1.25), no fluid type:
+Public Sans (ours) and Source Serif 4 (USG quotes only), from Google Fonts, weights 400, 500, 600. No IBM Plex. Carbon's sizes carry over as they are.
 
 | Token | Size / line height | Use |
 |---|---|---|
-| `text-xs` | 12 / 16 | table meta |
+| `text-xs` | 12 / 16 | badges, table meta |
 | `text-sm` | 14 / 20 | labels, chips, secondary lines |
 | `text-base` | 16 / 24 | body, inputs, quotes |
-| `text-lg` | 20 / 28 | panel headings |
-| `text-xl` | 28 / 34 | panel-level page headings; the landing headline on phones |
-| display | 40 / 46, tracking -0.02em | the landing headline from 1024 px only, so the first screen reads as one statement |
-| `text-2xl` | 40 / 44 | the eligible-request figure only |
+| `text-lg` | 20 / 28 | group headings (Carbon heading-03) |
+| `text-xl` | 28 / 36 | step titles; display on phones (Carbon heading-04) |
+| `text-2xl` | 42 / 50 | display from 1024 px: the landing headline and the eligible figure (Carbon fluid-heading-06) |
 
-Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em`; the figure `-0.02em`. Money and dates use `tabular-nums`. Prose measure stays under 70ch. Inputs are 16 px so iOS does not zoom.
+Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em`, display `-0.02em`. Money and dates use `tabular-nums`. Lines stay under 70ch (GOV.UK's limit is 75). Inputs are 16 px so iOS does not zoom.
 
 ## Space and shape
 
-- 4 px base. Steps used: 4, 8, 12, 16, 24, 32, 48, 64.
-- Inside a panel: 16 (phone) / 24 (desktop) padding; 12 between rows; 24 between groups. Between panels: 16 / 24. Between page regions: 48 / 64.
-- Page: max width 1200, side margins 16 (phone) / 32 (desktop).
-- Radius, decided once: **6 px** buttons and inputs, **10 px** panels, **full** for chips. No other radii.
-- Elevation: none at rest. Surfaces separate by tone step (ground → panel → inset) and, for panels, a 1 px `--color-line` border. Only a true overlay may have a shadow (there are none in Wave 1).
-
-## Layout
-
-- **Verdict first.** After a check, the verdict (severity counts, eligible request vs plan total, deadline with its Estimate label, fund) is scrolled to the top and focused. The first flag and its USG quote must be on screen with no scrolling at 1280×800 and 375×812.
-- **Desktop (≥ 1024 px):** header; paste region (next application window, textarea 8 cols, notes 4 cols); verdict full width; flags (8 cols) beside answers that could change the result, money, deadline and fund (4 cols); then "Fix what we read" (folded), documents (with form-only answers), form answers and budget CSV, vendors (folded unless a vendor needs checking), after the event (folded); footer.
-- **Phone (< 1024 px):** one column in that same order. The items table becomes stacked rows; no horizontal scroll at 320 px.
-- **Folds.** Detail that doesn't change the verdict starts collapsed in a `<details>` panel with a one-line summary of what's inside. The documents checklist and form answers stay open.
+- Spacing steps (Carbon): 4, 8, 12, 16, 24, 32, 40, 48, 64, 80.
+- Page: max width **1020 px** (`max-w-page`), side margins 16 / 32. Content: **one 680 px column** (`max-w-main`), left-aligned, on every step. No side column.
+- Card padding **24 phone / 32 desktop** (`p-card lg:p-card-lg`). 16 between rows in a card, 24 (phone) / 32 (desktop, `gap-group`) between groups in a step, 48 / 64 between page regions.
+- Targets: **44 px** for every control, ghost buttons and step links included (`min-h-target`).
+- Radius: 6 px controls, 10 px panels, full for chips. No other radii.
+- Elevation: none at rest. Surfaces separate by tone (ground → panel → inset) and a 1 px line border on panels.
 
 ## Components
 
-- **Buttons.** Labels 16 / 600. Primary: brand fill, white text, 44 px tall. Secondary (USWDS outline): panel fill, brand text, 2 px inset brand stroke, brand-tint fill and brand-press stroke on hover. Selected yes / no answers fill brand. Ghost: text only, brand, underline on hover. Press: `scale(0.98)`. Loading keeps the label and adds a spinner plus `aria-busy`.
-- **Inputs.** Panel fill, 1 px control border, 6 px radius, 44 px tall (40 in the table). Visible `<label>` always; placeholders are examples, never labels.
-- **Yes / no / unknown.** A three-option radio group, not a select.
-- **Chips.** Full radius, 14 px, 28 px tall; category chips are neutral (inset); match chips take their severity colours.
-- **Quote block.** Source line in sans 14 / ink-2 ("USG Funding Department Guidelines §5 says:", the source name linked to the document), then the quote in serif 16 / ink on inset, 10 px radius, 12 / 16 padding. No coloured side border.
-- **Flag card.** Severity icon and title, "AI-judged" or "Rule math" badge, "In your plan:" only when the plan's words say more than the title, then the quote block. Nothing below the quote. Under "Not eligible per §5" the title is the thing itself: the line item and its amount, or a plain label for an event-level flag ("Ticket sales"). Other groups keep the engine's sentence without its trailing "(§3)", since the source line names the section.
-- **Exception.** Said once per group, as a link under the group heading ("The board may make an exception") that jumps to the R2 quote at the end of the group.
-- **Badges.** "Rule math" (`Calculator` icon) and "AI-judged" (`ScanText` icon), 12 px, on inset, ink-2 text. No sparkle icons anywhere.
-- **Skeleton.** Inset-coloured bars in the shape of the table, with an opacity pulse; "Reading your plan…" as live text.
+- **Buttons.** Labels 16 / 600, 44 px tall. Primary: cardinal fill, white text. Secondary: panel fill, cardinal text, 2 px inset cardinal stroke; gold-tint fill and brand-press on hover. Ghost: cardinal text, underline on hover. Press: `scale(0.98)`. Loading keeps the label and adds a spinner plus `aria-busy`.
+- **Selected options** (yes / no / unknown, Apply / Keep): cardinal fill, white text. They are clickable, so cardinal is allowed.
+- **Step indicator.** Current step: ink disc, white number. Done steps: buttons with a gold-tint disc and cardinal text. Future: inset disc. A step with nothing to do (Fix with no fixes) is not clickable.
+- **Inputs.** Panel fill, 1 px control border, 6 px radius, 44 px tall. Visible `<label>` always.
+- **Chips.** Full radius, 14 px; severity chips on their surface; neutral chips on inset.
+- **Quote block.** Source line in sans 14 / ink-2 with the source name as an ink link, then the quote in serif 16 / ink on inset, 12 / 16 padding.
+- **Flag card.** Severity icon and title, "AI-judged" or "Rule math" badge, "In your plan:" only when the plan's words say more than the title, then the quote block. Under "Not eligible per §5" the title is the thing itself ("DJ ($600)", "Ticket sales").
+- **Exception.** Once per group: "The board may make an exception" beside the group heading, an ink toggle that opens the R2 quote under it. It stays visible, because it keeps a flag from reading as final.
+- **One-line rows.** A `<details>` row: title, then its key fact after a middle dot ("Deadline · Submit by Wed, Feb 3, 2027"), chevron at the end.
+- **Skeleton.** Inset bars with an opacity pulse; "Reading your plan…" as live text.
 
-## Focus, selection, browser surfaces
+## Focus, selection
 
-- Focus: `outline: 3px solid var(--color-brand); outline-offset: 2px` on every focusable element via `:focus-visible`.
-- Selection: brand-tint background, ink text.
-- Caret: brand. Scrollbars: default (Operate mode keeps native affordances).
+- Focus: `outline: 3px solid var(--color-ink); outline-offset: 2px` via `:focus-visible`. An ink ring cannot be read as an error or a severity.
+- Selection: gold tint, ink text. Caret: ink.
 
 ## Motion
 
-Motion conveys state only. All transitions name their properties; never `transition: all`.
+Motion conveys state only; transitions name their properties.
 
 | Token | Value | Use |
 |---|---|---|
 | `--ease-out` | `cubic-bezier(0.23, 1, 0.32, 1)` | entrances, disclosures |
-| `--dur-press` | 120 ms | button press scale |
-| `--dur-hover` | 150 ms | colour changes |
-| `--dur-ui` | 200 ms | disclosure, chip state |
-| `--dur-reveal` | 240 ms | result first appears (opacity + 8 px rise) |
-| stagger | verdict 0 ms, flag groups 80 ms + 60 ms each, side column 160 ms | the result's first reveal only; groups that appear later on an edit fade in once |
-| count-up | rejected | the eligible figure is data the user reads and the video freezes on; it never moves for style |
+| `--dur-press` / `--dur-hover` / `--dur-ui` | 120 / 150 / 200 ms | press, colour, disclosure |
+| reveal | 240 ms, opacity + 8 px rise | a step first appears; verdict 0 ms, flag groups 80 ms + 60 ms each |
+| count-up | rejected | the eligible figure is data, it never moves for style |
 
-`prefers-reduced-motion: reduce`: no transforms, no stagger, no count-up; opacity fades only, 120 ms. Hover effects sit behind `@media (hover: hover) and (pointer: fine)`. Typing never animates anything.
+`prefers-reduced-motion: reduce`: no transforms or stagger; opacity fades only, 120 ms.
 
 ## Copy rules
 
 - Neutral and specific. "Pre-check", not "audit". "Not eligible per §5, exception at the board's discretion", never "will be denied".
-- A vendor not on the list: "Not found on the list, verify". Never "rejected".
-- Nulls render as "Unknown". Never `NaN`, `$0` for a missing cost, or an empty cell.
-- Deadline card is labelled "Estimate", carries the exact estimate copy, and never uses a red banner.
-- Privacy line under the textarea: "Nothing you paste is stored. Don't paste traveller details." The page stores nothing (no localStorage, no plan in the URL).
+- A vendor not on the list: "Not found on the list, verify".
+- Nulls render as "Unknown". Never `NaN` or an empty cell.
+- The deadline is labelled "Estimate" and never uses a red banner.
+- "Nothing you paste is stored. Don't paste traveller details." The page stores nothing.
 
 ## Favicon and social preview
 
-- `public/favicon.svg` is the header mark itself (cardinal square, gold check). It is the mark, so it counts as USC accent place 1, not a third place.
-- `public/og.png` (1200 × 630) repeats the landing page: the 4 px cardinal rule, the mark and wordmark, the headline, and a panel with the sample's eligible request and one USG quote taken from `rules.json` (R4). No severity colours, so cardinal and "not eligible" red never share the image.
+`public/favicon.svg` is the header mark. `public/og.png` was made for v1 (it shows the old 4 px rule); it uses no severity colour.
