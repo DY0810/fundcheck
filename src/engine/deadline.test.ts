@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deadlineCard } from './deadline';
+import { deadlineCard, nextWindow } from './deadline';
 
 const today = '2026-11-14';
 const card = (event: string | null, o: { travel?: boolean; newVendor?: boolean; payment?: string; today?: string; end?: string } = {}) =>
@@ -43,6 +43,16 @@ describe('deadlineCard (port of grill Q3 Python)', () => {
     expect(pick(card('2026-10-01'))).toEqual(['past', null, null]);
     expect(card('2027-04-09', { payment: '2026-09-01' }).status).toBe('past');
     expect(card('2027-04-29', { today: '2027-04-30' }).status).toBe('past');
+  });
+
+  it('nextWindow: the next open application Wednesday on or after today', () => {
+    expect(nextWindow('2026-11-14')).toBe('2026-11-18');
+    expect(nextWindow('2026-11-19')).toBe('2026-12-02'); // Nov 25 is Thanksgiving break
+    expect(nextWindow('2026-11-18')).toBe('2026-11-18'); // a Wednesday itself
+    expect(nextWindow('2026-11-05')).toBe('2026-11-18'); // Nov 11 is a holiday
+    expect(nextWindow('2026-12-03')).toBe('2027-01-13'); // winter recess
+    expect(nextWindow('2027-04-29')).toBeNull(); // term ends Apr 30
+    expect(nextWindow('not a date')).toBeNull();
   });
 
   it('sets weeks and anchors', () => {

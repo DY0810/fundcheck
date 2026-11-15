@@ -65,6 +65,9 @@ describe('buildMoney', () => {
   });
 
   it('computes what is left of the $8,000 yearly cap', () => {
-    expect(buildMoney(HAND_EXTRACTION, { receivedThisYearCents: 700000 }).yearlyRemainingCents).toBe(100000);
+    expect(buildMoney(HAND_EXTRACTION, { receivedThisYearCents: 700000 })).toMatchObject({ yearlyRemainingCents: 100000, eligibleCents: 100000, capReductionCents: 80000 });
+    expect(buildMoney(HAND_EXTRACTION, { receivedThisYearCents: 0 }).eligibleCents).toBe(720000);
+    expect(buildMoney(HAND_EXTRACTION, { receivedThisYearCents: 900000 }).eligibleCents).toBe(0);
+    expect(buildMoney(HAND_EXTRACTION, {}).eligibleCents).toBe(720000);
   });
 });

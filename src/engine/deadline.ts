@@ -82,6 +82,20 @@ const minOrNull = (xs: (number | null)[]) => (xs.includes(null) ? null : Math.mi
 // R24, quoted from the form: events Dec 5 2026 to Jan 12 2027, or after May 1 2027. ISO strings compare as dates.
 const inBlackout = (first: IsoDate, last: IsoDate) => (first <= '2027-01-12' && last >= '2026-12-05') || last > '2027-05-01';
 
+/** The Python's `nxt`: the first open Wednesday on or after `today`, or null if none before the term ends. */
+function openWed(today: IsoDate): number | null {
+  const t = day(today);
+  let nxt = t === null ? null : t + mod7(2 - weekday(t));
+  while (nxt !== null && !instr(nxt)) nxt = nxt + 7 > END ? null : nxt + 7;
+  return nxt;
+}
+
+/** The next Wednesday the USG application window opens, on or after `today`. */
+export function nextWindow(today: IsoDate): IsoDate | null {
+  const n = openWed(today);
+  return n === null ? null : iso(n);
+}
+
 export function deadlineCard(a: {
   event: IsoDate | null;
   today: IsoDate;
@@ -102,10 +116,7 @@ export function deadlineCard(a: {
 
   const s = minOrNull(anchors.map((x) => safe(at(x.date), x.weeks)));
   const l = minOrNull(anchors.map((x) => latest(at(x.date), x.weeks)));
-  const t = day(a.today);
-  let nxt = t === null ? null : t + mod7(2 - weekday(t));
-  while (nxt !== null && !instr(nxt)) nxt = nxt + 7 > END ? null : nxt + 7;
-
+  const nxt = openWed(a.today);
   const out = { weeks, anchors, blackout: false, ruleIds, latest: l === null ? null : iso(l) };
   if (nxt !== null && s !== null && s >= nxt) return { ...out, status: 'safe', headline: iso(s) };
   if (nxt !== null && l !== null && l >= nxt) return { ...out, status: 'next_open', headline: iso(nxt) };

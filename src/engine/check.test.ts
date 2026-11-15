@@ -83,6 +83,29 @@ describe('runCheck rules', () => {
     expect(askIds(no)).not.toContain('match:i1:R3.talent');
   });
 
+  it('asks R20 positively: Yes (a PO-vendor rental) clears it, No raises the confirm', () => {
+    const r20 = [item({ id: 'i4', description: 'Bovard rental + AV crew', category: 'venue', matches: [{ ruleId: 'R20', confidence: 'low', reason: '' }] })];
+    const x = plan({ items: r20 });
+    expect(run(x).asks.find((a) => a.id === 'match:i4:R20')?.question).toBe('Is "Bovard rental + AV crew" rented from a USC PO vendor?');
+    const yes = run(x, { matchAnswers: { 'i4:R20': true } });
+    expect(ids(yes)).not.toContain('R20');
+    expect(askIds(yes)).not.toContain('match:i4:R20');
+    expect(run(x, { matchAnswers: { 'i4:R20': false } }).flags.find((fl) => fl.ruleId === 'R20')).toMatchObject({ severity: 'confirm' });
+  });
+
+  it('words every match question as a plain yes/no, with no double negative', () => {
+    const itemRules = ['R1', 'R3.reimbursement', 'R3.charity', 'R3.alcohol', 'R3.gifts', 'R3.durable', 'R3.raw_food', 'R3.restaurant', 'R3.rideshare',
+      'R3.deposit', 'R3.p2p', 'R3.talent', 'R3.subscription', 'R3.international', 'R3.jewelry', 'R20'] as const;
+    const items = itemRules.map((ruleId, n) => item({ id: `q${n}`, description: 'Thing', matches: [{ ruleId, confidence: 'low', reason: '' }] }));
+    const eventMatches = (['R4', 'R5.open', 'R5.residence', 'R31'] as const).map((ruleId) => ({ ruleId, confidence: 'low' as const, reason: '', evidence: '' }));
+    const qs = [...run(plan({ items })).asks, ...run(plan({ eventMatches, fund: 'professional_academic' })).asks].filter((a) => a.id.startsWith('match:'));
+    expect(qs).toHaveLength(itemRules.length + 4);
+    for (const a of qs) {
+      expect(a.question, a.id).toMatch(/^(Is|Does|Will) .+\?$/);
+      expect(a.question, a.id).not.toMatch(/\bnot\b|n't/);
+    }
+  });
+
   it('applies R31 only to the professional fund and R20 only to the performing fund', () => {
     const r31 = { eventMatches: [{ ruleId: 'R31' as const, confidence: 'high' as const, reason: '', evidence: '' }] };
     expect(ids(run(plan({ ...r31, fund: 'professional_academic' })))).toContain('R31');
@@ -94,7 +117,13 @@ describe('runCheck rules', () => {
   });
 
   it('R9: over the yearly cap once the received amount is known', () => {
-    expect(run(HAND_EXTRACTION, { receivedThisYearCents: 700000 }).flags.find((fl) => fl.ruleId === 'R9')).toMatchObject({ severity: 'over_cap', amountCents: 620000 });
+    const capped = run(HAND_EXTRACTION, { receivedThisYearCents: 700000 });
+    expect(capped.money.eligibleCents).toBe(100000);
+    expect(capped.flags.find((fl) => fl.ruleId === 'R9')).toMatchObject({
+      severity: 'over_cap',
+      amountCents: 620000,
+      message: 'The request ($7,200) is $6,200 more than the $1,000 left of your $8,000 for the year, so the estimate is capped at $1,000 (§3).',
+    });
     expect(ids(run(HAND_EXTRACTION, { receivedThisYearCents: 0 }))).not.toContain('R9');
   });
 

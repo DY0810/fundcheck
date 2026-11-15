@@ -6,12 +6,14 @@ export const lineCents = (i: ExtractedItem): Cents => i.totalCents ?? (i.quantit
 export const usd = (c: Cents) =>
   '$' + (c / 100).toLocaleString('en-US', { minimumFractionDigits: c % 100 ? 2 : 0, maximumFractionDigits: 2 });
 
-/** Applies answers.matchAnswers: a low match answered true counts as high; answered false, it is dropped. */
+/** Applies answers.matchAnswers: a low match answered true counts as high; answered false, it is dropped.
+ *  R20's question is positive ("Is it rented from a USC PO vendor?"), so for R20 true drops it and false raises it. */
 export function resolve<M extends { ruleId: string; confidence: 'high' | 'low' }>(key: string, ms: M[], answers: Answers): M[] {
   return ms.flatMap((m) => {
     if (m.confidence === 'high') return [m];
     const a = answers.matchAnswers?.[`${key}:${m.ruleId}`];
-    return a === undefined ? [m] : a ? [{ ...m, confidence: 'high' as const }] : [];
+    if (a === undefined) return [m];
+    return (m.ruleId === 'R20' ? !a : a) ? [{ ...m, confidence: 'high' as const }] : [];
   });
 }
 
@@ -51,15 +53,17 @@ export function buildMoney(x: Extraction, answers: Answers): Money {
   const ineligibleCents = totalCents - sum(ok);
   const capReductionCents = r6 + r11 + r21;
   const received = answers.receivedThisYearCents;
+  const remaining = received == null ? null : Math.max(0, 800000 - received);
+  const beforeYearly = totalCents - ineligibleCents - capReductionCents; // R9 reports what the yearly cap removes from this
   return {
     totalCents,
     ineligibleCents,
     venuePersonnelCents: venuePersonnel,
     capReductionCents,
-    eligibleCents: totalCents - ineligibleCents - capReductionCents,
+    eligibleCents: remaining === null ? beforeYearly : Math.min(beforeYearly, remaining),
     foodCents: food,
     foodPerPersonCents: att ? Math.round(food / att) : null,
     yearlyCapCents: 800000,
-    yearlyRemainingCents: received == null ? null : Math.max(0, 800000 - received),
+    yearlyRemainingCents: remaining,
   };
 }
