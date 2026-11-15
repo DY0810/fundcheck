@@ -17,13 +17,3 @@ export function Header() {
     </header>
   );
 }
-
-export function Footer() {
-  return (
-    <footer className="mx-auto mt-16 flex w-full max-w-page flex-col gap-2 px-4 pb-10 text-sm text-ink-2 lg:px-8">
-      <p className="m-0">
-        Rules from USG Funding Department Guidelines, current as of Oct 21, 2026
-      </p>
-    </footer>
-  );
-}

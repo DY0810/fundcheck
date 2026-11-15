@@ -4,7 +4,7 @@ import type { Answers, Cents, CheckResult, DeadlineCard, ExtractedItem, Extracti
 import { SEVERITY_ORDER } from '../../shared/contracts';
 import { date, money, pct, plural } from '../lib/format';
 import { rule } from '../lib/rules';
-import { AiText, BadgeTag, CopyButton, Fold, Panel, SEV, SevChip, UsgQuote } from './bits';
+import { CopyButton, Fold, Panel, SEV, SevChip, UsgQuote } from './bits';
 
 // ---------- Summary ----------
 
@@ -28,8 +28,6 @@ export function Summary({ check }: { check: CheckResult }) {
 }
 
 // ---------- Verdict ----------
-
-const Estimate = () => <span className="rounded-full bg-brand-tint px-2 py-px text-xs font-semibold text-ink">Estimate</span>;
 
 /** The answer, first: one count line and the eligible request, then the step's one action. */
 export function Verdict({ check, note, headingRef, action }: { check: CheckResult; note?: ReactNode; headingRef: Ref<HTMLHeadingElement>; action: ReactNode }) {
@@ -88,15 +86,12 @@ function FlagCard({ flag, extraction }: { flag: Flag; extraction: Extraction }) 
   const showEvidence = !!evidence && !!norm(evidence) && !norm(title).includes(norm(evidence));
   return (
     <li className="flex flex-col gap-3 border-t border-line pt-4 first:border-t-0 first:pt-0">
-      <div className="flex items-start justify-between gap-3">
-        <p className="m-0 flex min-w-0 items-start gap-2 text-base font-medium text-ink">
-          <s.Icon aria-hidden size={18} strokeWidth={2} className={`mt-0.5 shrink-0 ${s.fg}`} />
-          <span className="min-w-0 [overflow-wrap:anywhere]">{title}</span>
-        </p>
-        <BadgeTag badge={flag.badge} />
-      </div>
+      <p className="m-0 flex max-w-main min-w-0 items-start gap-2 text-base font-medium text-ink">
+        <s.Icon aria-hidden size={18} strokeWidth={2} className={`mt-0.5 shrink-0 ${s.fg}`} />
+        <span className="min-w-0 [overflow-wrap:anywhere]">{title}</span>
+      </p>
       {showEvidence && (
-        <p className="m-0 text-sm text-ink-2 [overflow-wrap:anywhere]">
+        <p className="m-0 max-w-main text-sm text-ink-2 [overflow-wrap:anywhere]">
           In your plan: <span className="text-ink">“{evidence}”</span>
         </p>
       )}
@@ -118,7 +113,7 @@ function Group({ sev, flags, extraction, i }: { sev: Severity; flags: Flag[]; ex
   const [all, setAll] = useState(false);
   const [r2, setR2] = useState(false);
   const S = SEV[sev];
-  const head = <span className={`inline-flex items-center gap-2 ${S.fg}`}><S.Icon aria-hidden size={20} strokeWidth={2} />{groupLabel(sev, flags)} <span className="num font-medium text-ink-2">({flags.length})</span></span>;
+  const head = <span className={`inline-flex items-center gap-2 ${S.fg}`}><S.Icon aria-hidden size={20} strokeWidth={2} />{groupLabel(sev, flags)}</span>;
   const list = (fs: Flag[]) => (
     <ul className="m-0 flex list-none flex-col gap-4 p-0">
       {fs.map((f) => <FlagCard key={f.id} flag={f} extraction={extraction} />)}
@@ -167,14 +162,7 @@ export function Flags({ check, extraction }: { check: CheckResult; extraction: E
 
 // ---------- Fund ----------
 
-export function FundBody({ check }: { check: CheckResult }) {
-  return (
-    <>
-      <UsgQuote id={check.fund.ruleId} />
-      <AiText>{check.fund.aiReason}</AiText>
-    </>
-  );
-}
+export const FundBody = ({ check }: { check: CheckResult }) => <UsgQuote id={check.fund.ruleId} />;
 
 // ---------- Money ----------
 
@@ -269,9 +257,6 @@ export function DeadlineBody({ check }: { check: CheckResult }) {
         Blackout dates: clear
       </p>}
       <UsgQuote id="R26" />
-      <p className="m-0 text-sm text-ink-2">
-        USG documents word this rule differently, so we show the earliest date. Confirm on USG's Funding Application Deadlines sheet or with usgfunds@usc.edu.
-      </p>
       {r25?.alsoSee?.length ? (
         // Shown in full: this already sits inside a row, and rows hold no further disclosures.
         <div className="flex flex-col gap-3">
@@ -347,7 +332,7 @@ export function Vendors({ check, answers, onOverride }: { check: CheckResult; an
   return (
     <>
       {food.length === 0 ? (
-        <p className="m-0 text-base text-ink-2">No vendors named in your plan. FundCheck checks each named vendor against the USG Vendor List.</p>
+        <p className="m-0 text-base text-ink-2">No vendors named in your plan.</p>
       ) : (
         <ul className="m-0 flex list-none flex-col p-0">
           {food.map((v) => {

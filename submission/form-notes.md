@@ -24,7 +24,7 @@ The anchor is the payment due date in one place and the event date in another, a
 
 **Suggestion:** one sentence that names the anchor, the week counts, and what counts as an academic week, used word for word in every document.
 
-**What FundCheck does today:** computes every reading, shows the earliest date as the headline and the latest under the event-date wording below it, labels both an estimate, and points officers to the Funding Application Deadlines sheet and usgfunds@usc.edu.
+**What FundCheck does today:** computes every reading, shows the earliest date as the headline and the latest under the event-date wording below it, and labels both an estimate.
 
 ## 2. Travel: 9 weeks or 8
 

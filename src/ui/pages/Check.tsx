@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, CalendarClock, Info, LoaderCircle, RotateCcw } from 'lucide-react';
+import { ArrowRight, CalendarClock, LoaderCircle, RotateCcw } from 'lucide-react';
 import type { Answers, ApiError, Ask, CheckInput, EventFacts, ExtractedItem, Extraction, ExtractResponse } from '../../shared/contracts';
 import { MAX_PLAN_CHARS } from '../../shared/contracts';
 import { SAMPLE_PLAN } from '../../fixtures/sample-plan';
@@ -10,7 +10,7 @@ import { date, money, plural, todayIso } from '../lib/format';
 import { AskRow, askValue, FactsFields, ItemsTable } from '../components/Extraction';
 import { DeadlineBody, docsMeta, Documents, Flags, FundBody, headline, MoneyBody, moneyMeta, Verdict, Vendors, vendorsMeta } from '../components/Result';
 import { type Choice, FixReview, Handoff, type Step, StepNav } from '../components/Steps';
-import { Fold, Rows, UsgQuote, useWide } from '../components/bits';
+import { Fold, Rows, useWide } from '../components/bits';
 
 type Source = { kind: 'live' | 'cached' | 'fixture'; provider: Extract<ExtractResponse, { ok: true }>['provider'] };
 // ?fixture=1 skips the API with the sample; dev builds also accept worst | empty | 40 (break-ui data).
@@ -23,7 +23,7 @@ const FIXTURES: Record<string, () => Promise<Extraction>> = import.meta.env.DEV
 const PAPERWORK = new Set(['uepaNumber', 'modulesCompleted', 'otherFundingSources']);
 
 export default function Check() {
-  const [plan, setPlan] = useState('');
+  const [plan, setPlan] = useState(SAMPLE_PLAN); // the box starts with the sample, so one click reaches a result
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
   const [extraction, setExtraction] = useState<Extraction | null>(null);
@@ -58,9 +58,9 @@ export default function Check() {
     });
   }, [fixKey]);
 
-  async function submit(text = plan) {
-    if (!text.trim()) return setError({ code: 'empty', message: 'Paste your event plan first, or try the sample.' });
-    if (text.length > MAX_PLAN_CHARS) return setError({ code: 'too_long', message: `Your plan is over ${MAX_PLAN_CHARS.toLocaleString()} characters. Trim it and try again.` });
+  async function submit() {
+    if (!plan.trim()) return setError({ code: 'empty', message: 'Paste your event plan first.' });
+    if (plan.length > MAX_PLAN_CHARS) return setError({ code: 'too_long', message: `Your plan is over ${MAX_PLAN_CHARS.toLocaleString()} characters. Trim it and try again.` });
     setBusy(true);
     setError(null);
     // Pushed now, inside the click: Chrome skips history entries added after the click's activation expires,
@@ -68,7 +68,7 @@ export default function Check() {
     if ((history.state as { step?: Step } | null)?.step !== 1) history.pushState({ step: 1 }, '');
     const res = FIXTURE_KEY != null
       ? ({ ok: true, extraction: await (FIXTURES[FIXTURE_KEY]?.() ?? SAMPLE_EXTRACTION), source: 'fixture', provider: 'cache' } as const)
-      : await api.extract(text);
+      : await api.extract(plan);
     setBusy(false);
     if (!res.ok) return setError(res.error);
     setExtraction(structuredClone(res.extraction));
@@ -92,6 +92,7 @@ export default function Check() {
 
   // "Edit the plan" opens the editor on step 1; "Check another plan" brings the paste box back with the text kept.
   const planRef = useRef<HTMLTextAreaElement>(null);
+  const sampleSelected = useRef(false);
   const editRef = useRef<HTMLDetailsElement>(null);
   const [editReq, setEditReq] = useState(0);
   useEffect(() => {
@@ -166,8 +167,7 @@ export default function Check() {
   const open = check ? check.asks.filter((a) => !PAPERWORK.has(a.id)).length : 0;
   const over = plan.length > MAX_PLAN_CHARS;
   const editFold = extraction && check && (
-    <Fold flat title="Edit the plan" id="read-h" detailsRef={editRef} meta={`${plural(extraction.items.length, 'line')}, ${money(check.money.totalCents)}`}>
-      <p className="m-0 text-base text-ink-2">Fix anything we got wrong. The pre-check reruns as you type.</p>
+    <Fold wide title="Edit the plan" id="read-h" detailsRef={editRef} meta={`${plural(extraction.items.length, 'line')}, ${money(check.money.totalCents)}`}>
       <section aria-labelledby="facts-h" className="flex flex-col gap-4">
         <h3 id="facts-h" className="m-0 text-base font-semibold">Event</h3>
         <FactsFields facts={extraction.facts} onChange={patchFacts} />
@@ -185,7 +185,7 @@ export default function Check() {
   );
 
   return (
-    <main className="mx-auto flex w-full max-w-page flex-col gap-12 px-4 lg:gap-16 lg:px-8">
+    <main className="mx-auto flex w-full max-w-page flex-col gap-12 px-4 pb-16 lg:gap-16 lg:px-8">
       {/* ---------- Paste: the whole screen until a result exists, then one row ---------- */}
       {!extraction ? (
         // From lg the same children sit in two columns: words on the left, the paste box spanning their height on the right.
@@ -206,31 +206,23 @@ export default function Check() {
             <textarea
               id="plan"
               ref={planRef}
-              className="field min-h-36 resize-y py-3 leading-6 lg:min-h-52 lg:flex-1"
+              className="field min-h-64 resize-y py-3 leading-6 lg:min-h-52 lg:flex-1"
               value={plan}
-              aria-describedby="privacy"
               aria-invalid={over || undefined}
               placeholder={'Event name, date, place and expected attendance, then each expense with its vendor and cost.\nExample: "Catering from Trojan Grounds $1,200"'}
               onChange={(e) => setPlan(e.target.value)}
+              onFocus={(e) => {
+                // The first focus on the untouched sample selects all of it, so a paste replaces it.
+                if (!sampleSelected.current && plan === SAMPLE_PLAN) e.currentTarget.select();
+                sampleSelected.current = true;
+              }}
             />
-            <p id="privacy" className="m-0 flex items-center gap-1.5 text-sm text-ink-2">
-              <Info aria-hidden size={14} className="shrink-0" />
-              Nothing you paste is stored. Don't paste traveller details.
-            </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:col-start-2 lg:row-start-4">
             <button type="button" className="btn btn-primary" onClick={() => submit()} disabled={busy || over} aria-busy={busy}>
               {busy ? <LoaderCircle aria-hidden size={18} className="animate-spin" /> : null}
               Check my plan
               {!busy && <ArrowRight aria-hidden size={18} />}
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              disabled={busy}
-              onClick={() => { setPlan(SAMPLE_PLAN); submit(SAMPLE_PLAN); }}
-            >
-              Try the Bovard dance showcase sample
             </button>
           </div>
           {error && (
@@ -244,24 +236,13 @@ export default function Check() {
             </div>
           )}
           {nextWin && (
-            <div className="flex flex-col gap-1 lg:col-start-1 lg:row-start-2">
-              <p className="num m-0 flex items-start gap-2 text-base text-ink">
-                <CalendarClock aria-hidden size={18} className="mt-0.5 shrink-0 text-ink-2" />
-                <span>
-                  <span className="font-semibold">Next application window: </span>
-                  {nextWin === today ? 'today, ' : ''}{date(nextWin)}, 8:00 AM to 11:59 PM
-                </span>
-              </p>
-              <details className="group pl-[26px]">
-                <summary className="inline-flex min-h-target cursor-pointer items-center text-sm font-medium text-brand underline underline-offset-3 [&::-webkit-details-marker]:hidden">
-                  Our estimate. See USG's wording
-                </summary>
-                <div className="mt-1 flex flex-col gap-2">
-                  <UsgQuote id="R23" />
-                  <p className="m-0 text-sm text-ink-2">FundCheck skips Wednesdays that fall in USC's academic breaks and holidays. Confirm on USG's Funding Application Deadlines sheet.</p>
-                </div>
-              </details>
-            </div>
+            <p className="num m-0 flex items-start gap-2 text-base text-ink lg:col-start-1 lg:row-start-2">
+              <CalendarClock aria-hidden size={18} className="mt-0.5 shrink-0 text-ink-2" />
+              <span>
+                <span className="font-semibold">Next application window: </span>
+                {nextWin === today ? 'today, ' : ''}{date(nextWin)}, 8:00 AM to 11:59 PM
+              </span>
+            </p>
           )}
           <div className="lg:col-start-1 lg:row-start-3">
           <Fold title="What it checks" open={wide}>
@@ -270,11 +251,11 @@ export default function Check() {
               <li>The $4,000 venue cap, $35 food limit and $8,000 yearly cap</li>
               <li>Which fund to apply to, and a deadline estimate</li>
               <li>The documents to attach, with the exact file names</li>
+              <li>Ticket sales and events closed to some students</li>
+              <li>Each named vendor against the USG Vendor List</li>
+              <li>USG's blackout dates and the limit of 4 events per semester</li>
+              <li>Lodging over $400 a night and <span className="whitespace-nowrap">T-shirt</span> vendors</li>
             </ul>
-            <p className="m-0 text-sm text-ink-2">
-              AI reads your plan. Every dollar and date is computed by code you can{' '}
-              <a href="https://github.com/DY0810/fundcheck" target="_blank" rel="noreferrer">read on GitHub<span className="sr-only"> (opens in a new tab)</span></a>.
-            </p>
           </Fold>
           </div>
         </section>
@@ -321,7 +302,6 @@ export default function Check() {
                   note={
                     <p className="m-0 text-sm text-ink-2">
                       {source.kind === 'live' && source.provider === 'workers-ai' && 'Read by our backup AI service. Double-check what we read.'}
-                      {source.kind === 'fixture' && 'Sample loaded without an AI call.'}
                       {source.kind === 'cached' && "AI didn't respond: a saved reading of the sample. Checks run live."}
                     </p>
                   }
@@ -331,38 +311,31 @@ export default function Check() {
                     </button>
                   }
                 />
-                <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-x-10">
-                <div className="flex flex-col gap-6 lg:gap-group">
-                  <Flags check={check} extraction={extraction} />
-                </div>
-              <Rows label="Details">
-                {impact.length > 0 && (
-                  <Fold flat title="Questions" id="asks-h" meta={open ? `${open} could change this` : 'All answered'}>
-                    <p className="m-0 text-sm text-ink-2">Each answer reruns the pre-check right away.</p>
-                    {askRows(impact)}
+                <Flags check={check} extraction={extraction} />
+                <Rows label="Details">
+                  {impact.length > 0 && (
+                    <Fold flat title="Questions" id="asks-h" meta={open ? `${open} could change this` : 'All answered'}>
+                      {askRows(impact)}
+                    </Fold>
+                  )}
+                  <Fold flat title="Money" meta={moneyMeta(check.money, check.flags.find((f) => f.ruleId === 'R9')?.amountCents ?? 0)}>
+                    <MoneyBody check={check} answers={answers} />
                   </Fold>
-                )}
-                <Fold flat title="Money" meta={moneyMeta(check.money, check.flags.find((f) => f.ruleId === 'R9')?.amountCents ?? 0)}>
-                  <MoneyBody check={check} answers={answers} />
-                </Fold>
-                <Fold flat title="Deadline" meta={headline(check.deadline).replace(/\.$/, '') + (check.deadline.status === 'safe' || check.deadline.status === 'next_open' ? ' (estimate)' : '')}>
-                  <DeadlineBody check={check} />
-                </Fold>
-                <Fold flat title="Fund" meta={check.fund.label}>
-                  <FundBody check={check} />
-                </Fold>
-                <Fold flat title="Documents" meta={docsMeta(check)}>
-                  <Documents check={check} />
-                </Fold>
-                <Fold flat title="Vendors" meta={vendorsMeta(check)}>
-                  <Vendors check={check} answers={answers} onOverride={setVendorOverride} />
-                </Fold>
-                {!wide && editFold}
-              </Rows>
-                </div>
+                  <Fold flat title="Deadline" meta={headline(check.deadline).replace(/\.$/, '') + (check.deadline.status === 'safe' || check.deadline.status === 'next_open' ? ' (estimate)' : '')}>
+                    <DeadlineBody check={check} />
+                  </Fold>
+                  <Fold flat title="Fund" meta={check.fund.label}>
+                    <FundBody check={check} />
+                  </Fold>
+                  <Fold flat title="Documents" meta={docsMeta(check)}>
+                    <Documents check={check} />
+                  </Fold>
+                  <Fold flat title="Vendors" meta={vendorsMeta(check)}>
+                    <Vendors check={check} answers={answers} onOverride={setVendorOverride} />
+                  </Fold>
+                </Rows>
               </section>
-              {/* On desktop the line-item table needs the full width, so the editor sits under both columns. */}
-              {wide && <Rows label="Edit the plan">{editFold}</Rows>}
+              {editFold}
             </>
           )}
 
@@ -385,7 +358,6 @@ export default function Check() {
               resolution={resolution}
               original={extraction}
               answers={answers}
-              unanswered={open}
               headingRef={headingRef}
               onBack={() => go(fixes.length ? 2 : 1)}
               backLabel={fixes.length ? 'Back to the fixes' : 'Back to what we found'}

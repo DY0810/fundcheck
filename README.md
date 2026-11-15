@@ -2,7 +2,7 @@
 
 FundCheck pre-checks a USC student organization's USG Funding Department application. An officer pastes an event plan in plain words, and FundCheck works in three steps. **Check** shows which items USG's Guidelines don't fund (each with USG's own quote), the money against every cap, which fund to apply to, a deadline estimate and the documents to attach. **Fix** proposes a fix for each flag, and nothing changes until the officer approves it. **Hand off** gathers drafted form answers to copy, a budget CSV, the documents and a link to USG's funding page; filing itself needs the officer's USC sign-in. The on-campus events USG funds can't sell tickets and must be open to all students, so every application that comes back late or incomplete is one fewer free event for every Trojan. FundCheck exists so the application a Funding Director opens is already complete and inside the rules.
 
-**Live:** https://fundcheck.cyberprivacy.workers.dev (no login; try the Bovard dance showcase sample)
+**Live:** https://fundcheck.cyberprivacy.workers.dev (no login; the Bovard dance showcase sample is already in the box, so press "Check my plan")
 **Accuracy:** FundCheck checked 98 of 100 hand-written test plans correctly. Every case and result is in this repo, in `evals/` and `public/eval-results.json`.
 
 ![Step 1, Check: the Bovard dance showcase sample with $7,200 eligible of $8,850 and the ticket-sales flag](submission/screenshots/01-result.png)
@@ -97,7 +97,7 @@ The shared types (money in integer cents, dates as `YYYY-MM-DD`) are in `src/sha
 | Drafts the form's free-text answers and the budget justifications, with bracketed placeholders such as "[your organization's mission]" for facts the plan doesn't give | Vendor check: plain string matching against both tabs of USG's vendor sheet (207 rows). This is not AI. |
 | | The budget CSV in USG's template columns |
 
-Every flag carries a rule ID internally, and the page renders USG's quote from `src/shared/rules.json` (version `guidelines-2026-10-21.1`, 51 rules), never text from the model. Each flag is badged "AI-judged" or "Rule math", so the officer can see which part made the call.
+Every flag carries a rule ID internally, and the page renders USG's quote from `src/shared/rules.json` (version `guidelines-2026-10-21.1`, 51 rules), never text from the model.
 
 **Why this model, and what it costs.** We benchmarked cheaper models on a 41-case subset of the test plans. Claude Sonnet 5.5, the next tier down, halved the cost per check but checked 35 of 41 correctly, against 39 of 41 for `claude-opus-5-5`, so we kept the more accurate model. Each check is one model call: we measured 1.4 to 3.7 cents on short plans like the sample (warm or cold prompt cache) and 6 to 8 cents on a 22-item budget, roughly $14 to $37 per thousand checks. Drafting the form answers is a second, optional call that we did not measure. Hosting fits Cloudflare's free tier.
 

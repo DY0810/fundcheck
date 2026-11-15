@@ -57,7 +57,6 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
 }) {
   const auto = fixes.filter((f) => f.auto);
   const manual = fixes.filter((f) => !f.auto);
-  const wide = useWide();
   const allAuto = auto.length > 0 && auto.every((f) => choices[f.id] === 'apply');
   const rows = (list: Fix[]) => list.map((f) => (
     <fieldset key={f.id} className="m-0 flex min-w-0 flex-col gap-3 border-0 px-card py-4 sm:flex-row sm:items-center sm:justify-between lg:px-card-lg">
@@ -75,7 +74,7 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
     </fieldset>
   ));
   const bar = (
-    <div className="flex flex-col gap-4 rounded-panel bg-brand-tint p-4 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-stretch lg:p-card-lg">
+    <div className="flex flex-col gap-4 rounded-panel bg-brand-tint p-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-col gap-0.5" aria-live="polite" aria-atomic="true">
         <p className="m-0 text-sm text-ink">You'll request</p>
         <p className="num m-0 flex flex-wrap items-baseline gap-x-2">
@@ -86,16 +85,11 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
       <button type="button" className="btn btn-primary" onClick={onContinue}>Continue <ArrowRight aria-hidden size={18} /></button>
     </div>
   );
-  // From lg the request card leaves the heading panel for a sticky right column; below lg the markup is unchanged.
   return (
-    <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-x-10">
     <div className="flex flex-col gap-6 lg:gap-group">
       <section aria-labelledby="fixes-h" className="panel flex animate-reveal flex-col gap-4 p-card lg:p-card-lg">
-        <div className="flex flex-col gap-1">
-          <h2 id="fixes-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Review fixes</h2>
-          <p className="m-0 max-w-[62ch] text-base text-ink-2">Nothing changes until you choose. Apply a fix to take it out of your request, or keep the line and ask the board.</p>
-        </div>
-        {!wide && bar}
+        <h2 id="fixes-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Review fixes</h2>
+        {bar}
       </section>
 
       {auto.length > 0 && (
@@ -111,24 +105,19 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
       )}
       {manual.length > 0 && (
         <section aria-labelledby="manual-h" className="panel flex animate-reveal flex-col divide-y divide-line [animation-delay:140ms]">
-          <div className="flex flex-col gap-1 px-card py-4 lg:px-card-lg">
-            <p id="manual-h" className="m-0 text-base font-semibold text-ink">Changes to the event</p>
-            <p className="m-0 text-sm text-ink-2">These change the event itself, so they are never part of Approve all.</p>
-          </div>
+          <p id="manual-h" className="m-0 px-card py-4 text-base font-semibold text-ink lg:px-card-lg">Changes to the event</p>
           {rows(manual)}
         </section>
       )}
       <Back onClick={onBack}>Back to what we found</Back>
-    </div>
-    {wide && <aside aria-label="Your request" className="sticky top-4 animate-reveal">{bar}</aside>}
     </div>
   );
 }
 
 // ---------- Step 3: hand off ----------
 
-export function Handoff({ resolution, original, answers, unanswered, paperwork, documents, headingRef, onBack, backLabel }: {
-  resolution: Resolution; original: Extraction; answers: Answers; unanswered: number; paperwork: ReactNode; documents: ReactNode; headingRef: Ref<HTMLHeadingElement>; onBack: () => void; backLabel: string;
+export function Handoff({ resolution, original, answers, paperwork, documents, headingRef, onBack, backLabel }: {
+  resolution: Resolution; original: Extraction; answers: Answers; paperwork: ReactNode; documents: ReactNode; headingRef: Ref<HTMLHeadingElement>; onBack: () => void; backLabel: string;
 }) {
   const r = resolution;
   const [draft, setDraft] = useState<Draft | null>(null);
@@ -145,7 +134,7 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
         ) : (
           <div className="flex flex-col gap-2">
             <p className="m-0 text-base font-medium text-ink">{plural(r.open.length, 'item')} left for the board</p>
-            <ul className="m-0 flex list-none flex-col gap-1 p-0">
+            <ul className="m-0 flex max-w-main list-none flex-col gap-1 p-0">
               {r.open.map((f) => {
                 const S = SEV[f.severity];
                 return (
@@ -158,12 +147,11 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
             </ul>
           </div>
         )}
-        {unanswered > 0 && <p className="m-0 -mt-2 text-sm text-ink-2">{plural(unanswered, 'question')} on step 1 could still change this.</p>}
     </>
   );
   const packet = (
     <>
-        <dl className="m-0 grid grid-cols-1 gap-x-4 gap-y-3 border-t border-line pt-4 lg:border-t-0 lg:pt-0 sm:grid-cols-[1fr_1fr_1.2fr] sm:gap-x-6">
+        <dl className="m-0 grid grid-cols-1 gap-x-4 gap-y-3 border-t border-line pt-4 sm:grid-cols-[1fr_1fr_1.2fr] sm:gap-x-6">
           <div className="flex flex-col gap-0.5">
             <dt className="text-sm text-ink-2">Amount to request</dt>
             <dd className="num m-0 text-xl font-semibold text-ink">{money(r.requestCents)}</dd>
@@ -181,10 +169,7 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
           <a className="btn btn-primary no-underline" href={USG_FUNDING} target="_blank" rel="noreferrer">
             Open USG's funding page <ExternalLink aria-hidden size={16} /><span className="sr-only"> (opens in a new tab)</span>
           </a>
-          <p className="m-0 text-sm text-ink-2">Filing needs your USC sign-in. FundCheck doesn't submit for you.</p>
-        </div>
-        <div className="border-t border-line pt-4">
-          <CsvButton extraction={r.extraction} check={r.check} draft={draft} />
+          <CsvButton extraction={r.extraction} draft={draft} />
         </div>
     </>
   );
@@ -203,17 +188,7 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
       </Rows>
   );
   const back = <Back onClick={onBack}>{backLabel}</Back>;
-  // From lg: the status spans the container, the packet sits left and what to bring right. Below lg it is one panel, as before.
-  if (wide) return (
-    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,5fr)] items-start gap-x-10 gap-y-group">
-      <section aria-labelledby="handoff-h" className="panel col-span-2 flex animate-reveal flex-col gap-4 p-card-lg">{status}</section>
-      <div className="flex flex-col gap-group">
-        <section aria-label="Your packet" className="panel flex animate-reveal flex-col gap-4 p-card-lg [animation-delay:80ms]">{packet}</section>
-        {back}
-      </div>
-      {bring}
-    </div>
-  );
+  // Every section is a full-width row: the packet, then what to bring.
   return (
     <div className="flex flex-col gap-6 lg:gap-group">
       <section aria-labelledby="handoff-h" className="panel flex animate-reveal flex-col gap-4 p-card lg:p-card-lg">

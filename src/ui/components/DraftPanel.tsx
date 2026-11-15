@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Download, LoaderCircle, RotateCcw } from 'lucide-react';
 import type { Answers, ApiError, CheckResult, Draft, Extraction } from '../../shared/contracts';
 import * as api from '../lib/api';
-import { date, moneyExact, plural } from '../lib/format';
+import { date, moneyExact } from '../lib/format';
 import { BUDGET_FILE_NAME, budgetCsv } from '../engine';
 import { CopyButton, UsgQuote } from './bits';
 
@@ -33,22 +33,12 @@ function downloadCsv(extraction: Extraction, draft: Draft | null) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-/** Step 3: the budget CSV of the revised plan, with what it holds said in one line. */
-export function CsvButton({ extraction, check, draft }: { extraction: Extraction; check: CheckResult; draft: Draft | null }) {
-  const kept = check.flags.filter((f) => f.severity === 'not_eligible' && f.itemId).length;
-  return (
-    <div className="flex flex-col gap-1.5">
-      <button type="button" className="btn btn-secondary self-start" onClick={() => downloadCsv(extraction, draft)} aria-describedby="csv-note">
-        <Download aria-hidden size={16} /> Download budget CSV
-      </button>
-      <p id="csv-note" className="m-0 max-w-[75ch] text-sm text-ink-2 [overflow-wrap:anywhere]">
-        {plural(extraction.items.length, 'line')}
-        {kept ? `, including ${kept} you kept to ask the board about.` : '.'}
-        {check.money.venuePersonnelCents > 0 && ' Venue and personnel are listed at full cost; USG funds up to $4,000 of them.'}
-      </p>
-    </div>
-  );
-}
+/** Step 3: the budget CSV of the revised plan. */
+export const CsvButton = ({ extraction, draft }: { extraction: Extraction; draft: Draft | null }) => (
+  <button type="button" className="btn btn-secondary" onClick={() => downloadCsv(extraction, draft)}>
+    <Download aria-hidden size={16} /> Download budget CSV
+  </button>
+);
 
 /** Step 3: the form answers for the revised plan. `requestCents` is what the officer chose to request. */
 export function DraftPanel({ extraction, check, answers, requestCents, draft, setDraft }: {
@@ -70,13 +60,10 @@ export function DraftPanel({ extraction, check, answers, requestCents, draft, se
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between lg:flex-col">
-        <p className="m-0 max-w-[60ch] text-base text-ink-2">Each answer uses the form's exact label. Copy them into the application, then check every line.</p>
-        <button type="button" className="btn btn-secondary shrink-0" onClick={run} disabled={busy} aria-busy={busy}>
-          {busy && <LoaderCircle aria-hidden size={16} className="animate-spin" />}
-          {draft ? 'Redraft my form answers' : 'Draft my form answers'}
-        </button>
-      </div>
+      <button type="button" className="btn btn-secondary sm:self-start" onClick={run} disabled={busy} aria-busy={busy}>
+        {busy && <LoaderCircle aria-hidden size={16} className="animate-spin" />}
+        {draft ? 'Redraft my form answers' : 'Draft my form answers'}
+      </button>
 
       {error && (
         <div role="alert" className="flex flex-col gap-3 rounded-panel bg-ne-bg p-4 text-ne sm:flex-row sm:items-center sm:justify-between">

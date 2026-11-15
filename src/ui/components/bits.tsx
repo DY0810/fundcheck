@@ -1,9 +1,9 @@
 import { useState, useSyncExternalStore, type ReactNode, type Ref } from 'react';
-import { Ban, Calculator, Check, ChevronDown, CircleCheck, CircleHelp, Copy, Gauge, MessageSquareText, ScanText, type LucideIcon } from 'lucide-react';
-import type { Badge, RuleId, Severity } from '../../shared/contracts';
+import { Ban, Check, ChevronDown, CircleCheck, CircleHelp, Copy, Gauge, MessageSquareText, type LucideIcon } from 'lucide-react';
+import type { RuleId, Severity } from '../../shared/contracts';
 import { rule } from '../lib/rules';
 
-// The two-column desktop layout starts at Tailwind's lg (1024 px); used where a column change needs different markup.
+// The desktop layout starts at Tailwind's lg (1024 px); used where it needs different markup or a row open by default.
 const WIDE = '(min-width: 64rem)';
 const onWide = (cb: () => void) => { const m = matchMedia(WIDE); m.addEventListener('change', cb); return () => m.removeEventListener('change', cb); };
 export const useWide = () => useSyncExternalStore(onWide, () => matchMedia(WIDE).matches);
@@ -26,23 +26,12 @@ export function SevChip({ severity, children }: { severity: Severity; children?:
   );
 }
 
-export function BadgeTag({ badge }: { badge: Badge }) {
-  const math = badge === 'rule_math';
-  const Icon = math ? Calculator : ScanText;
-  return (
-    <span className="inline-flex h-6 shrink-0 items-center gap-1 rounded-full bg-inset px-2 text-xs font-medium text-ink-2">
-      <Icon aria-hidden size={12} strokeWidth={2} />
-      {math ? 'Rule math' : 'AI-judged'}
-    </span>
-  );
-}
-
 /** USG's words. Only rules.json quotes ever render here. */
 export function UsgQuote({ id, intro }: { id: RuleId; intro?: string }) {
   const r = rule(id);
   if (!r) return null;
   return (
-    <figure className="m-0 flex flex-col gap-1.5">
+    <figure className="m-0 flex max-w-main flex-col gap-1.5">
       <figcaption className="text-sm text-ink-2">
         {intro ?? (r.sourceUrl ? (
           <>
@@ -55,16 +44,7 @@ export function UsgQuote({ id, intro }: { id: RuleId; intro?: string }) {
           <p key={q} className="m-0 max-w-[68ch]">“{q}”</p>
         ))}
       </blockquote>
-      {r.note && <p className="m-0 text-sm text-ink-2">Our note: {r.note}</p>}
     </figure>
-  );
-}
-
-export function AiText({ label = 'AI reasoning', children }: { label?: string; children: ReactNode }) {
-  return (
-    <p className="m-0 text-sm text-ink-2">
-      <span className="font-medium text-ink">{label}:</span> {children}
-    </p>
   );
 }
 
@@ -103,8 +83,8 @@ export function Panel({ title, id, children, className = '', aside }: { title: s
   );
 }
 
-/** A one-line row that expands: its title and key fact when closed. `flat` rows sit inside a <Rows> panel. */
-export function Fold({ title, meta, open, id, detailsRef, flat, children }: { title: ReactNode; meta?: ReactNode; open?: boolean; id?: string; detailsRef?: Ref<HTMLDetailsElement>; flat?: boolean; children: ReactNode }) {
+/** A one-line row that expands: its title and key fact when closed. `flat` rows sit inside a <Rows> panel. `wide` content uses the whole row (the line-item table); other content stops at a readable width. */
+export function Fold({ title, meta, open, id, detailsRef, flat, wide, children }: { title: ReactNode; meta?: ReactNode; open?: boolean; id?: string; detailsRef?: Ref<HTMLDetailsElement>; flat?: boolean; wide?: boolean; children: ReactNode }) {
   return (
     <details ref={detailsRef} open={open} className={`group scroll-mt-4 ${flat ? '' : 'panel'}`}>
       <summary className="flex min-h-target cursor-pointer list-none items-center justify-between gap-3 rounded-panel px-card py-3 lg:px-card-lg [&::-webkit-details-marker]:hidden">
@@ -114,7 +94,7 @@ export function Fold({ title, meta, open, id, detailsRef, flat, children }: { ti
         </span>
         <ChevronDown aria-hidden size={20} className="shrink-0 text-ink-2 transition-transform duration-200 group-open:rotate-180" />
       </summary>
-      <div className="flex flex-col gap-4 px-card pb-card lg:px-card-lg lg:pb-card-lg">{children}</div>
+      <div className={`flex flex-col gap-4 px-card pb-card lg:px-card-lg lg:pb-card-lg ${wide ? '' : '*:max-w-main'}`}>{children}</div>
     </details>
   );
 }

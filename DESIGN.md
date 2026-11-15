@@ -4,6 +4,13 @@ FundCheck is a task tool: an RSO officer pastes an event plan and gets a pre-che
 
 v2 replaces the USWDS palette with USC cardinal as the brand, and lowers density. The layout values come from IBM Carbon (expressive type and spacing) and the GOV.UK Design System (column width, line length, one job per screen). The source notes are in `research/design-v2.md`.
 
+## Owner's changes, Nov 15 (these override anything below)
+
+- **Rows, not columns.** Check, Fix and Hand off are one column of full-width rows at every width. Only the landing keeps two columns from 1024 px. Text inside a row stops at 680 px.
+- **No badges or counts.** Flag cards carry no "AI-judged" or "Rule math" badge, no "AI reasoning" line, and group headings carry no bracketed count. "AI draft" and "Filled by FundCheck" on form answers stay.
+- **No caveat or helper sentences.** The small grey notes are gone, including the privacy line, the sign-in line, the footer line and the note under the CSV button. There is no footer. "The board may make an exception" stays.
+- **The sample is the box's starting text.** There is no sample button; the first focus selects the sample so a paste replaces it.
+
 ## The idea
 
 Two voices, never mixed:
