@@ -186,6 +186,31 @@ export interface CheckResult {
   postEventRuleId: 'R28';
 }
 
+// ---------- Fixes: changes FundCheck can make to the plan for the user (pure code in src/engine/fixes.ts, no LLM) ----------
+// A fix is only offered; nothing changes until the user approves it. runCheck() on the original plan is untouched.
+export type FixKind =
+  | 'remove_line'     // drop one not-eligible budget line from the request
+  | 'reduce_request'  // ask for the capped amount; the lines stay as written
+  | 'change_event';   // a change to the event itself (R4: no ticket sales). Never part of "approve all".
+export interface Fix {
+  id: string;            // = id of the flag it clears, e.g. "R1:i4", "R6:event", "R4:event"
+  ruleId: RuleId;
+  kind: FixKind;
+  itemId: string | null; // the line removed; null for the other kinds
+  label: string;         // OURS, built by code: "Remove Helium balloon arch ($250) from the request"
+  savesCents: Cents;     // amount this takes off the request; 0 for change_event
+  auto: boolean;         // true → included in "approve all"; false → the user must pick it on its own
+}
+export interface Resolution {
+  fixes: Fix[];            // every fix offered for the original check, in flag order
+  approved: string[];      // fix ids the user approved
+  extraction: Extraction;  // the plan with the approved fixes applied; feeds the CSV and /api/draft
+  check: CheckResult;      // runCheck() on that revised plan
+  requestCents: Cents;     // amount to request: approved fixes taken off, anything the user kept left in
+  open: Flag[];            // not_eligible and over_cap flags still standing: kept to ask the board, or no fix exists
+}
+// Engine: proposeFixes(input, check): Fix[] and applyFixes(input, check, approved): Resolution, exported from src/engine/index.ts.
+
 // ---------- Draft: what /api/draft returns ----------
 export interface Draft {
   description: string;           // "Description of event"
