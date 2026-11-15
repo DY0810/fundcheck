@@ -49,7 +49,7 @@ The eval runner defaults to `http://localhost:8787`. Add `--only e01,e06` to run
 
 One Cloudflare Worker serves the React page as static assets plus two JSON endpoints. The rules engine is plain TypeScript that runs in the browser and in the eval runner and never calls a model.
 
-![Architecture: the browser, one Cloudflare Worker, Claude with the Workers AI fallback, and the rules engine](submission/screenshots/06-architecture.png)
+![Pipeline: the event plan, Claude reads it (Llama 3.3 70B on Workers AI as backup), Zod checks it, TypeScript decides, then check, fix, hand off](submission/screenshots/06-architecture.png)
 
 ```mermaid
 flowchart LR
