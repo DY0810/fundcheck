@@ -14,9 +14,9 @@ export const SEV: Record<Severity, { label: string; Icon: LucideIcon; fg: string
 export function SevChip({ severity, children }: { severity: Severity; children?: string }) {
   const s = SEV[severity];
   return (
-    <span title={children} className={`inline-flex min-h-7 max-w-full items-center gap-1.5 rounded-full px-2.5 text-sm font-medium ${s.fg} ${s.bg}`}>
-      <s.Icon aria-hidden size={14} strokeWidth={2} className="shrink-0" />
-      <span className="min-w-0 truncate">{children ?? s.label}</span>
+    <span className={`inline-flex min-h-7 max-w-full items-start gap-1.5 rounded-[0.875rem] px-2.5 py-1 text-sm leading-5 font-medium ${s.fg} ${s.bg}`}>
+      <s.Icon aria-hidden size={14} strokeWidth={2} className="mt-[3px] shrink-0" />
+      <span className="min-w-0">{children ?? s.label}</span>
     </span>
   );
 }

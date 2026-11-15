@@ -25,7 +25,7 @@ function Field({ label, value, ai, wide, children }: { label: string; value: str
 }
 
 function downloadCsv(extraction: Extraction, draft: Draft | null) {
-  const blob = new Blob([budgetCsv(extraction, draft?.budgetJustifications ?? {})], { type: 'text/csv;charset=utf-8' });
+  const blob = new Blob([budgetCsv(extraction.items, draft?.budgetJustifications ?? {})], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = Object.assign(document.createElement('a'), { href: url, download: BUDGET_FILE_NAME });
   a.click();

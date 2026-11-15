@@ -12,7 +12,12 @@ import { DeadlineCardView, Documents, Flags, FundCard, MoneyCard, PostEvent, Sum
 import { DraftPanel } from '../components/DraftPanel';
 
 type Source = { kind: 'live' | 'cached' | 'fixture'; model: string; ms: number };
-const FIXTURE = new URLSearchParams(location.search).has('fixture');
+// ?fixture=1 skips the API with the sample; dev builds also accept worst | empty | 40 (break-ui data).
+const FIXTURE_KEY = new URLSearchParams(location.search).get('fixture');
+const loadWorst = () => import('../fixtures/worst-case');
+const FIXTURES: Record<string, () => Promise<Extraction>> = import.meta.env.DEV
+  ? { worst: () => loadWorst().then((m) => m.WORST), empty: () => loadWorst().then((m) => m.EMPTY), 40: () => loadWorst().then((m) => m.FORTY) }
+  : {};
 
 export default function Check() {
   const [plan, setPlan] = useState('');
@@ -35,8 +40,8 @@ export default function Check() {
     if (text.length > MAX_PLAN_CHARS) return setError({ code: 'too_long', message: `Your plan is over ${MAX_PLAN_CHARS.toLocaleString()} characters. Trim it and try again.` });
     setBusy(true);
     setError(null);
-    const res = FIXTURE
-      ? ({ ok: true, extraction: SAMPLE_EXTRACTION, source: 'fixture', model: 'none', ms: 0 } as const)
+    const res = FIXTURE_KEY != null
+      ? ({ ok: true, extraction: await (FIXTURES[FIXTURE_KEY]?.() ?? SAMPLE_EXTRACTION), source: 'fixture', model: 'none', ms: 0 } as const)
       : await api.extract(text);
     setBusy(false);
     if (!res.ok) return setError(res.error);

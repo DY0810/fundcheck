@@ -39,7 +39,7 @@ export function MoneyInput({ value, onChange, label, className = '' }: { value: 
   );
 }
 
-function NumberInput({ value, onChange, label, className = '', id }: { value: number | null; onChange: (n: number | null) => void; label?: string; className?: string; id?: string }) {
+function NumberInput({ value, onChange, label, className = '', id, placeholder = 'Unknown' }: { value: number | null; onChange: (n: number | null) => void; label?: string; className?: string; id?: string; placeholder?: string }) {
   return (
     <input
       id={id}
@@ -49,7 +49,7 @@ function NumberInput({ value, onChange, label, className = '', id }: { value: nu
       min={0}
       className={`field num ${className}`}
       value={value ?? ''}
-      placeholder="Unknown"
+      placeholder={placeholder}
       onChange={(e) => {
         const n = e.target.value === '' ? null : Number(e.target.value);
         if (n === null || (Number.isFinite(n) && n >= 0)) onChange(n);
@@ -139,17 +139,17 @@ export function ItemsTable({ items, onChange, onAdd, onRemove }: {
           We didn't find any expenses in your plan. Add each expense and its cost so the caps and checks can run.
         </p>
       ) : (
-        <table className="block w-full border-collapse text-left lg:table">
+        <table className="block w-full border-collapse text-left lg:table lg:table-fixed">
           <caption className="sr-only">Line items read from your plan. Every field can be edited.</caption>
           <thead className="sr-only lg:not-sr-only lg:table-header-group">
             <tr className="text-sm text-ink-2">
-              <th scope="col" className="px-2 pb-2 font-medium lg:w-[25%]">Item</th>
-              <th scope="col" className="px-2 pb-2 font-medium lg:w-[17%]">Vendor</th>
-              <th scope="col" className="px-2 pb-2 font-medium lg:w-[10%]">Qty</th>
-              <th scope="col" className="px-2 pb-2 font-medium lg:w-[12%]">Cost</th>
-              <th scope="col" className="px-2 pb-2 font-medium lg:w-[14%]">Category</th>
+              <th scope="col" className="px-2 pb-2 font-medium lg:w-[21%]">Item</th>
+              <th scope="col" className="px-2 pb-2 font-medium lg:w-[14%]">Vendor</th>
+              <th scope="col" className="px-2 pb-2 font-medium lg:w-[8%]">Qty</th>
+              <th scope="col" className="px-2 pb-2 font-medium lg:w-[15%]">Cost</th>
+              <th scope="col" className="px-2 pb-2 font-medium lg:w-[15%]">Category</th>
               <th scope="col" className="px-2 pb-2 font-medium">Checks</th>
-              <th scope="col" className="px-2 pb-2 font-medium"><span className="sr-only">Remove</span></th>
+              <th scope="col" className="px-2 pb-2 font-medium lg:w-12"><span className="sr-only">Remove</span></th>
             </tr>
           </thead>
           <tbody className="flex flex-col gap-3 lg:table-row-group">
@@ -169,7 +169,8 @@ export function ItemsTable({ items, onChange, onAdd, onRemove }: {
                     <span className={cellLabel} aria-hidden>Qty</span>
                     <NumberInput
                       label={`Quantity for ${name}`}
-                      className="lg:min-h-10"
+                      placeholder="1"
+                      className="lg:min-h-10 lg:px-2"
                       value={it.quantity}
                       onChange={(q) => onChange(it.id, it.unitCostCents == null ? { quantity: q } : { quantity: q, totalCents: (q ?? 1) * it.unitCostCents })}
                     />
@@ -178,7 +179,7 @@ export function ItemsTable({ items, onChange, onAdd, onRemove }: {
                     <span className={cellLabel} aria-hidden>Cost</span>
                     <MoneyInput
                       label={`Line cost for ${name}`}
-                      className="lg:min-h-10"
+                      className="lg:min-h-10 lg:pr-2"
                       value={lineTotal(it)}
                       onChange={(c) => onChange(it.id, { totalCents: c, unitCostCents: c != null && it.quantity ? Math.round(c / it.quantity) : it.unitCostCents })}
                     />

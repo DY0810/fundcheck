@@ -134,11 +134,8 @@ export function MoneyCard({ check, answers }: { check: CheckResult; answers: Ans
           </div>
         </div>
         <p className="num m-0 text-sm text-ink-2">
-          {received == null
-            ? `${pct(m.eligibleCents / m.yearlyCapCents)} of the $8,000 yearly cap, if your org has received nothing yet this year`
-            : share > 1
-              ? `${money(used - m.yearlyCapCents)} over the $8,000 yearly cap, counting ${money(received)} already received`
-              : `${pct(share)} of the $8,000 yearly cap, counting ${money(received)} already received`}
+          {share > 1 ? `${money(used - m.yearlyCapCents)} over` : `${pct(share)} of`} the $8,000 yearly cap
+          {received == null ? ', if your org has received nothing yet this year' : `, counting ${money(received)} already received`}
         </p>
       </div>
       <dl className="m-0">
@@ -182,10 +179,10 @@ export function DeadlineCardView({ check }: { check: CheckResult }) {
         {d.latest && d.status !== 'blackout' && <p className="num m-0 text-sm text-ink-2">Latest date under the event-date wording: {date(d.latest)}</p>}
         {anchor && <p className="num m-0 text-sm text-ink-2">Counted {d.weeks} academic weeks back from the {anchor.kind === 'event' ? 'event' : 'first payment'} on {date(anchor.date)}.</p>}
       </div>
-      <p className="m-0 flex items-center gap-2 text-base">
+      {d.status !== 'unknown_date' && <p className="m-0 flex items-center gap-2 text-base">
         {d.blackout ? <CircleAlert aria-hidden size={18} className="text-ne" /> : <CircleCheck aria-hidden size={18} className="text-pass" />}
         Blackout dates: {d.blackout ? 'the event is in a no-funding window' : 'clear'}
-      </p>
+      </p>}
       <UsgQuote id="R26" />
       <p className="m-0 text-sm text-ink-2">
         Estimate. USG documents word this rule differently, so we show the earliest date. Confirm on USG's Funding Application Deadlines sheet or with usgfunds@usc.edu.
