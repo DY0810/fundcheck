@@ -1,8 +1,8 @@
 export function Mark({ size = 28 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden focusable="false">
-      <rect width="32" height="32" rx="7" fill="#990000" />
-      <path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#FFCC00" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+      <rect width="32" height="32" rx="7" fill="var(--color-usc-cardinal)" />
+      <path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="var(--color-usc-gold)" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

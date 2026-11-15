@@ -24,34 +24,40 @@ Mode is **Operate** (a tool, not a landing page). Restraint, familiar controls, 
 
 ## Colour
 
-Calm neutral base; Trojan cardinal and gold are accents, used sparingly.
+The palette follows the U.S. Web Design System (USWDS): a calm cool-grey base, one blue for every action, and a separate colour family per severity. Blue never means "not eligible" and red never means "click here". A small USC accent (cardinal and gold) appears in exactly two places, listed below, and nowhere else.
 
-| Token | Value | Use |
-|---|---|---|
-| `--color-ground` | `#F6F5F2` | page background |
-| `--color-panel` | `#FFFFFF` | panels, inputs, table |
-| `--color-inset` | `#EFEDE9` | USG quote surface, hover row, skeleton |
-| `--color-line` | `#DCD8D2` | table and panel separators only (tables and forms may have lines) |
-| `--color-control` | `#8C857D` | input borders (3.6:1 on white) |
-| `--color-ink` | `#1C1917` | body text (16:1 on ground) |
-| `--color-ink-2` | `#57534E` | secondary text (7:1 on ground) |
-| `--color-cardinal` | `#990000` | primary button, wordmark, links, focus ring, "not eligible" (8.9:1 on white) |
-| `--color-cardinal-press` | `#7A0000` | primary button hover/press |
-| `--color-gold` | `#FFCC00` | logo check, "Estimate" tag, text selection, cap bar fill. Always with ink text on top (11.6:1); never as text on light |
+| Token | Value | Use | Contrast |
+|---|---|---|---|
+| `--color-ground` | `#F7F9FA` | page background (USWDS gray-cool-2) | ink 16.3, ink-2 6.4, brand 6.4 |
+| `--color-panel` | `#FFFFFF` | panels, inputs, table | ink 17.2, ink-2 6.7, brand 6.7 |
+| `--color-inset` | `#EDEFF0` | USG quote surface, fold header, skeleton (gray-cool-5) | ink 14.9, ink-2 5.9, brand 5.8 |
+| `--color-line` | `#DFE1E2` | separators only, never the only edge of a control (base-lighter) | decorative |
+| `--color-control` | `#71767A` | input borders (base) | 4.6 on panel |
+| `--color-ink` | `#1B1B1B` | body text (base-darkest) | |
+| `--color-ink-2` | `#565C65` | secondary text (base-dark) | |
+| `--color-brand` | `#005EA2` | primary button, links, focus ring, caret, cap-bar fill (primary) | white on it 6.7 |
+| `--color-brand-press` | `#1A4480` | primary button hover and press (primary-dark) | white on it 9.6 |
+| `--color-brand-tint` | `#D9E8F6` | "Estimate" tag, text selection, secondary-button hover. Fill only, ink text on it (13.8) | |
+| `--color-usc-cardinal` | `#990000` | USC accent, two places only | graphic, 8.5 on ground |
+| `--color-usc-gold` | `#FFCC00` | USC accent, only inside the cardinal mark | 5.9 on cardinal |
 
-Cardinal appears on the one primary action per view and on "not eligible". Gold appears at most three places per screen.
+**USC accent, exactly two places:** the header mark (cardinal square, gold check) and a 4 px cardinal rule across the very top of the page. Cardinal and gold never appear in the paste area, the result, a panel, chip, bar, border, button, link, focus ring or severity. Gold is never text and never on a light surface. The header is not sticky, so the accent is off screen whenever "not eligible" red is on screen.
 
 ### Severity
 
-Severity never relies on colour alone: each has an icon and a text label.
+Severity never relies on colour alone: each has an icon and a text label. Pairs are USWDS state and system colours; each text colour passes AA on its own surface and on white.
 
 | Severity | Label (exact) | Icon (lucide) | Text | Surface | Ratio |
 |---|---|---|---|---|---|
-| `not_eligible` | "Not eligible per §5" (or "Not eligible" when the rule is not §5) | `Ban` | `#990000` | `#FBEFEF` | 7.9 |
-| `over_cap` | "Over cap" | `Gauge` | `#8A4600` | `#FCF1E4` | 6.4 |
-| `review_note` | "Review note" | `MessageSquareText` | `#1D4F80` | `#EBF2F9` | 7.5 |
-| `confirm` | "Confirm" | `CircleHelp` | `#6B5300` | `#FFF7D6` | 6.8 |
-| `pass` | "Passed" | `CircleCheck` | `#1F6B3A` | `#EAF5EE` | 5.8 |
+| `not_eligible` | "Not eligible per §5" (or "Not eligible" when the rule is not §5) | `Ban` | `#B50909` | `#F4E3DB` | 5.6 |
+| `over_cap` | "Over cap" | `Gauge` | `#8C471C` | `#F2E4D4` | 5.6 |
+| `review_note` | "Review note" | `MessageSquareText` | `#0E4F5C` | `#E7F6F8` | 8.3 |
+| `confirm` | "Confirm" | `CircleHelp` | `#5C4809` | `#FAF3D1` | 7.9 |
+| `pass` | "Passed" | `CircleCheck` | `#216E1F` | `#ECF3EC` | 5.6 |
+
+**No coloured side bars.** USWDS alerts carry a 4 px coloured bar on the left; the design skills used here reject coloured side stripes on cards as decoration that repeats what the icon and label already say. Flags show severity through the icon, the label and the chip, not a stripe. The verdict panel is the one exception: a 4 px top rule in the worst severity present (red if anything is not eligible, green if all passed), because it summarises the whole page's state. It is never brand blue or USC cardinal. The quote block keeps no side border either.
+
+**Not copied from USWDS:** the government banner, flag, `.gov` or lock icons, GSA or USWDS logos, "Official" wording, the USWDS icon set and illustrations, USWDS page copy, and the USWDS `secondary` red. Gold never sits on or next to the blue.
 
 Banned words in the UI: "violation", "denied", "rejected", "fail" (except on `/evals`, where a test case passes or fails). The only "denied" on screen is inside a USG quote (R26), set as a quote.
 
@@ -92,7 +98,7 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 
 ## Components
 
-- **Buttons.** Primary: cardinal fill, white text, 44 px tall. Secondary: panel fill, ink text, 1 px control border. Ghost: text only, cardinal, underline on hover. Press: `scale(0.98)`. Loading keeps the label and adds a spinner plus `aria-busy`.
+- **Buttons.** Primary: brand fill, white text, 44 px tall. Secondary: panel fill, ink text, 1 px control border, brand-tint on hover. Ghost: text only, brand, underline on hover. Press: `scale(0.98)`. Loading keeps the label and adds a spinner plus `aria-busy`.
 - **Inputs.** Panel fill, 1 px control border, 6 px radius, 44 px tall (40 in the table). Visible `<label>` always; placeholders are examples, never labels.
 - **Yes / no / unknown.** A three-option radio group, not a select.
 - **Chips.** Full radius, 14 px, 28 px tall; category chips are neutral (inset); match chips take their severity colours.
@@ -102,9 +108,9 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 
 ## Focus, selection, browser surfaces
 
-- Focus: `outline: 2px solid var(--color-cardinal); outline-offset: 2px` on every focusable element via `:focus-visible`.
-- Selection: gold background, ink text.
-- Caret: cardinal. Scrollbars: default (Operate mode keeps native affordances).
+- Focus: `outline: 3px solid var(--color-brand); outline-offset: 2px` on every focusable element via `:focus-visible`.
+- Selection: brand-tint background, ink text.
+- Caret: brand. Scrollbars: default (Operate mode keeps native affordances).
 
 ## Motion
 

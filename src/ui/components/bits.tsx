@@ -3,12 +3,12 @@ import { Ban, Calculator, Check, ChevronDown, CircleCheck, CircleHelp, Copy, Gau
 import type { Badge, RuleId, Severity } from '../../shared/contracts';
 import { rule } from '../lib/rules';
 
-export const SEV: Record<Severity, { label: string; Icon: LucideIcon; fg: string; bg: string }> = {
-  not_eligible: { label: 'Not eligible', Icon: Ban, fg: 'text-ne', bg: 'bg-ne-bg' },
-  over_cap: { label: 'Over cap', Icon: Gauge, fg: 'text-cap', bg: 'bg-cap-bg' },
-  review_note: { label: 'Review note', Icon: MessageSquareText, fg: 'text-note', bg: 'bg-note-bg' },
-  confirm: { label: 'Confirm', Icon: CircleHelp, fg: 'text-confirm', bg: 'bg-confirm-bg' },
-  pass: { label: 'Passed', Icon: CircleCheck, fg: 'text-pass', bg: 'bg-pass-bg' },
+export const SEV: Record<Severity, { label: string; Icon: LucideIcon; fg: string; bg: string; top: string }> = {
+  not_eligible: { label: 'Not eligible', Icon: Ban, fg: 'text-ne', bg: 'bg-ne-bg', top: 'border-t-ne' },
+  over_cap: { label: 'Over cap', Icon: Gauge, fg: 'text-cap', bg: 'bg-cap-bg', top: 'border-t-cap' },
+  review_note: { label: 'Review note', Icon: MessageSquareText, fg: 'text-note', bg: 'bg-note-bg', top: 'border-t-note' },
+  confirm: { label: 'Confirm', Icon: CircleHelp, fg: 'text-confirm', bg: 'bg-confirm-bg', top: 'border-t-confirm' },
+  pass: { label: 'Passed', Icon: CircleCheck, fg: 'text-pass', bg: 'bg-pass-bg', top: 'border-t-pass' },
 };
 
 export function SevChip({ severity, children }: { severity: Severity; children?: string }) {

@@ -130,14 +130,14 @@ export default function Check() {
           {nextWin && (
             <div className="flex flex-col gap-2 rounded-panel border border-line bg-panel px-4 py-3">
               <p className="num m-0 flex items-start gap-2 text-base text-ink">
-                <CalendarClock aria-hidden size={18} className="mt-0.5 shrink-0 text-cardinal" />
+                <CalendarClock aria-hidden size={18} className="mt-0.5 shrink-0 text-brand" />
                 <span>
                   <span className="font-semibold">Next application window: </span>
                   {nextWin === today ? 'today, ' : ''}{date(nextWin)}, 8:00 AM to 11:59 PM
                 </span>
               </p>
               <details className="group pl-[26px]">
-                <summary className="cursor-pointer text-sm font-medium text-cardinal [&::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer text-sm font-medium text-brand [&::-webkit-details-marker]:hidden">
                   Our estimate. See USG's wording
                 </summary>
                 <div className="mt-2 flex flex-col gap-2">
@@ -245,7 +245,7 @@ export default function Check() {
                   {impact.length > 0 && <a href="#asks-h">{open ? `${plural(open, 'answer')} could change this` : 'Your answers'}</a>}
                   <a href="#docs-h">Documents</a>
                   <a href="#draft-h">Form answers and budget CSV</a>
-                  <button type="button" className="cursor-pointer border-0 bg-transparent p-0 font-medium text-cardinal underline underline-offset-2" onClick={openFix}>
+                  <button type="button" className="cursor-pointer border-0 bg-transparent p-0 font-medium text-brand underline underline-offset-2" onClick={openFix}>
                     Fix what we read ({plural(extraction.items.length, 'line')})
                   </button>
                 </nav>

@@ -29,14 +29,15 @@ export function Summary({ check }: { check: CheckResult }) {
 
 // ---------- Verdict ----------
 
-const Estimate = () => <span className="rounded-full bg-gold px-2 py-px text-xs font-semibold text-ink">Estimate</span>;
+const Estimate = () => <span className="rounded-full bg-brand-tint px-2 py-px text-xs font-semibold text-ink">Estimate</span>;
 
 /** The answer, first: counts, eligible request, deadline and fund. Everything else is detail below. */
 export function Verdict({ check, note, headingRef, nav }: { check: CheckResult; note?: ReactNode; headingRef: Ref<HTMLHeadingElement>; nav: ReactNode }) {
   const m = check.money;
   const r9 = check.flags.find((f) => f.ruleId === 'R9');
+  const worst = SEVERITY_ORDER.find((s) => check.flags.some((f) => f.severity === s)) ?? 'pass';
   return (
-    <div className="panel flex flex-col gap-4 border-t-4 border-t-cardinal p-4 lg:p-6">
+    <div className={`panel flex flex-col gap-4 border-t-4 p-4 lg:p-6 ${SEV[worst].top}`}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 id="result-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Pre-check</h2>
         {note}
@@ -185,7 +186,7 @@ export function MoneyCard({ check, answers }: { check: CheckResult; answers: Ans
         <div className="h-3 overflow-hidden rounded-full border border-control bg-inset" aria-hidden>
           <div className="flex h-full">
             {received ? <div className="h-full bg-ink-2" style={{ width: `${Math.min(100, (received / m.yearlyCapCents) * 100)}%` }} /> : null}
-            <div className="h-full bg-gold" style={{ width: `${Math.min(100, (Math.max(0, m.eligibleCents) / m.yearlyCapCents) * 100)}%` }} />
+            <div className="h-full bg-brand" style={{ width: `${Math.min(100, (Math.max(0, m.eligibleCents) / m.yearlyCapCents) * 100)}%` }} />
           </div>
         </div>
         <p className="num m-0 text-sm text-ink-2">
@@ -229,7 +230,7 @@ export function DeadlineCardView({ check }: { check: CheckResult }) {
   const r25 = rule('R25');
   const anchor = d.anchors[0];
   return (
-    <Panel title="Deadline" id="deadline-h" aside={<span className="rounded-full bg-gold px-2.5 py-0.5 text-sm font-semibold text-ink">Estimate</span>}>
+    <Panel title="Deadline" id="deadline-h" aside={<span className="rounded-full bg-brand-tint px-2.5 py-0.5 text-sm font-semibold text-ink">Estimate</span>}>
       <div className="flex flex-col gap-1">
         <p className="num m-0 text-lg font-semibold text-ink">{headline(d)}</p>
         {d.latest && d.status !== 'blackout' && <p className="num m-0 text-sm text-ink-2">Latest date under the event-date wording: {date(d.latest)}</p>}
@@ -245,7 +246,7 @@ export function DeadlineCardView({ check }: { check: CheckResult }) {
       </p>
       {r25?.alsoSee?.length ? (
         <details className="group">
-          <summary className="flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-cardinal [&::-webkit-details-marker]:hidden">
+          <summary className="flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-brand [&::-webkit-details-marker]:hidden">
             <ChevronDown aria-hidden size={16} className="transition-transform duration-200 group-open:rotate-180" />
             Sources word this differently
           </summary>
@@ -330,7 +331,7 @@ export function Vendors({ check, answers, onOverride }: { check: CheckResult; an
                 </p>
                 {(!found || overridden) && (
                   <label className="flex min-h-10 cursor-pointer items-center gap-2 pl-6 text-sm">
-                    <input type="checkbox" className="size-4 accent-cardinal" checked={overridden} onChange={(e) => onOverride(v.itemId, e.target.checked)} />
+                    <input type="checkbox" className="size-4 accent-brand" checked={overridden} onChange={(e) => onOverride(v.itemId, e.target.checked)} />
                     I checked: this vendor is on the USG Vendor List
                   </label>
                 )}

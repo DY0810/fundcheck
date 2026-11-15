@@ -66,7 +66,7 @@ export function TriState({ legend, value, onChange, wide }: { legend: string; va
       <legend className="label mb-1.5 p-0">{legend}</legend>
       <div className="flex rounded-ctl border border-control bg-panel p-0.5">
         {opts.map(([l, v]) => (
-          <label key={l} className={`flex min-h-10 flex-1 cursor-pointer items-center justify-center rounded-[4px] px-2 text-sm font-medium transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-cardinal ${value === v ? 'bg-ink text-white' : 'text-ink'}`}>
+          <label key={l} className={`flex min-h-10 flex-1 cursor-pointer items-center justify-center rounded-[4px] px-2 text-sm font-medium transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${value === v ? 'bg-ink text-white' : 'text-ink'}`}>
             <input type="radio" name={name} className="sr-only" checked={value === v} onChange={() => onChange(v)} />
             {l}
           </label>
