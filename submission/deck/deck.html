@@ -76,10 +76,9 @@
   .stepcol { display: flex; flex-direction: column; gap: 12px; }
   .stephead { display: flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 600; }
   .stephead b { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 16px; }
-  .crop { position: relative; height: 290px; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: var(--panel); }
-  /* the app column spans x 150 to 855 of the 1280 px capture; show it from just under the header */
-  .crop img { position: absolute; width: calc(100% * 1280 / 705); left: calc(-100% * 150 / 705); top: -52px; }
-  .stepcol p { font-size: 18px; line-height: 1.4; }
+  /* dedicated crops of the live site at 768 px, where each step is one 680 px column; each crop carries its own panel border */
+  .crop img { display: block; width: 100%; }
+  .stepcol p { font-size: 18px; line-height: 1.4; margin-top: auto; }
 
   /* Slide 4 diagram */
   .flow { display: grid; grid-template-columns: 1fr 28px 1.25fr 28px 1.1fr 28px 1.15fr 28px 1fr; align-items: stretch; gap: 0; background: var(--ground); padding: 4px 0; }
@@ -161,17 +160,17 @@
   <div class="steps3 grow">
     <div class="stepcol">
       <div class="stephead"><b>1</b>Check</div>
-      <div class="crop"><img src="../screenshots/01-result.png" alt="Step 1 for the Bovard dance showcase sample: 3 not eligible, 1 over cap, 1 review note; eligible request $7,200 of $8,850 planned; ticket sales flagged with the USG Guidelines §5 quote."></div>
+      <div class="crop"><img src="crop-1-check.png" alt="Step 1 for the Bovard dance showcase sample: 3 not eligible, 1 over cap, 1 review note; eligible request $7,200 of $8,850 planned; ticket sales flagged with the USG Guidelines §5 quote."></div>
       <p>Every flag with USG’s own quote. An $8,850 plan becomes a $7,200 request.</p>
     </div>
     <div class="stepcol">
       <div class="stephead"><b>2</b>Fix</div>
-      <div class="crop"><img src="../screenshots/02-fixes.png" alt="Step 2: You'll request $7,200 of $8,850 planned, with three fixes applied: remove the balloon arch, remove the DJ, request the $4,000 venue cap."></div>
+      <div class="crop"><img src="crop-2-fix.png" alt="Step 2: You'll request $7,200 of $8,850 planned, with three fixes applied: remove the balloon arch, remove the DJ, request the $4,000 venue cap."></div>
       <p>FundCheck proposes the fixes. Nothing changes until the officer approves each one.</p>
     </div>
     <div class="stepcol">
       <div class="stephead"><b>3</b>Hand off</div>
-      <div class="crop"><img src="../screenshots/03-handoff.png" alt="Step 3: one item left for the board, ticket sales; amount to request $7,200; deadline estimate Wed, Feb 3, 2027; fund; Open USG's funding page; Download budget CSV."></div>
+      <div class="crop"><img src="crop-3-handoff.png" alt="Step 3: one item left for the board, ticket sales; amount to request $7,200; deadline estimate Wed, Feb 3, 2027; fund; Open USG's funding page; Download budget CSV."></div>
       <p>Amount, deadline, fund, drafted form answers, documents and a budget CSV.</p>
     </div>
   </div>
