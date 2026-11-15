@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-11-15T02:21:14.483Z",
+  "ranAt": "2026-11-15T02:59:04.543Z",
   "provider": "claude",
   "model": "claude-opus-5-5",
   "rulesVersion": "guidelines-2026-10-21.1",
@@ -19,7 +19,7 @@
       "falseFlags": [],
       "fundOk": true,
       "eligibleOk": true,
-      "ms": 6857,
+      "ms": 5703,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -34,7 +34,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 5848,
+      "ms": 6059,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -49,7 +49,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 5485,
+      "ms": 5121,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -65,7 +65,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 5871,
+      "ms": 5909,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -81,7 +81,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 5687,
+      "ms": 5384,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -96,7 +96,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 5213,
+      "ms": 5228,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -111,7 +111,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 4762,
+      "ms": 4245,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -126,7 +126,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 5385,
+      "ms": 5422,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -142,7 +142,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 5369,
+      "ms": 5611,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -158,7 +158,7 @@
       "falseFlags": [],
       "fundOk": true,
       "eligibleOk": null,
-      "ms": 5861,
+      "ms": 5703,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -174,7 +174,7 @@
       "falseFlags": [],
       "fundOk": true,
       "eligibleOk": null,
-      "ms": 6138,
+      "ms": 6090,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -189,7 +189,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": true,
-      "ms": 4662,
+      "ms": 4196,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -204,7 +204,7 @@
       "falseFlags": [],
       "fundOk": true,
       "eligibleOk": null,
-      "ms": 4949,
+      "ms": 4301,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -217,7 +217,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 4678,
+      "ms": 4038,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -230,7 +230,7 @@
       "falseFlags": [],
       "fundOk": true,
       "eligibleOk": null,
-      "ms": 4505,
+      "ms": 3813,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -243,7 +243,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 6784,
+      "ms": 5783,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -256,7 +256,7 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 6215,
+      "ms": 5316,
       "provider": "claude",
       "model": "claude-opus-5-5"
     },
@@ -269,7 +269,1234 @@
       "falseFlags": [],
       "fundOk": null,
       "eligibleOk": null,
-      "ms": 5373,
+      "ms": 4648,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e19",
+      "title": "Garland install from a balloon vendor",
+      "pass": true,
+      "hits": [
+        "R1"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5109,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e20",
+      "title": "Latex rounds and senior send-off presents",
+      "pass": true,
+      "hits": [
+        "R1",
+        "R3.gifts"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5394,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e21",
+      "title": "25th anniversary gala: foil numbers and bubbly",
+      "pass": true,
+      "hits": [
+        "R1",
+        "R3.alcohol"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5599,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e22",
+      "title": "Paying back the treasurer's Costco run",
+      "pass": true,
+      "hits": [
+        "R3.reimbursement"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5171,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e23",
+      "title": "Members front craft supplies and get paid back",
+      "pass": true,
+      "hits": [
+        "R3.reimbursement"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4491,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e24",
+      "title": "Pasted email: VP already paid on her own card",
+      "pass": true,
+      "hits": [
+        "R3.reimbursement"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5068,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e25",
+      "title": "Food bank check at a service night",
+      "pass": true,
+      "hits": [
+        "R3.charity"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4529,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e26",
+      "title": "Topping up the walk team's fundraising page",
+      "pass": true,
+      "hits": [
+        "R3.charity"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5190,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e27",
+      "title": "Tailgate BBQ with kegs and raw patties",
+      "pass": true,
+      "hits": [
+        "R3.alcohol",
+        "R3.raw_food"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6361,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e28",
+      "title": "Japanese culture night with a sake flight",
+      "pass": true,
+      "hits": [
+        "R3.alcohol"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5833,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e29",
+      "title": "Coffee-shop cards for volunteer judges",
+      "pass": true,
+      "hits": [
+        "R3.gifts"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6262,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e30",
+      "title": "Smash bracket buying a console for the club",
+      "pass": true,
+      "hits": [
+        "R3.durable",
+        "R4"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5657,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e31",
+      "title": "Volleyball home tournament: jackets and team dinner",
+      "pass": true,
+      "hits": [
+        "R3.durable",
+        "R3.restaurant"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6808,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e32",
+      "title": "Photo club camera body to lend out",
+      "pass": true,
+      "hits": [
+        "R3.durable"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5353,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e33",
+      "title": "Cooking class with raw chicken",
+      "pass": true,
+      "hits": [
+        "R3.raw_food"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5042,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e34",
+      "title": "Grill-your-own Korean BBQ night",
+      "pass": true,
+      "hits": [
+        "R3.raw_food"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5792,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e35",
+      "title": "E-board end-of-year dinner at Yamashiro",
+      "pass": true,
+      "hits": [
+        "R3.restaurant"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 3445,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e36",
+      "title": "Banquet in a restaurant's back room, bad UEPA",
+      "pass": true,
+      "hits": [
+        "R3.restaurant",
+        "R16"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4808,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e37",
+      "title": "Fashion show with online admission",
+      "pass": true,
+      "hits": [
+        "R4"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4524,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e38",
+      "title": "Battle of the bands with a cover charge",
+      "pass": true,
+      "hits": [
+        "R4"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4281,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e39",
+      "title": "Invite-only alumni networking dinner",
+      "pass": true,
+      "hits": [
+        "R5.open",
+        "R31"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5181,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e40",
+      "title": "Closed cast party in a rehearsal room",
+      "pass": true,
+      "hits": [
+        "R5.open"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5091,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e41",
+      "title": "Case competition with team registration",
+      "pass": true,
+      "hits": [
+        "R31"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4136,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e42",
+      "title": "MCAT bootcamp with a materials fee",
+      "pass": true,
+      "hits": [
+        "R31"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5731,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e43",
+      "title": "Ballroom gala over the venue and staff cap",
+      "pass": true,
+      "hits": [
+        "R6",
+        "R7"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": true,
+      "ms": 5446,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e44",
+      "title": "Bovard showcase over the $4,000 cap, no food",
+      "pass": true,
+      "hits": [
+        "R6",
+        "R7"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": true,
+      "ms": 4987,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e45",
+      "title": "Over the yearly cap after $6,500 received",
+      "pass": true,
+      "hits": [
+        "R9"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": true,
+      "ms": 3910,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e46",
+      "title": "Karaoke night on the first day of the blackout",
+      "pass": true,
+      "hits": [
+        "R24"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4238,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e47",
+      "title": "Boba social on the last day of the blackout",
+      "pass": true,
+      "hits": [
+        "R24"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4164,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e48",
+      "title": "Catering at $45 a head",
+      "pass": true,
+      "hits": [
+        "R11"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": true,
+      "ms": 3781,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e49",
+      "title": "Clean: fellowship dinner with rented tables",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4377,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e50",
+      "title": "Clean: watch party with a rented screen",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4429,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e51",
+      "title": "Clean: integration bee with printed certificates",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4645,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e52",
+      "title": "Clean: pasted Amazon cart for a zine night",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6406,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e53",
+      "title": "Clean: tutoring night with volunteer tutors",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4182,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e54",
+      "title": "Clean: big cultural night under the cap",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6456,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e55",
+      "title": "Clean: free alumni coffee chats",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4649,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e56",
+      "title": "Judgment call: honorarium for a keynote professor",
+      "pass": true,
+      "hits": [
+        "R3.talent"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5496,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e57",
+      "title": "Judgment call: grocery snacks that need a fridge",
+      "pass": true,
+      "hits": [
+        "R3.raw_food"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4764,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e58",
+      "title": "Ambiguous: parking validation for guest speakers",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4557,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e59",
+      "title": "Ambiguous: costume pieces actors may keep",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6178,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e60",
+      "title": "Trail restoration trip on a chartered coach",
+      "pass": true,
+      "hits": [
+        "R3.rideshare",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 6409,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e61",
+      "title": "Zipcar supply run and a Venmo baker",
+      "pass": true,
+      "hits": [
+        "R3.rideshare",
+        "R3.p2p"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5969,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e62",
+      "title": "Frisbee tournament in rented vans, 4th funded event",
+      "pass": true,
+      "hits": [
+        "R3.rideshare",
+        "R10",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5430,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e63",
+      "title": "Hotel ballroom with a refundable hold",
+      "pass": true,
+      "hits": [
+        "R3.deposit"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5636,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e64",
+      "title": "Gala with a glassware breakage deposit",
+      "pass": true,
+      "hits": [
+        "R3.deposit",
+        "R7"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6716,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e65",
+      "title": "LSAT study jam paid by Apple Cash",
+      "pass": true,
+      "hits": [
+        "R3.p2p",
+        "R18"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4307,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e66",
+      "title": "Comedy headliner booked through an agency",
+      "pass": true,
+      "hits": [
+        "R3.talent",
+        "R7"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5624,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e67",
+      "title": "Mariachi and a latex garland",
+      "pass": true,
+      "hits": [
+        "R3.talent",
+        "R1"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6827,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e68",
+      "title": "Senior picnic: caricaturist and $48 a head",
+      "pass": true,
+      "hits": [
+        "R3.talent",
+        "R11"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4217,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e69",
+      "title": "Dance team: Spotify Premium and bought stage lights",
+      "pass": true,
+      "hits": [
+        "R3.subscription",
+        "R20"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 6123,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e70",
+      "title": "Zoom Pro for a speaker series, co-funded",
+      "pass": true,
+      "hits": [
+        "R3.subscription",
+        "R33"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4733,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e71",
+      "title": "MUN conference in Vancouver",
+      "pass": true,
+      "hits": [
+        "R3.international",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5928,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e72",
+      "title": "Service trip across the border to Ensenada",
+      "pass": true,
+      "hits": [
+        "R3.international",
+        "R3.rideshare",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 6579,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e73",
+      "title": "Grad study tour to Mexico City, 5th event",
+      "pass": true,
+      "hits": [
+        "R3.international",
+        "R10",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5839,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e74",
+      "title": "Senior pendants at a finals-week banquet",
+      "pass": true,
+      "hits": [
+        "R3.jewelry",
+        "R24"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4968,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e75",
+      "title": "Bhangra showcase: chokers and a bought backdrop",
+      "pass": true,
+      "hits": [
+        "R3.jewelry",
+        "R20"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5407,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e76",
+      "title": "Fashion show with kundan jewelry sets",
+      "pass": true,
+      "hits": [
+        "R3.jewelry"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 6851,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e77",
+      "title": "Musical set built from hardware-store lumber",
+      "pass": true,
+      "hits": [
+        "R20",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5688,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e78",
+      "title": "Bible study dinner at a member's family home",
+      "pass": true,
+      "hits": [
+        "R5.residence"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4383,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e79",
+      "title": "Screening in the advisor's backyard, 2nd event",
+      "pass": true,
+      "hits": [
+        "R5.residence"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5073,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e80",
+      "title": "Application-only mock interviews for members",
+      "pass": true,
+      "hits": [
+        "R31",
+        "R5.open"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4271,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e81",
+      "title": "K-pop cover showcase with an Eventbrite presale",
+      "pass": true,
+      "hits": [
+        "R4"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5990,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e82",
+      "title": "DC summit with a $460 hotel night",
+      "pass": true,
+      "hits": [
+        "R21",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": true,
+      "ms": 5114,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e83",
+      "title": "Design conference suite at $525",
+      "pass": true,
+      "hits": [
+        "R21",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": true,
+      "ms": 3770,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e84",
+      "title": "Spring-break movie night for students who stay",
+      "pass": false,
+      "hits": [],
+      "misses": [
+        "R24"
+      ],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4052,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e85",
+      "title": "Presidents' Day volunteer morning",
+      "pass": false,
+      "hits": [],
+      "misses": [
+        "R24"
+      ],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 3253,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e86",
+      "title": "Last-day-of-classes cocoa break, with Canva Pro",
+      "pass": true,
+      "hits": [
+        "R3.subscription"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4874,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e87",
+      "title": "Welcome social with club tees",
+      "pass": false,
+      "hits": [],
+      "misses": [
+        "R19"
+      ],
+      "falseFlags": [
+        "R3.durable"
+      ],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5148,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e88",
+      "title": "Dumplings from an unlisted kitchen, paid on Meta Pay",
+      "pass": true,
+      "hits": [
+        "R18",
+        "R3.p2p"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5035,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e89",
+      "title": "Spring fling with an unlisted inflatable",
+      "pass": true,
+      "hits": [
+        "R18",
+        "R7"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5141,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e90",
+      "title": "Clean: GM catered through Uber Eats",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 3867,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e91",
+      "title": "Clean: outdoor movie with a rented inflatable screen",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4307,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e92",
+      "title": "Clean: banquet linens from a 'Balloon' vendor",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4898,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e93",
+      "title": "Clean: art market where artists sell their own work",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5365,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e94",
+      "title": "Clean: free Eventbrite RSVP for an alumni talk",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 3181,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e95",
+      "title": "Clean: campus iftar with dates and water",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4455,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e96",
+      "title": "Clean: Smash tournament with rented monitors",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 3940,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e97",
+      "title": "Ambiguous: Canva plan paid once for the year",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4687,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e98",
+      "title": "Judgment call: banquet in a restaurant's private room",
+      "pass": true,
+      "hits": [
+        "R3.restaurant"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4828,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e99",
+      "title": "Ambiguous: $100 'for her time' to a student photographer",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5052,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e100",
+      "title": "Ambiguous: transfer welcome that turns no one away",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4403,
       "provider": "claude",
       "model": "claude-opus-5-5"
     }
@@ -277,111 +1504,201 @@
   "perRule": [
     {
       "ruleId": "R1",
-      "tp": 2,
+      "tp": 6,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.reimbursement",
+      "tp": 3,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R3.charity",
-      "tp": 1,
+      "tp": 3,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R3.alcohol",
-      "tp": 1,
+      "tp": 4,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R3.gifts",
-      "tp": 1,
+      "tp": 3,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R3.durable",
-      "tp": 1,
+      "tp": 4,
+      "fn": 0,
+      "fp": 1
+    },
+    {
+      "ruleId": "R3.raw_food",
+      "tp": 4,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.restaurant",
+      "tp": 4,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R3.rideshare",
+      "tp": 6,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.deposit",
       "tp": 2,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.p2p",
+      "tp": 3,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R3.talent",
-      "tp": 2,
+      "tp": 6,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.subscription",
+      "tp": 3,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.international",
+      "tp": 3,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.jewelry",
+      "tp": 3,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R4",
-      "tp": 1,
+      "tp": 5,
       "fn": 1,
       "fp": 0
     },
     {
       "ruleId": "R5.open",
-      "tp": 1,
+      "tp": 4,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R5.residence",
-      "tp": 1,
+      "tp": 3,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R6",
-      "tp": 1,
+      "tp": 3,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R7",
-      "tp": 1,
+      "tp": 6,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R8",
-      "tp": 2,
+      "tp": 10,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R9",
-      "tp": 1,
+      "tp": 2,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R10",
+      "tp": 2,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R11",
+      "tp": 3,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R16",
       "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R18",
+      "tp": 3,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R19",
+      "tp": 0,
+      "fn": 1,
+      "fp": 0
+    },
+    {
+      "ruleId": "R20",
+      "tp": 3,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R21",
+      "tp": 2,
       "fn": 0,
       "fp": 0
     },
     {
       "ruleId": "R24",
-      "tp": 1,
-      "fn": 0,
+      "tp": 4,
+      "fn": 2,
       "fp": 0
     },
     {
       "ruleId": "R31",
+      "tp": 5,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R33",
       "tp": 1,
       "fn": 0,
       "fp": 0
     }
   ],
   "summary": {
-    "cases": 18,
-    "passed": 17,
-    "precision": 1,
-    "recall": 0.955
+    "cases": 100,
+    "passed": 96,
+    "precision": 0.991,
+    "recall": 0.966
   }
 }

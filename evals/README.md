@@ -1,15 +1,23 @@
 # FundCheck evals
 
-18 hand-written event plans in `cases.json`, each labelled with the USG rules it must and must not trigger. They cover every AI-judged rule the brief targets, phrased indirectly ("entertainment by Kev Beats" for paid talent, "Mylar letters" for balloons, "Waymo rides" for rideshare, a "suggested $5 donation" for ticket sales). They also cover the rule-math cases (food at $40 per person, $7,000 already received, multi-day events, the Dec 10 blackout, a paid professional panel), 3 clean plans full of decoys, and 2 ambiguous plans where the right answer is an Ask chip.
+`cases.json` holds 100 event plans that the team wrote and labelled by hand. Each is labelled with the USG rules it must trigger and the rules it must not, and every label comes from the rule's quote in `src/shared/rules.json`.
+- **Rules covered:** every AI-judged rule several times, in indirect wording ("entertainment by Kev Beats" for paid talent, "Mylar letters" for balloons, "Waymo rides" for rideshare). Also the cap math (venue/personnel, $35 food, $400 lodging), the yearly cap with an amount already received, events per semester, blackout and holiday dates, UEPA format, other funding, and vendors from both tabs of USG's list.
+- **Clean plans:** about 1 in 6 are clean plans full of decoys, and must flag nothing.
+- **Ambiguous plans:** about 1 in 10 are ambiguous; there an Ask chip is the right answer and a hard flag is wrong.
 
-Run: `npx tsx evals/run.ts --url https://fundcheck.mayhu733.workers.dev` (add `--only e01,e03` for a subset; partial runs don't write results). Each case goes through the real `/api/extract`, then `runCheck` from `src/engine`, one at a time. A failed call counts as a failed case; only a `rate_limited` reply gets one retry. The run writes `public/eval-results.json`, which the `/evals` page shows.
+Run: `npx tsx evals/run.ts --url https://fundcheck.mayhu733.workers.dev`. Add `--only e01,e03` to run a subset; partial runs don't write results.
+- Each case goes through the real `/api/extract`, then `runCheck` from `src/engine`. Up to 4 run at once, paced under the API's 20-per-minute limit, with a 30 s back-off on a 429.
+- Only answers from Claude are scored. A case that comes back from the fallback model, the saved sample or an error is re-run, never scored and never dropped.
+- The run writes `public/eval-results.json`. The headline is `summary.passed` out of `summary.cases`.
 
 Scoring:
-- **Hit:** a `mustFlag` rule appears with any severity other than `pass`, on the item named by `itemContains` when one is given.
+- **Hit:** a `mustFlag` rule appears with any severity other than `pass`, on the item named by `itemContains` when one is given. With `orAsk`, an Ask chip on that item also counts.
 - **False flag:** a `mustNotFlag` rule appears as `not_eligible` or `over_cap`.
-- **Pass:** no misses, no false flags, and the fund and eligible dollars match whenever the case sets them.
+- **Pass:** the case is fully correct: no misses, no false flags, and the fund and eligible dollars match whenever the case sets them.
 - **Precision and recall:** computed over all labels. False positives are counted only against each case's `mustNotFlag` list.
 
-Limits: this is a small set that the team wrote by hand. It is not a benchmark. e01 is the sample plan, and some of its phrasing is close to the prompt's few-shot examples. Results depend on which provider served each case; the provider is recorded per case.
+Limits: the set is hand-written by the team, so it is not a benchmark. e01 is the sample plan, and some of its phrasing is close to the prompt's few-shot examples. R24's second quote (no funding during "University holidays, breaks, study days, or finals") is labelled as written, though the engine only checks the date windows.
 
-Label changes: e11 (before the first run, at HQ's request). The Surfliner ticket now passes with either an R3.rideshare flag or an Ask chip (`orAsk`), because the clause names "Amtrak cabins" and a coach seat is arguably not a cabin.
+Label changes:
+- e11 (before the first run, at HQ's request): the Surfliner ticket now passes with either an R3.rideshare flag or an Ask chip (`orAsk`), because the clause names "Amtrak cabins" and a coach seat is arguably not a cabin.
+- e35 and e36 (after full run 1 of the 100): the `itemContains` token pointed at the venue line ("yamashiro", "cantina") instead of the dinner line that "Restaurant diners" applies to. Run 1 flagged R3.restaurant on the dinner line in both cases but scored them as misses. The tokens are now "prix" and "dinner", and the rule and expectation are unchanged. Run 1 was not published; run 2 is.
