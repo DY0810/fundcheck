@@ -1,6 +1,6 @@
 # FundCheck
 
-FundCheck pre-checks a USC student organization's USG Funding Department application. An officer pastes an event plan in plain words, and FundCheck shows which items USG's Guidelines don't fund (each with USG's own quote), the money against every cap, which fund to apply to, a deadline estimate, the documents to attach, and drafted form answers plus a budget CSV. The on-campus events USG funds can't sell tickets and must be open to all students, so every application that comes back late or incomplete is one fewer free event for every Trojan. FundCheck exists so the application a Funding Director opens is already complete and inside the rules.
+FundCheck pre-checks a USC student organization's USG Funding Department application. An officer pastes an event plan in plain words, and FundCheck works in three steps. **Check** shows which items USG's Guidelines don't fund (each with USG's own quote), the money against every cap, which fund to apply to, a deadline estimate and the documents to attach. **Fix** proposes a fix for each flag, and nothing changes until the officer approves it. **Hand off** gathers drafted form answers to copy, a budget CSV, the documents and a link to USG's funding page; filing itself needs the officer's USC sign-in. The on-campus events USG funds can't sell tickets and must be open to all students, so every application that comes back late or incomplete is one fewer free event for every Trojan. FundCheck exists so the application a Funding Director opens is already complete and inside the rules.
 
 **Live:** https://fundcheck.mayhu733.workers.dev (no login; try the Bovard dance showcase sample)
 **Accuracy page:** https://fundcheck.mayhu733.workers.dev/evals (one line: the score. Every case and result is in the repo, in `evals/` and `public/eval-results.json`)
@@ -114,6 +114,7 @@ Limits: these are test plans we wrote by hand, not real applications, so the sco
 
 - **Suggesting other funding sources.** USG's Guidelines list "RSO receiving funding from another University income source" among reasons an application can be turned down, so suggesting other sources without care could hurt an application. Cut first.
 - **A reviewer view for Funding Directors.** It needs the Funding Department's input on what reviewers want to see. The officer-side check came first.
+- **Filing directly into EngageSC.** USG's application sits on EngageSC behind USC sign-in, so FundCheck hands off instead. Filing from FundCheck would need USG to open an integration.
 - **Reading quotes from PDFs or images.** FundCheck takes pasted text only. Parsing uploads adds a failure point that the golden path didn't need for the hackathon.
 
 ## Notes for the Funding Department
@@ -122,4 +123,4 @@ While building the rules table we found a few places where USG's documents word 
 
 ## Built with
 
-TypeScript, React 18, Vite 6, Tailwind CSS v4, Zod 4, Vitest, Cloudflare Workers with static assets, Cloudflare Workers AI, and the Anthropic SDK. The code was written during the hackathon (Nov 14 to 15, 2026) with Claude Code as the coding assistant. The colours follow the U.S. Web Design System, with a small USC accent.
+TypeScript, React 18, Vite 6, Tailwind CSS v4, Zod 4, Vitest, Cloudflare Workers with static assets, Cloudflare Workers AI, and the Anthropic SDK. The code was written during the hackathon (Nov 14 to 15, 2026) with Claude Code as the coding assistant. The colours are USC cardinal and gold; spacing and the type scale follow IBM Carbon; the single column and one job per screen follow GOV.UK. The footer reads "Not affiliated with USC or USG."
