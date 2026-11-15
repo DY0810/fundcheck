@@ -2,9 +2,9 @@
 
 Target 2:50, hard limit 3:00. Read slowly. Spoken words are on the left, the screen on the right.
 
-**Status: provisional.** The result page is being reordered so the verdict (counts, eligible amount, deadline, first flag) comes first and the editable table moves below it, and the prompts and evals get one more run. The screen column and `shot-list.md` get finalised against the frozen UI. In the spoken words, only these can still change: the verdict counts in section 2 (3 not eligible, 1 over cap, 1 review note) and all of section 3 (the Ask chip and the eval numbers). Everything else is final.
+**Status: provisional.** The result page is being reordered so the verdict (counts, eligible amount, deadline, first flag) comes first and the editable table moves below it, and the prompts and evals get one more run. The screen column and `shot-list.md` get finalised against the frozen UI. In the spoken words, only these can still change: the verdict counts in section 2 (3 not eligible, 1 over cap, 1 review note) and all of section 3 (the Ask chip and the accuracy figure, written as `[[ACCURACY]]` until HQ sends it). Everything else is final. The UI is also being re-skinned, so the screen column names buttons and on-screen text only, never colours or looks.
 
-**Timing.** 345 spoken words. Read aloud by a text-to-speech voice at 135 words per minute, the whole script takes about 2:31, and about 2:27 without the line marked *(cut if long)*. The rest of the 2:50 is pauses for clicks. The 6-second model read is covered by the second line of section 2. If a take runs past 2:55, drop the marked line.
+**Timing.** 329 spoken words. Read aloud by a text-to-speech voice at 135 words per minute (with "93 of 100" standing in for the accuracy figure), the whole script takes about 2:27, and about 2:23 without the line marked *(cut if long)*. The rest of the 2:50 is pauses for clicks. The 6-second model read is covered by the second line of section 2. If a take runs past 2:55, drop the marked line.
 
 Numbers are written as digits so the captions match the screen. Say "$356,100" in full: "three hundred fifty-six thousand, one hundred dollars".
 
@@ -30,12 +30,12 @@ Numbers are written as digits so the captions match the screen. Say "$356,100" i
 | The deadline counts six academic weeks back from April 9 and lands on Wednesday, February 3. USG's documents word this rule differently, so it's labelled an estimate. | Deadline card: "Submit by Wed, Feb 3, 2027", "Estimate", latest Feb 24. Open "Sources word this differently" for one second. |
 | Then the document checklist, with the file name USG wants for each vendor quote. Anything misread can be edited, and the check reruns. *(cut if long: It also drafts the form answers and a budget CSV.)* | Documents checklist, the quote file names. Then the editable table: change one cost and watch the totals move. Then click "Draft my form answers" (cut the 5-second wait in editing) and point at "Download budget CSV". |
 
-## 3. How the AI is checked, and one handled failure (2:10 to 2:40) · 68 words · about 27 to 30 s
+## 3. How the AI is checked, and one handled failure (2:10 to 2:40) · 52 words · about 21 to 23 s
 
 | Voice-over | Screen |
 |---|---|
 | Here's a plan the model isn't sure about: dinner boxes for jazz musicians who aren't charging. Is that paying a performer? Instead of guessing, FundCheck asks. | Second tab, already checked: the "dinner for unpaid musicians" plan. The Ask chip: "Does 'dinner boxes for the 6 musicians…' fall under 'Payments to talent or performers'?" with Yes / No. |
-| On the evals page, 17 of 18 hand-written plans passed. The miss was a "suggested donation" at check-in: the model wasn't sure it was a ticket sale, so it asked instead of flagging. Eighteen cases is a small set, not a benchmark. | `/evals`: "17 of 18 test plans checked correctly". Then the e06 entry in `public/eval-results.json` on GitHub ("misses": ["R4"]). |
+| On the accuracy page, FundCheck checked [[ACCURACY]] test plans correctly. Those are plans written by hand, not real applications, so it's a check, not a benchmark. | `/evals`: the score, "[[ACCURACY]] test plans checked correctly". Then the `evals/` folder on GitHub. |
 
 ## 4. Who adopts it (2:40 to 2:50) · 23 words · about 9 to 10 s
 

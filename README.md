@@ -83,10 +83,10 @@ The shared types (money in integer cents, dates as `YYYY-MM-DD`) are in `src/sha
 
 | The model (`claude-opus-5-5`, low effort) | Plain TypeScript (`src/engine/`) |
 |---|---|
-| Reads the free-text plan into line items and event facts (date, attendance, on campus, ticketed, travel) | All dollar math: the $4,000 venue and personnel cap, the $35 per person food limit, the $8,000 yearly cap, the $400 per night lodging limit, the eligible request |
+| Reads the free-text plan into line items and event facts (date, attendance, on campus, ticketed, travel) | All dollar math: the $4,000 venue and personnel cap, the $35 per person food limit, the $8,000 yearly cap, the $400 per night lodging limit, and the eligible request, capped by what is left of the $8,000 once the officer says what the org already received |
 | Matches each item to rule IDs from a fixed list, with high or low confidence and a one-line reason ("DJ $600" → "Payments to talent or performers") | The deadline estimate (academic weeks, holidays and breaks from USC's academic calendar) and the blackout-date check |
 | Picks one of the four funds | The document checklist and the exact file names |
-| Drafts the form's free-text answers and the budget justifications | Vendor check: plain string matching against both tabs of USG's vendor sheet (207 rows). This is not AI. |
+| Drafts the form's free-text answers and the budget justifications, with bracketed placeholders such as "[your organization's mission]" for facts the plan doesn't give | Vendor check: plain string matching against both tabs of USG's vendor sheet (207 rows). This is not AI. |
 | | The budget CSV in USG's template columns |
 
 Every flag carries a rule ID, and the page renders USG's quote from `src/shared/rules.json` (version `guidelines-2026-10-21.1`, 51 rules), never text from the model. Each flag is badged "AI-judged" or "Rule math", so the officer can see which part made the call.
@@ -102,17 +102,11 @@ Every flag carries a rule ID, and the page renders USG's quote from `src/shared/
 
 ## Eval results
 
-18 hand-written event plans in `evals/cases.json`, each labelled with the rules it must and must not trigger, run through the live `/api/extract` and then the rules engine. Many are phrased indirectly ("entertainment by" a stage name for a paid DJ, Mylar letters for balloons, robotaxi rides for rideshare). Three are clean plans full of decoys, and two are ambiguous plans where the right answer is an Ask chip.
+Hand-written event plans in `evals/cases.json`, each labelled with the rules it must and must not trigger, run through the live `/api/extract` and then the rules engine. Many are phrased indirectly ("entertainment by" a stage name for a paid DJ, Mylar letters for balloons, robotaxi rides for rideshare). Some are clean plans full of decoys, and some are ambiguous plans where the right answer is an Ask chip, not a flag.
 
-Latest run (from `public/eval-results.json`, Nov 14 2026, every case served by `claude-opus-5-5`):
+**Latest run:** FundCheck checked [[ACCURACY]] test plans correctly. Every case, its labels and its result are in `evals/` and `public/eval-results.json`.
 
-| Cases passed | Precision | Recall |
-|---|---|---|
-| 17 of 18 | 1.0 | 0.955 |
-
-The one miss is e06, "Suggested donation at check-in": a poetry night asking a "suggested $5 donation" at the door. The label expects a ticket-sale flag (R4). The model matched R4 with low confidence, so the officer got an Ask chip instead of a flag.
-
-Limits: this is a small set we wrote by hand, not a benchmark. False positives count only against each case's "must not flag" list. The sample plan (e01) is close to the prompt's few-shot examples. Scoring details are in `evals/README.md`.
+Limits: these are test plans we wrote by hand, not real applications, so the score is a check, not a benchmark. The sample plan (e01) is close to the prompt's few-shot examples. Scoring details are in `evals/README.md`.
 
 ## Not built, and why
 

@@ -20,13 +20,13 @@ The sample is a Bovard dance showcase, an event type USG's Performing Arts fund 
 
 ## How it's built
 
-The model does only what a keyword list can't. Anthropic's Claude (`claude-opus-5-5`, low effort, about 6 seconds on the sample) reads the plan into line items and event facts, and matches items to rule IDs from a fixed list, like "DJ $600" to "Payments to talent or performers". It also picks the fund and drafts the free-text answers.
+The model does only what a keyword list can't. Anthropic's Claude (`claude-opus-5-5`, low effort, about 6 seconds on the sample) reads the plan into line items and event facts, and matches items to rule IDs from a fixed list, like "DJ $600" to "Payments to talent or performers". It also picks the fund and drafts the free-text answers, leaving bracketed blanks like "[your organization's mission]" for facts the plan doesn't give.
 
 Plain TypeScript does the rest: every dollar, every date, the document checklist, and the vendor check (string matching against USG's vendor sheet). Quotes render from a versioned rules table, so the words on screen are always USG's.
 
 Guardrails: Zod validates the model's output and drops any rule ID outside the list. Low-confidence matches become Ask chips, not flags. The plan is wrapped as untrusted data, and the prompt tells the model to ignore instructions inside it. FundCheck stores nothing: the plan goes to the model for one call, and the server logs token counts, never the text. No traveller details are collected. If Claude fails, Cloudflare Workers AI (Llama 3.3 70B) takes over, and the sample plan has a labelled recorded fallback.
 
-Accuracy: 18 hand-written plans, labelled with the rules each must and must not trigger. The latest run passed 17 of 18 (precision 1.0 against each case's must-not-flag labels, recall 0.955, on claude-opus-5-5). That is a small set, not a benchmark. The one miss was a "suggested $5 donation" at check-in, which the model marked low confidence, so the officer gets a question instead of a flag.
+Accuracy: FundCheck checked [[ACCURACY]] test plans correctly. Each is labelled with the rules it must and must not trigger. They are hand-written test plans, not real applications, so the score is a check, not a benchmark. Every case and result is in the repo.
 
 Stack: TypeScript, React, Vite, Tailwind CSS, Zod and Vitest, all on one Cloudflare Worker. The API key is a Wrangler secret.
 
@@ -48,7 +48,7 @@ The other hard part was teaching the model when not to decide. Dinner for unpaid
 ## How this meets the judging criteria
 
 - **Impact & Campus Relevance:** USG-funded on-campus events are free and open to all, so every complete application is one more event any Trojan can attend.
-- **Technical & AI Execution:** a fixed rule list for the model, code for money and dates, and public eval scores with the miss shown.
+- **Technical & AI Execution:** a fixed rule list for the model, code for money and dates, and a public test score with every case in the repo.
 - **Feasibility & Implementation:** public data, no login, no storage, a named owner, and a yearly data edit.
 - **User Experience & Design:** paste and check on one page, every flag in USG's own words.
 
