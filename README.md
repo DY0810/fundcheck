@@ -89,7 +89,7 @@ The shared types (money in integer cents, dates as `YYYY-MM-DD`) are in `src/sha
 | Drafts the form's free-text answers and the budget justifications, with bracketed placeholders such as "[your organization's mission]" for facts the plan doesn't give | Vendor check: plain string matching against both tabs of USG's vendor sheet (207 rows). This is not AI. |
 | | The budget CSV in USG's template columns |
 
-Every flag carries a rule ID internally, and the page renders USG's quote from `src/shared/rules.json` (version `guidelines-2026-10-21.1`, 51 rules), never text from the model.
+Every flag carries a rule ID internally, and the page renders USG's quote from `src/shared/rules.json` (version `guidelines-2026-10-21.1`, 51 rules), never text from the model. Each flag is badged "AI-judged" or "Rule math", so the officer can see which part made the call.
 
 ## Security and privacy
 
