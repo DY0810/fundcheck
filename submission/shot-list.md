@@ -19,7 +19,7 @@ Checked against the live site on Nov 14 after the 20:38 UI freeze (tag `ui-v2-fi
 2. `https://usg.usc.edu/branches/funding/`
 3. `https://fundcheck.mayhu733.workers.dev/` (fresh load, empty plan box)
 4. `https://fundcheck.mayhu733.workers.dev/` with the musicians plan below already checked (shot 15)
-5. `https://fundcheck.mayhu733.workers.dev/evals`
+5. `submission/deck/deck.pdf` open at page 4 (slide 4), full screen
 
 Reload tab 3 between takes so the plan box is empty and no fixes or answers carry over.
 
@@ -71,7 +71,7 @@ Checked live after the 20:31 deploy: step 1 "What we found" gives "No flags" and
 | 13 | 1:51 | 3 | Click "Documents · 11 needed". | "Quote from Wolfgang Puck Catering · Needed", "Name it RSO_Lastname_Firstname_WolfgangPuckCatering_Quote.pdf" |
 | 14 | 1:57 | 3 | Click "Form answers · ready to copy, description to draft", then "Draft my form answers" (about 10 s; cut the wait in editing). | "Filled by FundCheck" rows with "Copy", then "How does the event align with your mission/vision/goals?" with "AI draft" and "[your organization's mission]" |
 | 15 | 2:13 | 4, musicians plan | Click "Questions · 5 could change this". Hover "Yes" and "No" without clicking. | "No flags", then "Is "dinner boxes for the 6 musicians before soundcheck, Mendocino Farms $90" a payment to a performer or other talent?" |
-| 16 | 2:27 | 4, then 5 | Click "How accurate is it?" in the header (or switch to tab 5). Hold on the score. | The whole page: "98% Accuracy" and "98 of 100 test plans checked correctly" |
+| 16 | 2:27 | 5, deck | Switch to tab 5, the deck at slide 4, full screen. Hold on the "98 of 100" block. | "98 of 100" and "hand-written test plans checked correctly" |
 | 17 | 2:38 | End card | The repo page `github.com/DY0810/fundcheck` in a logged-out window, or the deck's closing slide. | `fundcheck.mayhu733.workers.dev` and `github.com/DY0810/fundcheck` |
 
 ## If something goes wrong on camera

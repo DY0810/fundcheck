@@ -3,7 +3,7 @@
 FundCheck pre-checks a USC student organization's USG Funding Department application. An officer pastes an event plan in plain words, and FundCheck works in three steps. **Check** shows which items USG's Guidelines don't fund (each with USG's own quote), the money against every cap, which fund to apply to, a deadline estimate and the documents to attach. **Fix** proposes a fix for each flag, and nothing changes until the officer approves it. **Hand off** gathers drafted form answers to copy, a budget CSV, the documents and a link to USG's funding page; filing itself needs the officer's USC sign-in. The on-campus events USG funds can't sell tickets and must be open to all students, so every application that comes back late or incomplete is one fewer free event for every Trojan. FundCheck exists so the application a Funding Director opens is already complete and inside the rules.
 
 **Live:** https://fundcheck.mayhu733.workers.dev (no login; try the Bovard dance showcase sample)
-**Accuracy page:** https://fundcheck.mayhu733.workers.dev/evals (one line: the score. Every case and result is in the repo, in `evals/` and `public/eval-results.json`)
+**Accuracy:** FundCheck checked 98 of 100 hand-written test plans correctly. Every case and result is in this repo, in `evals/` and `public/eval-results.json`.
 
 ![Step 1, Check: the Bovard dance showcase sample with $7,200 eligible of $8,850 and the ticket-sales flag](submission/screenshots/01-result.png)
 
@@ -11,9 +11,9 @@ FundCheck pre-checks a USC student organization's USG Funding Department applica
 |---|---|
 | ![Step 2 after Approve all 3: three fixes marked Applied, request $7,200](submission/screenshots/02-fixes.png) | ![Step 3: 1 item left for the board, amount, deadline estimate, fund, link to USG's funding page and budget CSV](submission/screenshots/03-handoff.png) |
 
-| Phone width | Accuracy page |
-|---|---|
-| ![Step 1 at phone width](submission/screenshots/04-mobile.png) | ![Accuracy page: 98 of 100 test plans checked correctly](submission/screenshots/05-accuracy.png) |
+| Phone width |
+|---|
+| ![Step 1 at phone width](submission/screenshots/04-mobile.png) |
 
 ## Run it locally
 
@@ -55,7 +55,6 @@ One Cloudflare Worker serves the React page as static assets plus two JSON endpo
 flowchart LR
   subgraph Browser
     Check["src/ui/pages/Check.tsx"]
-    Evals["src/ui/pages/Evals.tsx"]
     Engine["src/engine/check.ts<br/>money.ts · deadline.ts · docs.ts<br/>vendor.ts · csv.ts"]
     Data["src/shared/rules.json<br/>src/shared/vendors.json"]
   end
@@ -84,7 +83,6 @@ flowchart LR
   Runner -- "each case" --> Index
   Runner --> Engine
   Runner --> Results
-  Results --> Evals
 ```
 
 The shared types (money in integer cents, dates as `YYYY-MM-DD`) are in `src/shared/contracts.ts`.
