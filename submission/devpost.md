@@ -2,7 +2,9 @@
 
 Pre-check your USG funding application.
 
-**Videos:** [walkthrough (2:20)](https://youtu.be/Kr4KWkKh0ew) · [90-second version](https://youtu.be/WddQY8_CtII)
+<!-- Video field on Devpost: https://www.youtube.com/watch?v=Kr4KWkKh0ew (walkthrough, 2:20). The description starts at the next line. -->
+
+**Slide deck:** [FundCheck pitch deck (PDF)](https://github.com/DY0810/fundcheck/blob/main/submission/deck/deck.pdf) · **90-second version:** [video](https://youtu.be/WddQY8_CtII)
 
 ## Problem
 
