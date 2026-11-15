@@ -55,13 +55,13 @@ Severity never relies on colour alone: each has an icon and a text label. None u
 
 | Severity | Label (exact) | Icon (lucide) | Text | Surface | Text on surface / on white |
 |---|---|---|---|---|---|
-| `not_eligible` | "Not eligible per §5" (or "Not eligible") | `Ban` | `#B3124A` rose | `#FBE7EE` | 5.7 / 6.8 |
+| `not_eligible` | "Not eligible per §5" (or "Not eligible") | `Ban` | `#B3124A` rose | `#F0F0EE` (neutral inset) | 5.9 / 6.8 |
 | `over_cap` | "Over cap" | `Gauge` | `#8C471C` | `#F2E4D4` | 5.6 / 6.9 |
 | `review_note` | "Review note" | `MessageSquareText` | `#0E4F5C` | `#E7F6F8` | 8.3 / 9.2 |
 | `confirm` | "Confirm" | `CircleHelp` | `#54378F` violet | `#EFEAF7` | 7.7 / 9.1 |
 | `pass` | "Passed" | `CircleCheck` | `#216E1F` | `#ECF3EC` | 5.6 / 6.3 |
 
-Rose sits 21° from cardinal on the hue wheel, so hue alone does not separate them; the form rule, the `Ban` icon and the "Not eligible" label do. Fallback if that is not enough: `--color-ne-bg: #F0F0EE` (inset), rose only in the icon and label (5.9 on inset).
+Rose sits 21° from cardinal on the hue wheel, so hue alone does not separate them; the form rule, the `Ban` icon and the "Not eligible" label do. HQ picked the neutral surface: `--color-ne-bg` is `#F0F0EE`, so rose appears only in the icon, the label and the verdict's top rule, never as a tinted surface beside cardinal.
 
 The verdict panel carries a 4 px top rule in the worst severity present, neutral line grey when nothing has been read. It is never cardinal.
 
@@ -94,7 +94,7 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 ## Components
 
 - **Buttons.** Labels 16 / 600, 44 px tall. Primary: cardinal fill, white text. Secondary: panel fill, cardinal text, 2 px inset cardinal stroke; gold-tint fill and brand-press on hover. Ghost: cardinal text, underline on hover. Press: `scale(0.98)`. Loading keeps the label and adds a spinner plus `aria-busy`.
-- **Selected options.** Yes / no / unknown answers: cardinal fill, white text (clickable, so cardinal is allowed). Step 2's Apply / Keep: the chosen segment is white with a 2 px ink ring and semibold label, no cardinal, so "Continue" stays the only cardinal fill on that screen.
+- **Selected options.** Yes / no / unknown answers: cardinal fill, white text (clickable, so cardinal is allowed). Step 2's Apply / Keep: the chosen segment is white with a 2 px ink ring, a check icon and a semibold "Applied" or "Kept for the board", no cardinal, so "Continue" stays the only cardinal fill on that screen.
 - **Alerts.** A paste or service error sits on a white panel with a control border and ink text, never on a severity surface: an outage is not a finding.
 - **Step indicator.** Current step: ink disc, white number. Done steps: buttons with a gold-tint disc and cardinal text. Future: inset disc. A step with nothing to do (Fix with no fixes) is not clickable.
 - **Inputs.** Panel fill, 1 px control border, 6 px radius, 44 px tall. Visible `<label>` always.
@@ -133,4 +133,4 @@ Motion conveys state only; transitions name their properties.
 
 ## Favicon and social preview
 
-`public/favicon.svg` is the header mark. `public/og.png` was made for v1 (it shows the old 4 px rule); it uses no severity colour.
+`public/favicon.svg` is the header mark. `public/og.png` (1200 × 630) shows the v2 look: the mark, the headline, the three steps, and a card with the sample's eligible request, a cardinal "Review fixes" button and one USG quote from `rules.json` (R4). It uses no severity colour.

@@ -62,6 +62,9 @@ export default function Check() {
     if (text.length > MAX_PLAN_CHARS) return setError({ code: 'too_long', message: `Your plan is over ${MAX_PLAN_CHARS.toLocaleString()} characters. Trim it and try again.` });
     setBusy(true);
     setError(null);
+    // Pushed now, inside the click: Chrome skips history entries added after the click's activation expires,
+    // and the AI can take longer than that. Back from step 1 then returns to the paste box.
+    if ((history.state as { step?: Step } | null)?.step !== 1) history.pushState({ step: 1 }, '');
     const res = FIXTURE_KEY != null
       ? ({ ok: true, extraction: await (FIXTURES[FIXTURE_KEY]?.() ?? SAMPLE_EXTRACTION), source: 'fixture', provider: 'cache' } as const)
       : await api.extract(text);
@@ -84,7 +87,7 @@ export default function Check() {
     window.scrollTo(0, 0); // the step indicator sits above the step, so show the page from the top
     headingRef.current.focus({ preventScroll: true });
   }, [extraction, step]);
-  const go = (s: Step) => { toStep.current = true; setStep(s); };
+  const go = (s: Step) => { toStep.current = true; setStep(s); history.pushState({ step: s }, ''); };
 
   // "Edit the plan" opens the editor on step 1; "Check another plan" brings the paste box back with the text kept.
   const planRef = useRef<HTMLTextAreaElement>(null);
@@ -97,7 +100,7 @@ export default function Check() {
     d.scrollIntoView({ block: 'start' });
     d.querySelector('summary')?.focus({ preventScroll: true });
   }, [editReq]);
-  const editPlan = () => { setStep(1); setEditReq((n) => n + 1); };
+  const editPlan = () => { if (step !== 1) history.pushState({ step: 1 }, ''); setStep(1); setEditReq((n) => n + 1); };
   const toPaste = useRef(false);
   useEffect(() => {
     if (extraction || !toPaste.current) return;
@@ -105,7 +108,22 @@ export default function Check() {
     window.scrollTo(0, 0);
     planRef.current?.focus();
   }, [extraction]);
-  const newPlan = () => { toPaste.current = true; setExtraction(null); setSource(null); setChoices({}); setStep(1); };
+  const toLanding = () => { toPaste.current = true; setExtraction(null); setSource(null); setChoices({}); setStep(1); };
+  const newPlan = () => { history.pushState(null, ''); toLanding(); };
+
+  // Browser Back and Forward move between steps; an entry with no step is the paste box (its text kept).
+  // Nothing goes in the URL: the page promises to store nothing.
+  const hasResult = useRef(false);
+  hasResult.current = !!extraction;
+  useEffect(() => {
+    const onPop = (e: PopStateEvent) => {
+      const s = (e.state as { step?: Step } | null)?.step;
+      if (!s) toLanding();
+      else if (hasResult.current) { toStep.current = true; setStep(s); }
+    };
+    addEventListener('popstate', onPop);
+    return () => removeEventListener('popstate', onPop);
+  }, []);
 
   // On a phone the skeleton renders below "What it checks"; bring it on screen so the wait shows progress.
   useEffect(() => {

@@ -66,7 +66,8 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
         {(['apply', 'keep'] as const).map((c) => (
           <label key={c} className="flex min-h-target cursor-pointer items-center rounded-[calc(var(--radius-ctl)-2px)] px-3 text-sm font-medium text-ink has-checked:bg-panel has-checked:font-semibold has-checked:shadow-[inset_0_0_0_2px_var(--color-ink)] has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink">
             <input type="radio" name={`fix-${f.id}`} className="sr-only" checked={choices[f.id] === c} onChange={() => onChoose(f.id, c)} />
-            {c === 'apply' ? 'Apply' : 'Keep and ask the board'}
+            {choices[f.id] === c && <Check aria-hidden size={16} strokeWidth={2.5} className="mr-1.5 shrink-0" />}
+            {choices[f.id] === c ? (c === 'apply' ? 'Applied' : 'Kept for the board') : c === 'apply' ? 'Apply' : 'Keep and ask the board'}
           </label>
         ))}
       </div>

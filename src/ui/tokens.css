@@ -21,7 +21,7 @@
   --color-usc-gold: #ffcc00;
 
   --color-ne: #b3124a;
-  --color-ne-bg: #fbe7ee;
+  --color-ne-bg: #f0f0ee; /* neutral on purpose: rose only in the icon and label, never a rose surface next to cardinal */
   --color-cap: #8c471c;
   --color-cap-bg: #f2e4d4;
   --color-note: #0e4f5c;
