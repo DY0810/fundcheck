@@ -12,4 +12,4 @@ Scoring:
 
 Limits: this is a small set that the team wrote by hand. It is not a benchmark. e01 is the sample plan, and some of its phrasing is close to the prompt's few-shot examples. Results depend on which provider served each case; the provider is recorded per case.
 
-Label changes: none.
+Label changes: e11 (before the first run, at HQ's request). The Surfliner ticket now passes with either an R3.rideshare flag or an Ask chip (`orAsk`), because the clause names "Amtrak cabins" and a coach seat is arguably not a cabin.

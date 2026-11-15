@@ -1,0 +1,387 @@
+{
+  "ranAt": "2026-11-15T02:21:14.483Z",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "rulesVersion": "guidelines-2026-10-21.1",
+  "cases": [
+    {
+      "id": "e01",
+      "title": "Sample plan: Spring Dance Showcase",
+      "pass": true,
+      "hits": [
+        "R4",
+        "R1",
+        "R3.talent",
+        "R6",
+        "R7"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": true,
+      "ms": 6857,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e02",
+      "title": "DJ described as 'entertainment'",
+      "pass": true,
+      "hits": [
+        "R3.talent"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5848,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e03",
+      "title": "Balloons without the word 'balloon'",
+      "pass": true,
+      "hits": [
+        "R1"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5485,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e04",
+      "title": "Gift codes as prizes, club already got $7,000",
+      "pass": true,
+      "hits": [
+        "R3.gifts",
+        "R9"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5871,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e05",
+      "title": "Two-day hackathon buying gear the club keeps",
+      "pass": true,
+      "hits": [
+        "R3.durable",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5687,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e06",
+      "title": "Suggested donation at check-in",
+      "pass": false,
+      "hits": [],
+      "misses": [
+        "R4"
+      ],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5213,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e07",
+      "title": "Members-only mixer on campus",
+      "pass": true,
+      "hits": [
+        "R5.open"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4762,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e08",
+      "title": "Potluck at the president's apartment",
+      "pass": true,
+      "hits": [
+        "R5.residence"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5385,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e09",
+      "title": "Winter formal in the blackout window, with prosecco",
+      "pass": true,
+      "hits": [
+        "R24",
+        "R3.alcohol"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5369,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e10",
+      "title": "Beach cleanup: robotaxi rides and a gift to a nonprofit",
+      "pass": true,
+      "hits": [
+        "R3.rideshare",
+        "R3.charity"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 5861,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e11",
+      "title": "Train to a conference in San Diego",
+      "pass": true,
+      "hits": [
+        "R3.rideshare",
+        "R8"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 6138,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e12",
+      "title": "Catering at $40 a head",
+      "pass": true,
+      "hits": [
+        "R11"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": true,
+      "ms": 4662,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e13",
+      "title": "Professional panel with an entry fee",
+      "pass": true,
+      "hits": [
+        "R31"
+      ],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4949,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e14",
+      "title": "Clean: free study night with pizza",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 4678,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e15",
+      "title": "Clean: resume workshop with a volunteer photographer",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": true,
+      "eligibleOk": null,
+      "ms": 4505,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e16",
+      "title": "Clean: Holi on the quad with rentals and lanterns",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6784,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e17",
+      "title": "Ambiguous: dinner for unpaid musicians",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 6215,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "e18",
+      "title": "Ambiguous: venue deposit, refundable or not",
+      "pass": true,
+      "hits": [],
+      "misses": [],
+      "falseFlags": [],
+      "fundOk": null,
+      "eligibleOk": null,
+      "ms": 5373,
+      "provider": "claude",
+      "model": "claude-opus-5-5"
+    }
+  ],
+  "perRule": [
+    {
+      "ruleId": "R1",
+      "tp": 2,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.charity",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.alcohol",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.gifts",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.durable",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.rideshare",
+      "tp": 2,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R3.talent",
+      "tp": 2,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R4",
+      "tp": 1,
+      "fn": 1,
+      "fp": 0
+    },
+    {
+      "ruleId": "R5.open",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R5.residence",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R6",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R7",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R8",
+      "tp": 2,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R9",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R11",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R24",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    },
+    {
+      "ruleId": "R31",
+      "tp": 1,
+      "fn": 0,
+      "fp": 0
+    }
+  ],
+  "summary": {
+    "cases": 18,
+    "passed": 17,
+    "precision": 1,
+    "recall": 0.955
+  }
+}

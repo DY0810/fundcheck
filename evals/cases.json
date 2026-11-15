@@ -250,7 +250,8 @@
       "mustFlag": [
         {
           "ruleId": "R3.rideshare",
-          "itemContains": "surfliner"
+          "itemContains": "surfliner",
+          "orAsk": true
         },
         {
           "ruleId": "R8"
@@ -263,7 +264,7 @@
       ],
       "fund": "professional_academic"
     },
-    "why": "The Pacific Surfliner is an Amtrak train, never named as one; San Diego is domestic, so international travel is a decoy."
+    "why": "The Pacific Surfliner is an Amtrak train, never named as one; the clause says \"Amtrak cabins\", so a flag or an Ask chip are both right. San Diego is domestic, so international travel is a decoy."
   },
   {
     "id": "e12",

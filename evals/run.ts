@@ -9,9 +9,13 @@ import rulesJson from '../src/shared/rules.json';
 import { SAMPLE_PLAN } from '../src/fixtures/sample-plan';
 
 const rules = rulesJson as RulesFile;
+// shortcut: `orAsk` is an evals-only extension of EvalCase (an Ask chip also counts as a hit); move it into contracts.ts if the UI needs it.
+type Must = EvalCase['expect']['mustFlag'][number] & { orAsk?: boolean };
 const arg = (name: string) => { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : undefined; };
 const base = (arg('--url') ?? 'http://localhost:8787').replace(/\/$/, '');
 const only = arg('--only')?.split(',').map((s) => s.trim());
+const dump = arg('--dump'); // optional path: raw extraction + check per case, for triaging failures
+const dumped: Record<string, unknown> = {};
 
 // 1. Validate the labels before spending any API credit.
 const cases: EvalCase[] = JSON.parse(readFileSync(new URL('./cases.json', import.meta.url), 'utf8'));
@@ -82,9 +86,10 @@ for (const [n, c] of selected.entries()) {
   const check = engine.runCheck({ extraction: res.extraction, answers: c.answers, today: c.today, rules, vendors: engine.vendors });
   const desc = (itemId: string | null) => (res.ok && res.extraction.items.find((i) => i.id === itemId)?.description.toLowerCase()) || '';
   const hits: RuleId[] = [], misses: RuleId[] = [], falseFlags: RuleId[] = [];
-  for (const m of c.expect.mustFlag) {
-    const hit = check.flags.some((f) => f.ruleId === m.ruleId && f.severity !== 'pass'
-      && (!m.itemContains || desc(f.itemId).includes(m.itemContains.toLowerCase())));
+  for (const m of c.expect.mustFlag as Must[]) {
+    const tok = m.itemContains?.toLowerCase() ?? '';
+    const hit = check.flags.some((f) => f.ruleId === m.ruleId && f.severity !== 'pass' && desc(f.itemId).includes(tok))
+      || (!!m.orAsk && check.asks.some((a) => a.id.startsWith('match:') && a.id.endsWith(`:${m.ruleId}`) && desc(a.id.split(':')[1]).includes(tok)));
     (hit ? hits : misses).push(m.ruleId); bump(m.ruleId, hit ? 'tp' : 'fn');
   }
   for (const id of c.expect.mustNotFlag) {
@@ -94,6 +99,7 @@ for (const [n, c] of selected.entries()) {
   const eligibleOk = c.expect.eligibleCents != null ? check.money.eligibleCents === c.expect.eligibleCents : null;
   const pass = !misses.length && !falseFlags.length && fundOk !== false && eligibleOk !== false;
   results.push({ id: c.id, title: c.title, pass, hits, misses, falseFlags, fundOk, eligibleOk, ms, provider: res.provider, model: res.model });
+  dumped[c.id] = { extraction: res.extraction, flags: check.flags, asks: check.asks, money: check.money, fund: check.fund };
   console.log(`${c.id} ${pass ? 'PASS' : 'FAIL'} ${ms}ms ${res.provider}${misses.length ? ' miss=' + misses : ''}${falseFlags.length ? ' false=' + falseFlags : ''}`
     + `${fundOk === false ? ' fund=' + check.fund.fund : ''}${eligibleOk === false ? ' eligible=' + check.money.eligibleCents : ''}`);
 }
@@ -119,6 +125,7 @@ console.table(results.map((r) => ({ id: r.id, pass: r.pass, hits: r.hits.join(' 
 console.table(run.perRule.filter((r) => r.fn || r.fp));
 console.log(`passed ${run.summary.passed}/${run.summary.cases}  errors ${results.length - served.length}  precision ${run.summary.precision}  recall ${run.summary.recall}  (${run.provider} ${run.model}, ${base})`);
 
+if (dump) writeFileSync(dump, JSON.stringify(dumped, null, 2));
 if (only) console.log('partial run (--only): public/eval-results.json not written');
 else {
   mkdirSync(new URL('../public/', import.meta.url), { recursive: true });
