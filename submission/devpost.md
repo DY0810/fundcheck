@@ -12,29 +12,29 @@ The timing is this week. Under the event-date wording in USG's FAQ, an event bet
 
 ## Solution
 
-FundCheck is one web page with no login. An officer pastes an event plan as they would write it in a group chat and gets a pre-check: the line items it read (all editable), what the Guidelines don't fund with USG's quote and rule ID, the money against each cap, the fund, a deadline estimate, the documents to attach with USG's file names, and drafted form answers plus a budget CSV.
+FundCheck is one web page with no login. An officer pastes an event plan in plain words and gets a pre-check: the line items it read (all editable), what the Guidelines don't fund with USG's quote and rule ID, the money against each cap, the fund, a deadline estimate, the documents to attach with USG's file names, and drafted form answers plus a budget CSV.
 
 Facts only the officer knows, like money already received this year, become questions instead of guesses. Each "not eligible per §5" flag sits beside the Guidelines line saying the board can still make an exception.
 
-The sample is a Bovard dance showcase, an event type USG's Performing Arts fund paid for 9 times in FY26, with $10 tickets, a balloon arch and a DJ. FundCheck flags all three, trims $800 over the venue cap, and turns an $8,850 plan into a $7,200 request.
+The sample is a Bovard dance showcase (USG's Performing Arts fund paid for 9 in FY26) with $10 tickets, a balloon arch and a DJ. FundCheck flags all three, trims $800 over the venue cap, and turns an $8,850 plan into a $7,200 request.
 
 ## How it's built
 
-The model does only what a keyword list can't. Anthropic's Claude (`claude-opus-5-5`, low effort, about 6 seconds on the sample) reads the plan into line items and event facts, and matches items to rule IDs from a fixed list, like "DJ $600" to "Payments to talent or performers". It also picks the fund and drafts the free-text answers, leaving bracketed blanks like "[your organization's mission]" for facts the plan doesn't give.
+The model does only what a keyword list can't. Anthropic's Claude (`claude-opus-5-5`, about 6 seconds on the sample) reads the plan into line items and event facts, and matches items to rule IDs from a fixed list, like "DJ $600" to "Payments to talent or performers". It also picks the fund and drafts the free-text answers, leaving bracketed blanks for facts the plan doesn't give.
 
 Plain TypeScript does the rest: every dollar, every date, the document checklist, and the vendor check (string matching against USG's vendor sheet). Quotes render from a versioned rules table, so the words on screen are always USG's.
 
 Guardrails: Zod validates the model's output and drops any rule ID outside the list. Low-confidence matches become Ask chips, not flags. The plan is wrapped as untrusted data, and the prompt tells the model to ignore instructions inside it. FundCheck stores nothing: the plan goes to the model for one call, and the server logs token counts, never the text. No traveller details are collected. If Claude fails, Cloudflare Workers AI (Llama 3.3 70B) takes over, and the sample plan has a labelled recorded fallback.
 
-Accuracy: FundCheck checked [[ACCURACY]] test plans correctly. Each is labelled with the rules it must and must not trigger. They are hand-written test plans, not real applications, so the score is a check, not a benchmark. Every case and result is in the repo.
+Accuracy: FundCheck checked [[ACCURACY]] hand-written test plans correctly, each labelled with the rules it must and must not trigger. They are not real applications, so the score is a check, not a benchmark.
 
 Stack: TypeScript, React, Vite, Tailwind CSS, Zod and Vitest, all on one Cloudflare Worker. The API key is a Wrangler secret.
 
 ## Challenges
 
-USG's documents word the deadline differently: six academic weeks before payment, nine before payment, six before the event, eight for new vendors and travel. So the card leads with the earliest date, shows the latest under the event-date wording, labels both an estimate, and keeps the quotes one click away.
+USG's documents word the deadline differently: six academic weeks before payment, nine before payment, six before the event, eight for new vendors and travel. So the card leads with the earliest date, labels it an estimate, and keeps the quotes one click away.
 
-The other hard part was teaching the model when not to decide. Dinner for unpaid musicians is a judgment call, so the evals include plans where the right answer is a question.
+The other hard part was teaching the model when not to decide: dinner for unpaid musicians is a judgment call, so the right answer there is a question.
 
 ## Future implementation
 
@@ -43,6 +43,7 @@ The other hard part was teaching the model when not to decide. Dinner for unpaid
 - **Cost:** about $0 to $50 per semester (estimate): Cloudflare's free tier plus model calls.
 - **First rollout:** spring 2027 office hours with the RSO liaisons.
 - **Maintenance:** the yearly update is data, not code: the rules table, the vendor sheet and the calendar dates.
+- **Trained model, later:** once the Funding Department reviews applications through FundCheck, its decisions become labelled examples, with consent. A small classifier could then sort line items beside Claude and send disagreements to a reviewer. We did not train one this weekend: no labelled data exists yet.
 - **Not built yet:** a reviewer view, PDF or photo quotes, and other funding sources.
 
 ## How this meets the judging criteria
