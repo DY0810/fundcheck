@@ -12,7 +12,7 @@ const STEPS = ['Check', 'Fix', 'Hand off'] as const;
 // USG's own funding page (a source in rules.json). Filing itself is on EngageSC, behind a USC sign-in.
 const USG_FUNDING = 'https://usg.usc.edu/branches/funding/';
 
-export function StepNav({ step, onGo }: { step: Step; onGo: (s: Step) => void }) {
+export function StepNav({ step, onGo, noFixes }: { step: Step; onGo: (s: Step) => void; noFixes: boolean }) {
   return (
     <nav aria-label="Steps">
       <ol className="m-0 flex list-none flex-wrap items-center gap-x-2 gap-y-1 p-0 text-sm">
@@ -26,13 +26,13 @@ export function StepNav({ step, onGo }: { step: Step; onGo: (s: Step) => void })
           return (
             <li key={label} className="flex items-center gap-2">
               {i > 0 && <span aria-hidden className="h-px w-4 bg-control sm:w-8" />}
-              {n < step ? (
+              {n < step && !(n === 2 && noFixes) ? (
                 <button type="button" className="flex min-h-9 cursor-pointer items-center gap-2 border-0 bg-transparent p-0 font-medium text-brand underline-offset-2 hover:underline" onClick={() => onGo(n)}>
                   {mark}{label}<span className="sr-only"> (done, go back)</span>
                 </button>
               ) : (
                 <span aria-current={n === step ? 'step' : undefined} className={`flex min-h-9 items-center gap-2 ${n === step ? 'font-semibold text-ink' : 'text-ink-2'}`}>
-                  {mark}{label}
+                  {mark}{label}{n === 2 && noFixes && <span className="sr-only"> (nothing to fix)</span>}
                 </span>
               )}
             </li>
@@ -109,8 +109,8 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
 
 // ---------- Step 3: hand off ----------
 
-export function Handoff({ resolution, original, answers, paperwork, documents, headingRef, onBack, backLabel }: {
-  resolution: Resolution; original: Extraction; answers: Answers; paperwork: ReactNode; documents: ReactNode; headingRef: Ref<HTMLHeadingElement>; onBack: () => void; backLabel: string;
+export function Handoff({ resolution, original, answers, unanswered, paperwork, documents, headingRef, onBack, backLabel }: {
+  resolution: Resolution; original: Extraction; answers: Answers; unanswered: number; paperwork: ReactNode; documents: ReactNode; headingRef: Ref<HTMLHeadingElement>; onBack: () => void; backLabel: string;
 }) {
   const r = resolution;
   const [draft, setDraft] = useState<Draft | null>(null);
@@ -140,6 +140,7 @@ export function Handoff({ resolution, original, answers, paperwork, documents, h
             </ul>
           </div>
         )}
+        {unanswered > 0 && <p className="m-0 -mt-2 text-sm text-ink-2">{plural(unanswered, 'question')} on step 1 could still change this.</p>}
         <dl className="m-0 grid grid-cols-1 gap-x-4 gap-y-3 border-t border-line pt-4 sm:grid-cols-[1fr_1fr_1.2fr] sm:gap-x-6">
           <div className="flex flex-col gap-0.5">
             <dt className="text-sm text-ink-2">Amount to request</dt>

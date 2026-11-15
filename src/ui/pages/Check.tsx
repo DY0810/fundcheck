@@ -243,7 +243,7 @@ export default function Check() {
 
       {extraction && check && source && resolution && (
         <div ref={resultRef} className={`flex scroll-mt-4 flex-col gap-4 lg:gap-6 ${busy ? 'opacity-60' : ''}`}>
-          <StepNav step={step} onGo={go} />
+          <StepNav step={step} onGo={go} noFixes={!fixes.length} />
 
           {step === 1 && (
             <>
@@ -322,6 +322,7 @@ export default function Check() {
               resolution={resolution}
               original={extraction}
               answers={answers}
+              unanswered={open}
               headingRef={headingRef}
               onBack={() => go(fixes.length ? 2 : 1)}
               backLabel={fixes.length ? 'Back to the fixes' : 'Back to what we found'}
