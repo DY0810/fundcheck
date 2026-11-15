@@ -12,17 +12,17 @@
   :root {
     --sans: 'Public Sans', system-ui, sans-serif;
     --serif: 'Source Serif 4', Georgia, serif;
-    --ground: #f7f9fa;
+    --ground: #fafafa;
     --panel: #ffffff;
-    --inset: #edeff0;
-    --line: #dfe1e2;
+    --inset: #f0f0ee;
+    --line: #dcdcdc;
     --ink: #1b1b1b;
     --ink-2: #565c65;
-    --brand: #005ea2;
-    --brand-tint: #d9e8f6;
+    --brand: #990000;
+    --brand-tint: #fff2bf;
     --usc-cardinal: #990000;
     --usc-gold: #ffcc00;
-    --ne: #b50909;
+    --ne: #b3124a;
     --radius: 10px;
   }
   @page { size: 1280px 720px; margin: 0; }
@@ -38,10 +38,7 @@
     break-after: page;
   }
   .slide:last-child { break-after: auto; }
-  /* USC accent place 2: the 4 px cardinal rule across the top. */
-  .slide::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--usc-cardinal); }
-
-  /* USC accent place 1: the mark. */
+  /* The mark: a cardinal square with a gold check (DESIGN.md v2). */
   .brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
   .brand svg { width: 26px; height: 26px; flex: none; }
 
@@ -70,13 +67,21 @@
   ul.list li { font-size: 21px; line-height: 1.4; padding-left: 26px; position: relative; }
   ul.list li::before { content: ''; position: absolute; left: 4px; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--ink-2); }
   ul.list.check li::before { background: var(--brand); }
+  ul.list.tight { gap: 10px; }
+  ul.list.tight li { font-size: 19px; }
   ul.list.open li::before { background: transparent; box-shadow: inset 0 0 0 2px var(--ink-2); }
 
   .cols { display: grid; gap: 28px; }
 
-  /* Slide 3 */
-  .shot { background: var(--inset); border-radius: var(--radius); padding: 12px; }
-  .shot img { display: block; width: 100%; border-radius: 6px; }
+  /* Slide 3: three steps, each cropped to the app's 680 px column */
+  .steps3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .stepcol { display: flex; flex-direction: column; gap: 12px; }
+  .stephead { display: flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 600; }
+  .stephead b { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 16px; }
+  .crop { position: relative; height: 290px; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: var(--panel); }
+  /* the app column spans x 150 to 855 of the 1280 px capture; show it from just under the header */
+  .crop img { position: absolute; width: calc(100% * 1280 / 705); left: calc(-100% * 150 / 705); top: -52px; }
+  .stepcol p { font-size: 18px; line-height: 1.4; }
 
   /* Slide 4 diagram */
   .flow { display: grid; grid-template-columns: 1fr 28px 1.25fr 28px 1.1fr 28px 1.15fr 28px 1fr; align-items: stretch; gap: 0; background: var(--ground); padding: 4px 0; }
@@ -159,27 +164,32 @@
 <!-- 3. Solution -->
 <section class="slide">
   <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#990000"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#FFCC00" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>FundCheck</div>
-  <h1>Paste an event plan. Get a pre&#8209;check in USG’s own words.</h1>
-  <div class="cols grow" style="grid-template-columns: 712px 1fr; align-items:start;">
-    <div class="shot"><img src="../screenshots/01-result.png" alt="FundCheck pre-check of the Bovard dance showcase sample: 3 not eligible, 1 over cap, 1 review note; eligible request $7,200 of $8,850 planned; deadline estimate Wed, Feb 3, 2027; flags with quotes from the USG Guidelines."></div>
-    <div style="display:flex; flex-direction:column; gap:16px;">
-      <p class="body"><strong>The sample:</strong> a Bovard dance showcase with $10 tickets, a balloon arch and a DJ.</p>
-      <ul class="list check">
-        <li>All three flagged, each with USG’s quote</li>
-        <li>$800 over the $4,000 venue cap trimmed</li>
-        <li>An $8,850 plan becomes a $7,200 request</li>
-        <li>Deadline estimate, fund, documents with USG’s file names, drafted form answers and a budget CSV</li>
-      </ul>
-      <p class="small">One web page. No login. Nothing stored.</p>
+  <h1>Paste an event plan. Check it, fix it, hand it off.</h1>
+  <div class="steps3 grow">
+    <div class="stepcol">
+      <div class="stephead"><b>1</b>Check</div>
+      <div class="crop"><img src="../screenshots/01-result.png" alt="Step 1 for the Bovard dance showcase sample: 3 not eligible, 1 over cap, 1 review note; eligible request $7,200 of $8,850 planned; ticket sales flagged with the USG Guidelines §5 quote."></div>
+      <p>Every flag with USG’s own quote. An $8,850 plan becomes a $7,200 request.</p>
+    </div>
+    <div class="stepcol">
+      <div class="stephead"><b>2</b>Fix</div>
+      <div class="crop"><img src="../screenshots/02-fixes.png" alt="Step 2: You'll request $7,200 of $8,850 planned, with three fixes applied: remove the balloon arch, remove the DJ, request the $4,000 venue cap."></div>
+      <p>FundCheck proposes the fixes. Nothing changes until the officer approves each one.</p>
+    </div>
+    <div class="stepcol">
+      <div class="stephead"><b>3</b>Hand off</div>
+      <div class="crop"><img src="../screenshots/03-handoff.png" alt="Step 3: one item left for the board, ticket sales; amount to request $7,200; deadline estimate Wed, Feb 3, 2027; fund; Open USG's funding page; Download budget CSV."></div>
+      <p>Amount, deadline, fund, drafted form answers, documents and a budget CSV.</p>
     </div>
   </div>
+  <p class="tint body"><strong>Fix and hand off:</strong> the officer approves the fixes, then takes a finished packet to USG’s funding page. Filing stays on EngageSC with their own USC sign-in. One web page, no login, nothing stored.</p>
 </section>
 
 <!-- 4. How it works -->
 <section class="slide">
   <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#990000"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#FFCC00" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>FundCheck</div>
   <h1>The model reads the plan. Code does the math.</h1>
-  <div class="flow" id="arch" role="img" aria-label="Event plan, then Claude reads it, then Zod checks it, then TypeScript decides, then the pre-check shows USG's quotes.">
+  <div class="flow" id="arch" role="img" aria-label="Event plan, then Claude reads it, then Zod checks it, then TypeScript decides, then the officer checks, fixes and hands off, with USG's quotes on every flag.">
     <div class="step"><h2>Event plan</h2><p>Plain words, pasted by an officer. Treated as untrusted data.</p></div>
     <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     <div class="step ai"><h2>Claude reads it</h2><p>Line items and event facts. Matches items to rule IDs from a fixed list, picks the fund, drafts the form answers. Backup: Llama 3.3 70B on Cloudflare Workers AI.</p></div>
@@ -188,7 +198,7 @@
     <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     <div class="step"><h2>TypeScript decides</h2><p>Every dollar, every date, the document checklist and the vendor check.</p></div>
     <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-    <div class="step"><h2>Pre-check</h2><p>Every flag shows USG’s quote from a versioned rules table.</p></div>
+    <div class="step"><h2>Check, fix, hand off</h2><p>Every flag shows USG’s quote from a versioned rules table. Fixes apply only when the officer approves.</p></div>
   </div>
   <div class="cols grow" style="grid-template-columns: 1fr 1.15fr; align-items:stretch;">
     <div class="panel" style="display:flex; flex-direction:column; justify-content:center; gap:10px;">
@@ -226,21 +236,21 @@
   <div class="cols grow" style="grid-template-columns: 1fr 1fr;">
     <div class="panel" style="display:flex; flex-direction:column; gap:18px;">
       <h2>Working today</h2>
-      <ul class="list check">
-        <li>Paste a plan and get the pre-check on one page</li>
+      <ul class="list check tight">
+        <li>Three steps: check, review fixes, hand off. Fixes apply only when the officer approves.</li>
         <li>Editable line items; every answer reruns the check</li>
         <li>Not-eligible items with USG’s quote, and money against each cap</li>
-        <li>Deadline estimate, fund, documents with USG’s file names</li>
-        <li>Drafted form answers and a budget CSV</li>
+        <li>Deadline estimate, fund, documents with USG’s file names, drafted form answers and a budget CSV</li>
         <li>A backup AI service and a public set of hand-written test plans</li>
       </ul>
     </div>
     <div class="panel" style="display:flex; flex-direction:column; gap:18px;">
       <h2>Not built yet</h2>
-      <ul class="list open">
+      <ul class="list open tight">
+        <li>Filing directly into EngageSC through a USG integration</li>
         <li>A reviewer view for Funding Directors</li>
         <li>Reading quotes from PDFs or photos</li>
-        <li>Funding sources beyond the USG Funding Department</li>
+        <li>Funding sources beyond USG</li>
         <li>An exact deadline: USG’s documents word it differently, so FundCheck shows an estimate</li>
         <li>A trained model. We did not train one this weekend because no labelled data exists yet. Once the Funding Department reviews applications through FundCheck, its decisions become labelled examples, with consent.</li>
       </ul>
@@ -257,7 +267,7 @@
       <dt>Impact &amp; Campus Relevance <span>30%</span></dt><dd>USG-funded on-campus events are free and open to all, so every complete application is one more event any Trojan can attend.</dd>
       <dt>Technical &amp; AI Execution <span>25%</span></dt><dd>A fixed rule list for the model, code for money and dates, and a public test score with every case in the repo.</dd>
       <dt>Feasibility &amp; Implementation <span>25%</span></dt><dd>Public data, no login, no storage, a named owner and a yearly data edit.</dd>
-      <dt>User Experience &amp; Design <span>20%</span></dt><dd>Paste and check on one page, every flag in USG’s own words.</dd>
+      <dt>User Experience &amp; Design <span>20%</span></dt><dd>Three short steps, check, fix and hand off, with every flag in USG’s own words.</dd>
     </dl>
   </div>
   <div class="tint" style="display:flex; justify-content:space-between; align-items:center; gap:24px;">
