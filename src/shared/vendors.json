@@ -1,0 +1,682 @@
+[
+ {
+  "name": "Casablanca Restaurant [Ensueno Corp]",
+  "cuisine": "Mexican and Seafood",
+  "website": "http://www.casablancacatering.com",
+  "active": true
+ },
+ {
+  "name": "El Nopal Mexican Restaurant [Vasquez Restaurant Group]",
+  "active": true
+ },
+ {
+  "name": "Sky's Gourmet Marketplace, Inc",
+  "active": true
+ },
+ {
+  "name": "El Pollo Inka [The Inka Group LLC]",
+  "cuisine": "Peruvian",
+  "website": "https://elpolloinka.com/gardena/",
+  "active": true
+ },
+ {
+  "name": "Holbox Restaurant Group Inc",
+  "website": "https://www.holboxla.com",
+  "active": true
+ },
+ {
+  "name": "Casa Sanchez Restaurant, Inc (CASA SANCHEZ RESTAURANT INC)",
+  "cuisine": "Mexican, Vegan Options",
+  "website": "http://www.casa-sanchez.com",
+  "active": true
+ },
+ {
+  "name": "Caveman Kitchen",
+  "cuisine": "Peruvian",
+  "website": "https://www.eatcaveman.com",
+  "active": true
+ },
+ {
+  "name": "Taqueria Vista Hermosa (Mercado La Paloma)",
+  "active": true
+ },
+ {
+  "name": "Mexicali Taco",
+  "cuisine": "Bajan Dishes",
+  "website": "http://www.mexicalitaco.com",
+  "active": true
+ },
+ {
+  "name": "Restaurant Santa Cecilia, Inc",
+  "active": true
+ },
+ {
+  "name": "Catering By Herach And Ara",
+  "cuisine": "Mexican, Italian, Chinese, Mediterranean, Japanese, European and Hawaiian",
+  "active": true
+ },
+ {
+  "name": "La Taquiza Inc",
+  "active": true
+ },
+ {
+  "name": "Little Lady Enterprise [Mamas Int'l Tamales]",
+  "cuisine": "Tamales",
+  "active": true
+ },
+ {
+  "name": "Border Grill [Ciudad]",
+  "website": "http://www.bordergrill.com",
+  "active": false
+ },
+ {
+  "name": "Taqueria Los Altos, Inc",
+  "active": false
+ },
+ {
+  "name": "Charlie's Trio",
+  "cuisine": "Italian",
+  "website": "http://www.charliestrio.com",
+  "active": true
+ },
+ {
+  "name": "Il Giardino Ristorante",
+  "cuisine": "Italian",
+  "active": true
+ },
+ {
+  "name": "Pasta Roma (Kasgo LLC)",
+  "cuisine": "Italian",
+  "website": "http://pastaroma.com",
+  "active": true
+ },
+ {
+  "name": "Wolfgang Puck Catering",
+  "cuisine": "Pizza, Sandwhiches, and other lighter fare",
+  "active": true
+ },
+ {
+  "name": "Yameel Pizza [2 for 1 pizza]",
+  "cuisine": "Pizza",
+  "active": true
+ },
+ {
+  "name": "Viztango Cafe (VIZTANGO CAFE)",
+  "cuisine": "Italian",
+  "website": "http://www.viztangocafe.com",
+  "active": true
+ },
+ {
+  "name": "East Side Mario's (Perkin and Marie)",
+  "cuisine": "Italian-American",
+  "active": false
+ },
+ {
+  "name": "Fireworks Pizza, LLC. (Pitfire Artisan Pizza)",
+  "cuisine": "Pizza",
+  "website": "http://www.pitfirepizza.com/home",
+  "active": false
+ },
+ {
+  "name": "Marios Italian Imports, Inc (Mario's Italian Deli)",
+  "cuisine": "Italian Deli",
+  "active": false
+ },
+ {
+  "name": "North American Services, Inc- Command Performance Catering-Ventura County",
+  "cuisine": "\"New American\"",
+  "website": "https://www.cpcatering.com",
+  "active": true
+ },
+ {
+  "name": "Terrapin Illini- Rosies Bbq Kitchen",
+  "cuisine": "Hamburgers, Hotdogs, and Sausage, BBQ",
+  "website": "https://www.rosies-catering.com",
+  "active": true
+ },
+ {
+  "name": "WingStop (Far West Restaurant Group LLC)",
+  "cuisine": "Wings",
+  "website": "https://www.wingstop.com",
+  "active": true
+ },
+ {
+  "name": "Chick-Fil-A [Park Enterprise LLC]",
+  "cuisine": "Chicken",
+  "active": true
+ },
+ {
+  "name": "Presidio Foods INC [Dulans Restaurant and Catering]",
+  "cuisine": "Southern and Soul Food",
+  "website": "http://dulansoncrenshaw.com",
+  "active": true
+ },
+ {
+  "name": "Pink's Hot Dogs, Inc. (PINK S HOT DOGS INC) Globally Connceted Inc (Phat daddys burgers)",
+  "cuisine": "Hot Dogs",
+  "website": "https://www.pinkshollywood.com",
+  "active": true
+ },
+ {
+  "name": "Quiznos Classic Subs - MB Light House Inc (Quizno's Sub #2593 & 4584) QUIZNOS CLASSIC SUBS MB LIGHT HOUSE INC)",
+  "cuisine": "Sandwiches",
+  "website": "https://www.quiznos.com",
+  "active": true
+ },
+ {
+  "name": "Rock & Reilly USC, LLC",
+  "website": "https://www.rockandreillysusc.com",
+  "active": true
+ },
+ {
+  "name": "Stonefire Grill 6, Inc.",
+  "active": true
+ },
+ {
+  "name": "(Stonefire Grill, STONEFIRE GRILL 6 INC)",
+  "cuisine": "BBQ, Chicken, Pizza, Pasta,etc",
+  "website": "https://www.stonefiregrill.com/menu/",
+  "active": true
+ },
+ {
+  "name": "Subway Sandwiches (Dollard Development Inc)",
+  "cuisine": "Sandwiches",
+  "website": "https://www.subway.com/en-us",
+  "active": true
+ },
+ {
+  "name": "Frank Further Inc, [Lets Be Frank (Truck)]",
+  "cuisine": "Hotdogs",
+  "website": "http://letsbefrankdogs.com/dog/",
+  "active": true
+ },
+ {
+  "name": "HBG Franchise, LLC [Habit Burger Grill]",
+  "cuisine": "Hamburgers, Chicken options",
+  "website": "https://www.habitburger.com",
+  "active": true
+ },
+ {
+  "name": "In-N-Out Burger",
+  "cuisine": "Hamburgers",
+  "website": "https://www.in-n-out.com",
+  "active": true
+ },
+ {
+  "name": "La Spice LLC",
+  "cuisine": "American",
+  "website": "https://www.laspicecatering.com",
+  "active": true
+ },
+ {
+  "name": "Hofs Hut [Lucille's BBQ]",
+  "cuisine": "American",
+  "website": "https://www.lucillesbbq.com",
+  "active": true
+ },
+ {
+  "name": "Barbecue King",
+  "cuisine": "BBQ",
+  "active": false
+ },
+ {
+  "name": "Rattler's Bar-B-Que 1, Inc.",
+  "cuisine": "Barbecue",
+  "website": "http://www.rattlersbbq.com",
+  "active": false
+ },
+ {
+  "name": "Simply Southern Cuisine - Gina Dusuau",
+  "cuisine": "Southern",
+  "active": false
+ },
+ {
+  "name": "Kobunga Korean Grill [Kobunga LLC]",
+  "cuisine": "Korean",
+  "website": "https://kobunga.com",
+  "active": true
+ },
+ {
+  "name": "Panda Catering",
+  "website": "https://www.pandarg.com",
+  "active": true
+ },
+ {
+  "name": "Panda Express [Citadel Panda Express]",
+  "website": "https://www.pandacareers.com",
+  "active": true
+ },
+ {
+  "name": "Panda Express",
+  "website": "https://www.pandaexpress.com",
+  "active": true
+ },
+ {
+  "name": "Maven Restaurants Inc (Paradise Biryani Pointe)",
+  "cuisine": "Traditional Hyderabad Nawabi Food",
+  "website": "https://www.laparadisebiryani.com/home",
+  "active": true
+ },
+ {
+  "name": "Yamashiro [Cedar Restaurant Group LLC]",
+  "website": "https://yamashirohollywood.com",
+  "active": true
+ },
+ {
+  "name": "Soy Japanese Grill and Roll - Goodeats Corp",
+  "cuisine": "Sushi and Japenese",
+  "active": false
+ },
+ {
+  "name": "Urban Masala",
+  "cuisine": "Indian Food",
+  "website": "http://www.urbanmasalaonline.com",
+  "active": true
+ },
+ {
+  "name": "Manas, Inc.",
+  "cuisine": "Indian",
+  "website": "http://www.manasla.com",
+  "active": true
+ },
+ {
+  "name": "Radhika restaurant",
+  "cuisine": "Indian",
+  "website": "https://radhikarestaurant.com",
+  "active": true
+ },
+ {
+  "name": "Bella Pita",
+  "website": "https://bellapita.com",
+  "active": true
+ },
+ {
+  "name": "Papa Cristos (C&K Importing Co)",
+  "cuisine": "Greek",
+  "website": "https://papacristos.com",
+  "active": true
+ },
+ {
+  "name": "Sunnin Lebanese Cafe Inc. (Sunnin Lebanese Cafe)",
+  "cuisine": "Lebanese",
+  "website": "https://sunnin.com",
+  "active": true
+ },
+ {
+  "name": "Alonti Cafe & Catering [Pepi Company of California, LLC ]",
+  "cuisine": "Boxed lunches, breakfast, pastires",
+  "website": "https://www.alonti.com",
+  "active": true
+ },
+ {
+  "name": "Baked It Myself, Inc.",
+  "cuisine": "Sandwiches, Paninis, and salads",
+  "website": "https://www.bakeditmyself.com",
+  "active": true
+ },
+ {
+  "name": "Bergamot Cafe",
+  "website": "http://www.bergamotcafe.com",
+  "active": true
+ },
+ {
+  "name": "Bird's Nest Cafe [Bird’s Nest Vermont LLC ]",
+  "website": "https://www.birdsnestla.com",
+  "active": true
+ },
+ {
+  "name": "Cafe Gratitude [Cafe Gratitude Arts District LLC]",
+  "website": "http://www.cafegratitude.com",
+  "active": true
+ },
+ {
+  "name": "Capuyo Cafe",
+  "website": "http://capuyo-cafe.com",
+  "active": true
+ },
+ {
+  "name": "Coffee Bean & Tea Leaf [Intl Coffee & Tea Leaf Llc]",
+  "cuisine": "Coffee House, Breakfast Foods",
+  "website": "https://www.coffeebean.com",
+  "active": true
+ },
+ {
+  "name": "Dulce USC Village LLC",
+  "cuisine": "Coffee House, Breakfast/Lunch Food",
+  "active": true
+ },
+ {
+  "name": "Everytable, Pbc",
+  "cuisine": "Breakfast, Salads, wraps, chicken bowls, desserts, vegan options,",
+  "website": "http://www.everytable.com",
+  "active": true
+ },
+ {
+  "name": "Greenleaf 10 USC LLC (Greenleaf Gourmet Chopshop, GREENLEAF 10 USC LLC)",
+  "cuisine": "Breakfast, Sandwiches, wraps, Boxed lunches, soups, salads, taco bar",
+  "website": "http://www.eatdrinkgreenleaf.com",
+  "active": true
+ },
+ {
+  "name": "Ingallina's Box Lunch LA#1 Inc",
+  "cuisine": "Breakfast/Lunch Sandwiches/Salads/Fruit/Dessert",
+  "website": "http://www.ingallina.net",
+  "active": true
+ },
+ {
+  "name": "L.A. Cafe [Ambreen Enterprises Inc]",
+  "cuisine": "Breakfast/Lunch",
+  "website": "https://www.thelacafe.com/menus/",
+  "active": true
+ },
+ {
+  "name": "Lemonade",
+  "website": "https://lemonadela.com",
+  "active": true
+ },
+ {
+  "name": "Le Gout Bakery and Cafe [Le Gout INC]",
+  "website": "https://legoutpastry.com",
+  "active": true
+ },
+ {
+  "name": "Pitchoun",
+  "cuisine": "French Bakery",
+  "website": "https://pitchounbakery.com",
+  "active": true
+ },
+ {
+  "name": "Subway Sandwiches - Dollard Development Inc",
+  "cuisine": "Sandwiches and Salads",
+  "website": "https://www.subway.com/en-us",
+  "active": true
+ },
+ {
+  "name": "URTH Caffe Associates V LLC (Urth Caffe, URTH CAFFE ASSOCIATES V LLC)",
+  "cuisine": "Breakfast, Pizza, Sandwiches, Paninis, Salads, desserts",
+  "website": "https://www.urthcaffe.com",
+  "active": true
+ },
+ {
+  "name": "Mendocino Farms",
+  "cuisine": "Boxed lunches, Sandwiches, salads",
+  "website": "https://www.mendocinofarms.com/menus/",
+  "active": true
+ },
+ {
+  "name": "Panera Bread Company [Panera, LLC]",
+  "website": "https://www.panerabread.com/en-us/home.html",
+  "active": true
+ },
+ {
+  "name": "Arctic Hotspot Cafe & Catering",
+  "cuisine": "Breakfast, Sandwiches, wraps, salads, soups, Hors D'oeuvres, Desserts",
+  "website": "https://arctichotspot.com",
+  "active": false
+ },
+ {
+  "name": "Watts Coffee house",
+  "cuisine": "Coffee House/Breakfast",
+  "website": "http://wattscoffee.menu.com",
+  "active": false
+ },
+ {
+  "name": "Y&K Business Group (Togo's, Y&K BUSINESS GROUP)",
+  "cuisine": "Sandwiches and Salads",
+  "website": "https://togoscatering.olo.com",
+  "active": false
+ },
+ {
+  "name": "Alligator Pear, Inc (Alligator Pear)",
+  "cuisine": "Fancy",
+  "website": "https://alligatorpearcatering.com",
+  "active": true
+ },
+ {
+  "name": "Anders Catering",
+  "cuisine": "Boxed lunches, BBQ, Breakfast, etc.",
+  "website": "https://www.anderscatering.com",
+  "active": true
+ },
+ {
+  "name": "Apetit inc- Good heart Catering",
+  "website": "https://www.goodheartcatering.com",
+  "active": true
+ },
+ {
+  "name": "Allegro Catering and Event Planning",
+  "website": "https://allegrocateringandevents.net",
+  "active": true
+ },
+ {
+  "name": "Bart Karts Inc",
+  "cuisine": "Carnival Snacks and Street Food",
+  "website": "https://bartscarts.com/about/our-history/",
+  "active": true
+ },
+ {
+  "name": "Bread Crumbs Catering [Villanueva Enterprises]",
+  "website": "http://breadcrumbscatering.com/menu_sub.html",
+  "active": true
+ },
+ {
+  "name": "Bruce's Gourmet Catering",
+  "cuisine": "Fancy",
+  "website": "http://brucescatering.com/private-event-catering/",
+  "active": true
+ },
+ {
+  "name": "City Kitchen (Urban Palate Llc)",
+  "active": true
+ },
+ {
+  "name": "Food Fetish, Inc. [Food Fetish Catering]",
+  "cuisine": "Breakfast, BBQ, Mediterranean, Mexican, Asian, Picnic food, Greek, etc.",
+  "website": "https://www.foodfetishcatering.com",
+  "active": true
+ },
+ {
+  "name": "Frogtown Industries (Brown Paper LA)",
+  "website": "https://www.brownpaperla.com/menus",
+  "active": true
+ },
+ {
+  "name": "Kiro's Catering",
+  "cuisine": "Breakfast, \"Best of Europe buffet,\" \"Classic American Buffet,\" sandwiches, soups, salads, Mexican food,pastas, BBQ, Mediterranean, desserts",
+  "website": "https://kiroscatering.com/menus",
+  "active": true
+ },
+ {
+  "name": "TGIS Catering Services, Inc.",
+  "website": "https://www.tgiscatering.com",
+  "active": true
+ },
+ {
+  "name": "Mercado Food Group, LLC",
+  "active": true
+ },
+ {
+  "name": "Modern Art Catering [Spot Gourmet]",
+  "cuisine": "Asian food, apetizers, everything",
+  "website": "https://thespotgourmet.com",
+  "active": true
+ },
+ {
+  "name": "Roaming Hunger, Inc.",
+  "cuisine": "Food truck vendor",
+  "website": "https://roaminghunger.com",
+  "active": true
+ },
+ {
+  "name": "The Kitchen for Exploring Foods LLC",
+  "website": "https://www.thekitchen.net",
+  "active": true
+ },
+ {
+  "name": "City Fare, Inc (CITY FARE INC)",
+  "website": "http://www.cityfarecatering.com",
+  "active": true
+ },
+ {
+  "name": "Urban Green, LLC",
+  "cuisine": "Sustainable Catering",
+  "active": true
+ },
+ {
+  "name": "Back On Broadway Food Co., Inc. (BACK ON BROADWAY FOOD CO INC)",
+  "active": true
+ },
+ {
+  "name": "Serves You Right! Catering [Gan, Michele]",
+  "active": true
+ },
+ {
+  "name": "California Skewers (Katse Inc)",
+  "website": "https://www.californiaskewers.com/caterings.php",
+  "active": true
+ },
+ {
+  "name": "Jay's Catering",
+  "cuisine": "Breakfast, Sandwiches, Baked goods, boxed lunches, taco bar, Mexican, BBQ, Hors D'oeuvres, healthy snacks, and more",
+  "website": "https://www.jayscatering.com",
+  "active": true
+ },
+ {
+  "name": "Jennie Cooks Catering [BUCKS COUNTY CORPORATION]",
+  "cuisine": "\"Homestyle Americana with an Emphasis on plant based cuisine\"",
+  "website": "https://jenniecooks.com",
+  "active": true
+ },
+ {
+  "name": "Food and Co Inc (Joan's On Third)",
+  "cuisine": "Californian, Mediterranean cuisines, Southwestern France, American Southwest, India, Latin America- vegetarian, kosher style or comfort food,",
+  "website": "https://joansonthird.com",
+  "active": true
+ },
+ {
+  "name": "Food & Travel [Taste & Company, Food & Travel Inc]",
+  "website": "https://www.tasteandcompany.com",
+  "active": true
+ },
+ {
+  "name": "Great Dane Catering & Events",
+  "cuisine": "California Cusine",
+  "active": false
+ },
+ {
+  "name": "Bristol Farms",
+  "cuisine": "Including BBQ, sushi, breakfast",
+  "website": "https://www.bristolfarms.com/catering/menu/",
+  "active": false
+ },
+ {
+  "name": "Tender Greens (TYP Restaurant Group, Inc)",
+  "cuisine": "Fine Casual",
+  "website": "https://www.tendergreens.com",
+  "active": false
+ },
+ {
+  "name": "Foodlink Catering",
+  "cuisine": "Fancy",
+  "website": "http://www.foodinkcatering.com",
+  "active": false
+ },
+ {
+  "name": "Nitropod Industries, Inc. [NITROPOD]",
+  "cuisine": "Ice Cream and Frozen Yogurt",
+  "website": "https://www.nitropod.net",
+  "active": true
+ },
+ {
+  "name": "Crepes Bonaparte [Brats Berlin, Inc.]",
+  "cuisine": "Crepes",
+  "website": "https://www.crepesbonaparte.com",
+  "active": true
+ },
+ {
+  "name": "Amazebowls LLC",
+  "cuisine": "Acai bowls and smoothies",
+  "website": "https://www.amazebowls.com",
+  "active": true
+ },
+ {
+  "name": "Homeboy Industries - Homegirl Cafe/Catering",
+  "cuisine": "Baked goods",
+  "website": "https://www.homeboyfoods.com/default.asp",
+  "active": true
+ },
+ {
+  "name": "Ice Cream Occasions",
+  "cuisine": "Ice-Cream",
+  "website": "https://www.icecreamoccasions.com",
+  "active": true
+ },
+ {
+  "name": "Catholic Charities Of L.A.",
+  "cuisine": "Bakery and Cafe",
+  "active": true
+ },
+ {
+  "name": "COOLHAUS aka Farchitecture",
+  "cuisine": "Ice Cream and Cookies",
+  "website": "https://cool.haus",
+  "active": false
+ },
+ {
+  "name": "Burbank Scoop Shop",
+  "cuisine": "Ice cream",
+  "website": "https://www.benjerry.com/citywalk",
+  "active": false
+ },
+ {
+  "name": "Dandy Don's Homemade Ice Cream",
+  "cuisine": "Ice Cream",
+  "website": "http://www.dandydons.com",
+  "active": false
+ },
+ {
+  "name": "Ackee Bamboo Jamaican Cuisine LLC",
+  "cuisine": "Jamaican",
+  "website": "https://ackeebamboo.com",
+  "active": true
+ },
+ {
+  "name": "Azla, LLC",
+  "cuisine": "Ethiopian- Vegan",
+  "website": "http://azlavegan.com",
+  "active": true
+ },
+ {
+  "name": "The Patina Group Newco, LLC",
+  "website": "https://www.patinagroup.com",
+  "active": true
+ },
+ {
+  "name": "Rutts Hawaiian Cafe",
+  "cuisine": "Hawaiian",
+  "website": "https://ruttscafe.com",
+  "active": true
+ },
+ {
+  "name": "Streamline Fish Farm (Malek Restaurant)",
+  "cuisine": "Persian",
+  "active": true
+ },
+ {
+  "name": "Jonathan Club",
+  "cuisine": "Fancy",
+  "website": "https://www.jc.org",
+  "active": true
+ },
+ {
+  "name": "Komodo Catering",
+  "cuisine": "Modern California Asian Fusion",
+  "active": true
+ },
+ {
+  "name": "King's Seafood",
+  "cuisine": "Seafood",
+  "website": "http://www.kingsseafood.com",
+  "active": true
+ }
+]
