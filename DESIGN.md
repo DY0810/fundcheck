@@ -47,7 +47,7 @@ One job per screen. Once a result exists, the paste area collapses to one row (t
 
 **Gold** is never text, never an underline, icon or step marker on a light surface, and never a fill under white text. It appears as the check inside the header mark and as the 25% tint.
 
-**USC marks.** No USC logo, seal, shield, monogram or wordmark. The header mark (a cardinal square with a gold check) is FundCheck's own. The footer says "Not affiliated with USC or USG. A pre-check, not an approval." The v1 4 px cardinal page-top rule is dropped: cardinal is the brand now, and the rule would sit above the verdict's severity rule.
+**USC marks.** No USC logo, seal, shield, monogram or wordmark. The header mark (a cardinal square with a gold check) is FundCheck's own. The footer says only "Rules from USG Funding Department Guidelines, current as of Oct 21, 2026"; the non-affiliation line was removed at the user's request. The v1 4 px cardinal page-top rule is dropped: cardinal is the brand now, and the rule would sit above the verdict's severity rule.
 
 ### Severity
 

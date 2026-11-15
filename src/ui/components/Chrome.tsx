@@ -24,7 +24,6 @@ export function Footer() {
       <p className="m-0">
         Rules from USG Funding Department Guidelines, current as of Oct 21, 2026
       </p>
-      <p className="m-0">Not affiliated with USC or USG. A pre-check, not an approval.</p>
     </footer>
   );
 }
