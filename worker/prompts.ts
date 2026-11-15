@@ -1,7 +1,7 @@
 import rulesFile from '../src/shared/rules.json';
 import { EVENT_AI_RULES, ITEM_AI_RULES } from '../src/shared/contracts';
 import type { RulesFile } from '../src/shared/contracts';
-import type { DraftInput } from './schema';
+import { fundableItems, type DraftInput } from './schema';
 
 const rules = (rulesFile as RulesFile).rules;
 const rule = (id: string) => {
@@ -71,18 +71,22 @@ Fields:
 - missionAlignment: answers "How does the event align with your mission/vision/goals?" in 2 to 3 sentences, tied to the event's purpose.
 - foodJustification: only if there is a food line, 1 to 2 sentences on why food is part of the event; otherwise null.
 - travelPurpose: only if the event involves travel, a 2 to 3 sentence statement of purpose for the trip; otherwise null.
-- budgetJustifications: exactly one entry per item, using the item's id as itemId. Each text is at most 25 words and says what the item is for at the event.`;
+- budgetJustifications: exactly one entry per listed item, using the item's id as itemId. Each text is at most 25 words and says what the item is for at the event.
+
+Describe only the listed items. Other costs have been removed from this request; do not mention or imply any cost that is not listed.`;
 
 const noPrices = (s: string) => s.replace(/\$\s?[\d,]+(\.\d+)?/g, '').replace(/\s{2,}/g, ' ').trim();
 
-export const draftUser = ({ extraction: { facts, items }, check }: DraftInput) =>
-  `<event>\n${JSON.stringify({
+export const draftUser = (input: DraftInput) => {
+  const { facts } = input.extraction;
+  return `<event>\n${JSON.stringify({
     name: facts.name,
     summary: facts.summary,
     location: facts.location,
     onCampus: facts.onCampus,
     openToAll: facts.openToAll,
     travel: facts.travel,
-    fund: check.fund.label,
-    items: items.map((i) => ({ itemId: i.id, description: noPrices(i.description), vendor: i.vendor, category: i.category })),
+    fund: input.check.fund.label,
+    items: fundableItems(input).map((i) => ({ itemId: i.id, description: noPrices(i.description), vendor: i.vendor, category: i.category })),
   }).replace(/<\/?event>/gi, '')}\n</event>`;
+};

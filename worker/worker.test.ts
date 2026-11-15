@@ -24,6 +24,7 @@ const env = (over: Partial<Env> = {}): Env => ({
   ...over,
 });
 
+const OTHER = 'Bake sale, Apr 1 2027, cookies $50';
 let ip = 0;
 async function post(path: string, body: unknown, e: Env, headers: Record<string, string> = {}) {
   const req = new Request(`http://local${path}`, {
@@ -58,10 +59,17 @@ describe('POST /api/extract', () => {
 
   it('uses Workers AI when there is no key', async () => {
     const e = env({ ANTHROPIC_API_KEY: undefined });
-    const r = await post('/api/extract', { plan: SAMPLE_PLAN }, e);
+    const r = await post('/api/extract', { plan: OTHER }, e);
     expect(parse).not.toHaveBeenCalled();
     expect(e.AI.run).toHaveBeenCalledOnce();
     expect(r.body).toMatchObject({ ok: true, provider: 'workers-ai' });
+  });
+
+  it('never sends the sample plan to Workers AI: no key means the cached result', async () => {
+    const e = env({ ANTHROPIC_API_KEY: undefined });
+    const r = await post('/api/extract', { plan: SAMPLE_PLAN }, e);
+    expect(e.AI.run).not.toHaveBeenCalled();
+    expect(r.body).toMatchObject({ ok: true, source: 'cached', provider: 'cache', extraction: fixture });
   });
 
   it.each([
@@ -70,20 +78,43 @@ describe('POST /api/extract', () => {
     ['max_tokens', () => parse.mockResolvedValue({ stop_reason: 'max_tokens', parsed_output: null } as never)],
   ])('falls back to Workers AI on %s', async (_name, arrange) => {
     arrange();
-    const r = await post('/api/extract', { plan: SAMPLE_PLAN }, env());
+    const r = await post('/api/extract', { plan: OTHER }, env());
     expect(parse).toHaveBeenCalled();
     expect(r.body).toMatchObject({ ok: true, provider: 'workers-ai' });
   });
 
-  it('returns the cached sample when both providers fail on the sample', async () => {
+  it('returns the cached sample when Claude fails on the sample', async () => {
     parse.mockRejectedValue(new Anthropic.InternalServerError(500, {}, 'down', new Headers()));
-    const r = await post('/api/extract', { plan: SAMPLE_PLAN }, env({ AI: { run: vi.fn().mockRejectedValue(new Error('3040: JSON Mode couldn\'t be met')) } as unknown as Ai }));
+    const e = env();
+    const r = await post('/api/extract', { plan: SAMPLE_PLAN }, e);
     expect(r.status).toBe(200);
+    expect(e.AI.run).not.toHaveBeenCalled();
     expect(r.body).toMatchObject({ ok: true, source: 'cached', provider: 'cache', extraction: fixture });
   });
 
+  it('returns the cached sample when Claude takes longer than 15 s on the sample', async () => {
+    vi.useFakeTimers();
+    try {
+      parse.mockReturnValue(new Promise(() => {}) as never);
+      const pending = post('/api/extract', { plan: SAMPLE_PLAN }, env());
+      await vi.advanceTimersByTimeAsync(15_000);
+      expect((await pending).body).toMatchObject({ ok: true, source: 'cached', provider: 'cache' });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('returns 502 when Claude fails and Workers AI returns bad JSON twice on another plan', async () => {
+    parse.mockRejectedValue(new Anthropic.APIConnectionError({ message: 'offline' }));
+    const run = vi.fn().mockResolvedValue({ response: { items: 'nope' } });
+    const r = await post('/api/extract', { plan: OTHER }, env({ AI: { run } as unknown as Ai }));
+    expect(run).toHaveBeenCalledTimes(2);
+    expect(r.status).toBe(502);
+    expect(r.body).toMatchObject({ ok: false, error: { code: 'llm_invalid' } });
+  });
+
   it('returns 502 when both providers fail on another plan', async () => {
-    const r = await post('/api/extract', { plan: 'Bake sale, Apr 1, cookies $50' }, env(), { 'x-fundcheck-force-fail': '1' });
+    const r = await post('/api/extract', { plan: OTHER }, env(), { 'x-fundcheck-force-fail': '1' });
     expect(r.status).toBe(502);
     expect(r.body).toMatchObject({ ok: false, error: { code: 'llm_failed' } });
   });
@@ -154,7 +185,7 @@ describe('POST /api/draft', () => {
     expect(r.status).toBe(400);
   });
 
-  it('keeps only justifications for real items and strips prices from the prompt', async () => {
+  it('justifies only items that are not flagged not_eligible, and keeps flagged items out of the prompt', async () => {
     parse.mockResolvedValue({
       stop_reason: 'end_turn',
       model: 'claude-opus-5-5',
@@ -163,12 +194,18 @@ describe('POST /api/draft', () => {
         missionAlignment: 'm',
         foodJustification: 'f',
         travelPurpose: 't',
-        budgetJustifications: [{ itemId: 'i1', text: 'Dinner for the audience.' }, { itemId: 'i9', text: 'invented' }],
+        budgetJustifications: [
+          { itemId: 'i1', text: 'Dinner for the audience.' },
+          { itemId: 'i2', text: 'flagged, must be dropped' },
+          { itemId: 'i9', text: 'invented' },
+        ],
       },
     } as never);
     const r = await post('/api/draft', { extraction: fixture, check }, env());
     expect(r.body).toMatchObject({ ok: true, provider: 'claude', draft: { foodJustification: 'f', travelPurpose: null, budgetJustifications: { i1: 'Dinner for the audience.' } } });
     const user = JSON.stringify((parse.mock.calls[0][0] as unknown as { messages: unknown }).messages);
     expect(user).not.toContain('$');
+    expect(user).not.toMatch(/balloon/i);
+    expect(user).toContain('Printed programs');
   });
 });

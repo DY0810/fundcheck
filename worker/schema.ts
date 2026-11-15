@@ -118,11 +118,18 @@ export const DraftInput = z.object({
 });
 export type DraftInput = z.infer<typeof DraftInput>;
 
-/** Keeps only justifications for real item ids; food/travel text only when the plan has such lines. */
-export function toDraft(m: ModelDraft, ex: DraftInput['extraction']): Draft {
-  const ids = new Set(ex.items.map((i) => i.id));
-  const hasFood = ex.items.some((i) => i.category === 'food');
-  const hasTravel = ex.facts.travel === true || ex.items.some((i) => i.category === 'travel' || i.category === 'lodging');
+/** Lines the draft may describe: every item the check did not flag not_eligible. */
+export const fundableItems = ({ extraction, check }: DraftInput) => {
+  const out = new Set(check.flags.filter((f) => f.severity === 'not_eligible' && f.itemId).map((f) => f.itemId));
+  return extraction.items.filter((i) => !out.has(i.id));
+};
+
+/** Justifications only for fundable items; food/travel text only when a fundable line needs it. */
+export function toDraft(m: ModelDraft, input: DraftInput): Draft {
+  const items = fundableItems(input);
+  const ids = new Set(items.map((i) => i.id));
+  const hasFood = items.some((i) => i.category === 'food');
+  const hasTravel = input.extraction.facts.travel === true || items.some((i) => i.category === 'travel' || i.category === 'lodging');
   return {
     description: m.description,
     missionAlignment: m.missionAlignment,

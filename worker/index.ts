@@ -8,6 +8,7 @@ import { DraftInput, ModelDraft, ModelExtraction, toDraft, toExtraction } from '
 
 const MAX_DRAFT_BODY_CHARS = 100_000;
 const RATE_LIMIT_PER_MIN = 20;
+const SAMPLE_DEADLINE_MS = 15_000;
 
 const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { 'cache-control': 'no-store' } });
 const fail = (code: ApiErrorCode, message: string, status: number) =>
@@ -50,13 +51,18 @@ async function extract(req: Request, env: Env, limited: boolean): Promise<Respon
   if (plan.length > MAX_PLAN_CHARS) return fail('too_long', `Keep the plan under ${MAX_PLAN_CHARS} characters.`, 400);
   const isSample = plan.trim() === SAMPLE_PLAN.trim();
   if (limited) return isSample ? cached(t0) : fail('rate_limited', 'Too many checks from this network. Wait a minute and try again.', 429);
-  try {
-    const r = await callJson(env, 'extract', EXTRACT_SYSTEM, extractUser(plan), ModelExtraction, forceOpts(req, env));
+  const live = (async () => {
+    const r = await callJson(env, 'extract', EXTRACT_SYSTEM, extractUser(plan), ModelExtraction, { ...forceOpts(req, env), claudeOnly: isSample });
     // Metadata first, so a truncated response (head -c) still shows the provider.
     return json({ ok: true, source: 'live', provider: r.provider, model: r.model, ms: r.ms, extraction: toExtraction(r.data, plan) } satisfies ExtractResponse);
-  } catch (err) {
-    return isSample && err instanceof LlmError ? cached(t0) : llmFailure(err);
-  }
+  })();
+  if (!isSample) return live.catch(llmFailure);
+  // Sample plan: Claude only, raced against a deadline; a slow or failed call gets the recorded result.
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const deadline = new Promise<null>((resolve) => (timer = setTimeout(resolve, SAMPLE_DEADLINE_MS, null)));
+  const won = await Promise.race([live.catch(() => null), deadline]);
+  clearTimeout(timer);
+  return won ?? cached(t0);
 }
 
 async function draft(req: Request, env: Env, limited: boolean): Promise<Response> {
@@ -72,7 +78,7 @@ async function draft(req: Request, env: Env, limited: boolean): Promise<Response
   if (limited) return fail('rate_limited', 'Too many requests from this network. Wait a minute and try again.', 429);
   try {
     const r = await callJson(env, 'draft', DRAFT_SYSTEM, draftUser(parsed.data), ModelDraft, forceOpts(req, env));
-    return json({ ok: true, source: 'live', provider: r.provider, model: r.model, ms: r.ms, draft: toDraft(r.data, parsed.data.extraction) } satisfies DraftResponse);
+    return json({ ok: true, source: 'live', provider: r.provider, model: r.model, ms: r.ms, draft: toDraft(r.data, parsed.data) } satisfies DraftResponse);
   } catch (err) {
     return llmFailure(err);
   }
