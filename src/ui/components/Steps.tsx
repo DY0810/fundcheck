@@ -4,7 +4,7 @@ import type { Answers, Draft, Extraction, Fix, Resolution } from '../../shared/c
 import { money, plural } from '../lib/format';
 import { CsvButton, DraftPanel } from './DraftPanel';
 import { docsMeta, flagTitle, headline, PostEvent } from './Result';
-import { Fold, Rows, SEV } from './bits';
+import { Fold, Rows, SEV, useWide } from './bits';
 
 export type Step = 1 | 2 | 3;
 export type Choice = 'apply' | 'keep';
@@ -57,6 +57,7 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
 }) {
   const auto = fixes.filter((f) => f.auto);
   const manual = fixes.filter((f) => !f.auto);
+  const wide = useWide();
   const allAuto = auto.length > 0 && auto.every((f) => choices[f.id] === 'apply');
   const rows = (list: Fix[]) => list.map((f) => (
     <fieldset key={f.id} className="m-0 flex min-w-0 flex-col gap-3 border-0 px-card py-4 sm:flex-row sm:items-center sm:justify-between lg:px-card-lg">
@@ -73,23 +74,28 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
       </div>
     </fieldset>
   ));
+  const bar = (
+    <div className="flex flex-col gap-4 rounded-panel bg-brand-tint p-4 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-stretch lg:p-card-lg">
+      <div className="flex flex-col gap-0.5" aria-live="polite" aria-atomic="true">
+        <p className="m-0 text-sm text-ink">You'll request</p>
+        <p className="num m-0 flex flex-wrap items-baseline gap-x-2">
+          <span className="text-xl font-semibold tracking-[-0.02em] text-ink lg:text-2xl">{money(requestCents)}</span>
+          <span className="text-base text-ink">of {money(totalCents)} planned</span>
+        </p>
+      </div>
+      <button type="button" className="btn btn-primary" onClick={onContinue}>Continue <ArrowRight aria-hidden size={18} /></button>
+    </div>
+  );
+  // From lg the request card leaves the heading panel for a sticky right column; below lg the markup is unchanged.
   return (
+    <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-x-10">
     <div className="flex flex-col gap-6 lg:gap-group">
       <section aria-labelledby="fixes-h" className="panel flex animate-reveal flex-col gap-4 p-card lg:p-card-lg">
         <div className="flex flex-col gap-1">
           <h2 id="fixes-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Review fixes</h2>
           <p className="m-0 max-w-[62ch] text-base text-ink-2">Nothing changes until you choose. Apply a fix to take it out of your request, or keep the line and ask the board.</p>
         </div>
-        <div className="flex flex-col gap-4 rounded-panel bg-brand-tint p-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-col gap-0.5" aria-live="polite" aria-atomic="true">
-            <p className="m-0 text-sm text-ink">You'll request</p>
-            <p className="num m-0 flex flex-wrap items-baseline gap-x-2">
-              <span className="text-xl font-semibold tracking-[-0.02em] text-ink lg:text-2xl">{money(requestCents)}</span>
-              <span className="text-base text-ink">of {money(totalCents)} planned</span>
-            </p>
-          </div>
-          <button type="button" className="btn btn-primary" onClick={onContinue}>Continue <ArrowRight aria-hidden size={18} /></button>
-        </div>
+        {!wide && bar}
       </section>
 
       {auto.length > 0 && (
@@ -114,6 +120,8 @@ export function FixReview({ fixes, choices, onChoose, onApproveAll, requestCents
       )}
       <Back onClick={onBack}>Back to what we found</Back>
     </div>
+    {wide && <aside aria-label="Your request" className="sticky top-4 animate-reveal">{bar}</aside>}
+    </div>
   );
 }
 
@@ -125,10 +133,10 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
   const r = resolution;
   const [draft, setDraft] = useState<Draft | null>(null);
   const ai = draft ? 'drafted' : 'to draft';
+  const wide = useWide();
   const item = (id: string | null) => (id ? r.extraction.items.find((i) => i.id === id) ?? original.items.find((i) => i.id === id) : null);
-  return (
-    <div className="flex flex-col gap-6 lg:gap-group">
-      <section aria-labelledby="handoff-h" className="panel flex animate-reveal flex-col gap-4 p-card lg:p-card-lg">
+  const status = (
+    <>
         <h2 id="handoff-h" ref={headingRef} tabIndex={-1} className="m-0 text-xl font-semibold outline-none">Hand off to USG</h2>
         {r.open.length === 0 ? (
           <p className="m-0 flex items-center gap-2 text-base font-medium text-ink">
@@ -151,7 +159,11 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
           </div>
         )}
         {unanswered > 0 && <p className="m-0 -mt-2 text-sm text-ink-2">{plural(unanswered, 'question')} on step 1 could still change this.</p>}
-        <dl className="m-0 grid grid-cols-1 gap-x-4 gap-y-3 border-t border-line pt-4 sm:grid-cols-[1fr_1fr_1.2fr] sm:gap-x-6">
+    </>
+  );
+  const packet = (
+    <>
+        <dl className="m-0 grid grid-cols-1 gap-x-4 gap-y-3 border-t border-line pt-4 lg:border-t-0 lg:pt-0 sm:grid-cols-[1fr_1fr_1.2fr] sm:gap-x-6">
           <div className="flex flex-col gap-0.5">
             <dt className="text-sm text-ink-2">Amount to request</dt>
             <dd className="num m-0 text-xl font-semibold text-ink">{money(r.requestCents)}</dd>
@@ -174,13 +186,14 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
         <div className="border-t border-line pt-4">
           <CsvButton extraction={r.extraction} check={r.check} draft={draft} />
         </div>
-      </section>
-
+    </>
+  );
+  const bring = (
       <Rows label="What to bring">
-        <Fold flat title="Form answers" id="draft-h" meta={`ready to copy, description ${ai}`}>
+        <Fold flat open={wide} title="Form answers" id="draft-h" meta={`ready to copy, description ${ai}`}>
           <DraftPanel extraction={r.extraction} check={r.check} answers={answers} requestCents={r.requestCents} draft={draft} setDraft={setDraft} />
         </Fold>
-        <Fold flat title="Documents" id="docs-h" meta={docsMeta(r.check)}>
+        <Fold flat open={wide} title="Documents" id="docs-h" meta={docsMeta(r.check)}>
           {documents}
           {paperwork}
         </Fold>
@@ -188,7 +201,27 @@ export function Handoff({ resolution, original, answers, unanswered, paperwork, 
           <PostEvent check={r.check} />
         </Fold>
       </Rows>
-      <Back onClick={onBack}>{backLabel}</Back>
+  );
+  const back = <Back onClick={onBack}>{backLabel}</Back>;
+  // From lg: the status spans the container, the packet sits left and what to bring right. Below lg it is one panel, as before.
+  if (wide) return (
+    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,5fr)] items-start gap-x-10 gap-y-group">
+      <section aria-labelledby="handoff-h" className="panel col-span-2 flex animate-reveal flex-col gap-4 p-card-lg">{status}</section>
+      <div className="flex flex-col gap-group">
+        <section aria-label="Your packet" className="panel flex animate-reveal flex-col gap-4 p-card-lg [animation-delay:80ms]">{packet}</section>
+        {back}
+      </div>
+      {bring}
+    </div>
+  );
+  return (
+    <div className="flex flex-col gap-6 lg:gap-group">
+      <section aria-labelledby="handoff-h" className="panel flex animate-reveal flex-col gap-4 p-card lg:p-card-lg">
+        {status}
+        {packet}
+      </section>
+      {bring}
+      {back}
     </div>
   );
 }

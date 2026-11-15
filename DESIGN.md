@@ -65,7 +65,7 @@ Rose sits 21° from cardinal on the hue wheel, so hue alone does not separate th
 
 The verdict panel carries a 4 px top rule in the worst severity present, neutral line grey when nothing has been read. It is never cardinal.
 
-Banned words in the UI: "violation", "denied", "rejected", "fail" (except on `/evals`), "approved", "will be funded", "submitted". The only "denied" on screen is inside a USG quote, set as a quote.
+Banned words in the UI: "violation", "denied", "rejected", "fail", "approved", "will be funded", "submitted". The only "denied" on screen is inside a USG quote, set as a quote.
 
 ## Type
 
@@ -85,7 +85,14 @@ Weights: 400 body, 500 labels, 600 headings and figures. Headings track `-0.01em
 ## Space and shape
 
 - Spacing steps (Carbon): 4, 8, 12, 16, 24, 32, 40, 48, 64, 80.
-- Page: max width **1020 px** (`max-w-page`), side margins 16 / 32. Content: **one 680 px column** (`max-w-main`), left-aligned, on every step. No side column.
+- Page: one centred container, max width **1280 px** (`max-w-page`), side padding 16 / 32. The header mark, the content and the footer share its left and right edges.
+- Below 1024 px: **one column**, at most 680 px (`max-w-main`), left-aligned, on every step. Phone and tablet never change with the desktop rules below.
+- From 1024 px (`lg:`), two columns, roughly 7 : 5, 40 px apart, top-aligned. They are placed with `lg:` grid classes on the same markup, so the phone's reading order is untouched.
+  - Landing: headline, intro, next application window and "What it checks" (open from 1024 px) on the left; the paste box, the privacy line and both buttons on the right, starting on the same line.
+  - Step 1: the plan row, the step indicator and the verdict span the container. Flags with their USG quotes on the left, the detail rows on the right. "Edit the plan" sits full width under both, because its line-item table needs the room.
+  - Step 2: fix rows on the left; the "You'll request" card with Continue on the right, sticky.
+  - Step 3: the status panel spans the container; the packet (amount, deadline, fund, "Open USG's funding page", budget CSV) on the left; form answers and documents (open by default) and "After the event" on the right.
+- Line length: no body line or quote longer than about 75 characters. Wide space is split into columns, never filled with stretched paragraphs.
 - Card padding **24 phone / 32 desktop** (`p-card lg:p-card-lg`). 16 between rows in a card, 24 (phone) / 32 (desktop, `gap-group`) between groups in a step, 48 / 64 between page regions.
 - Targets: **44 px** for every control, ghost buttons and step links included (`min-h-target`).
 - Radius: 6 px controls, 10 px panels, full for chips. No other radii.

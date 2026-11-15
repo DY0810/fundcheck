@@ -1,7 +1,12 @@
-import { useState, type ReactNode, type Ref } from 'react';
+import { useState, useSyncExternalStore, type ReactNode, type Ref } from 'react';
 import { Ban, Calculator, Check, ChevronDown, CircleCheck, CircleHelp, Copy, Gauge, MessageSquareText, ScanText, type LucideIcon } from 'lucide-react';
 import type { Badge, RuleId, Severity } from '../../shared/contracts';
 import { rule } from '../lib/rules';
+
+// The two-column desktop layout starts at Tailwind's lg (1024 px); used where a column change needs different markup.
+const WIDE = '(min-width: 64rem)';
+const onWide = (cb: () => void) => { const m = matchMedia(WIDE); m.addEventListener('change', cb); return () => m.removeEventListener('change', cb); };
+export const useWide = () => useSyncExternalStore(onWide, () => matchMedia(WIDE).matches);
 
 export const SEV: Record<Severity, { label: string; Icon: LucideIcon; fg: string; bg: string; top: string }> = {
   not_eligible: { label: 'Not eligible', Icon: Ban, fg: 'text-ne', bg: 'bg-ne-bg', top: 'border-t-ne' },

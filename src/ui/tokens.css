@@ -44,8 +44,8 @@
   --text-2xl: 2.625rem;
   --text-2xl--line-height: 3.125rem;
 
-  /* GOV.UK page width and two-thirds column; Carbon card, group and target sizes. */
-  --container-page: 63.75rem;
+  /* Page container (two columns from 1024 px), the one-column width below it; Carbon card, group and target sizes. */
+  --container-page: 80rem;
   --container-main: 42.5rem;
   --spacing-card: 1.5rem;
   --spacing-card-lg: 2rem;

@@ -10,7 +10,7 @@ import { date, money, plural, todayIso } from '../lib/format';
 import { AskRow, askValue, FactsFields, ItemsTable } from '../components/Extraction';
 import { DeadlineBody, docsMeta, Documents, Flags, FundBody, headline, MoneyBody, moneyMeta, Verdict, Vendors, vendorsMeta } from '../components/Result';
 import { type Choice, FixReview, Handoff, type Step, StepNav } from '../components/Steps';
-import { Fold, Rows, UsgQuote } from '../components/bits';
+import { Fold, Rows, UsgQuote, useWide } from '../components/bits';
 
 type Source = { kind: 'live' | 'cached' | 'fixture'; provider: Extract<ExtractResponse, { ok: true }>['provider'] };
 // ?fixture=1 skips the API with the sample; dev builds also accept worst | empty | 40 (break-ui data).
@@ -37,6 +37,7 @@ export default function Check() {
   const loadingRef = useRef<HTMLElement>(null);
   const today = useMemo(() => todayIso(), []);
   const nextWin = useMemo(() => nextWindow(today), [today]);
+  const wide = useWide();
 
   const input = useMemo<CheckInput | null>(() => (extraction ? { extraction, answers, today, rules, vendors } : null), [extraction, answers, today]);
   const check = useMemo(() => (input ? runCheck(input) : null), [input]);
@@ -164,6 +165,19 @@ export default function Check() {
   const paperwork = asks.filter((a) => PAPERWORK.has(a.id));
   const open = check ? check.asks.filter((a) => !PAPERWORK.has(a.id)).length : 0;
   const over = plan.length > MAX_PLAN_CHARS;
+  const editFold = extraction && check && (
+    <Fold flat title="Edit the plan" id="read-h" detailsRef={editRef} meta={`${plural(extraction.items.length, 'line')}, ${money(check.money.totalCents)}`}>
+      <p className="m-0 text-base text-ink-2">Fix anything we got wrong. The pre-check reruns as you type.</p>
+      <section aria-labelledby="facts-h" className="flex flex-col gap-4">
+        <h3 id="facts-h" className="m-0 text-base font-semibold">Event</h3>
+        <FactsFields facts={extraction.facts} onChange={patchFacts} />
+      </section>
+      <section aria-labelledby="items-h" className="flex flex-col gap-4 border-t border-line pt-4">
+        <h3 id="items-h" className="m-0 text-base font-semibold">Line items</h3>
+        <ItemsTable items={extraction.items} onChange={patchItem} onAdd={addItem} onRemove={removeItem} />
+      </section>
+    </Fold>
+  );
   const askRows = (list: Ask[]) => (
     <ul className="m-0 list-none p-0 @container">
       {list.map((a) => <AskRow key={a.id} ask={a} value={askValue(a, answers, extraction!.facts)} onAnswer={(v) => answer(a, v)} />)}
@@ -174,14 +188,15 @@ export default function Check() {
     <main className="mx-auto flex w-full max-w-page flex-col gap-12 px-4 lg:gap-16 lg:px-8">
       {/* ---------- Paste: the whole screen until a result exists, then one row ---------- */}
       {!extraction ? (
-        <section aria-labelledby="paste-h" className="flex max-w-main flex-col gap-6 pt-4 lg:pt-10">
-          <div className="flex flex-col gap-3">
+        // From lg the same children sit in two columns: words on the left, the paste box spanning their height on the right.
+        <section aria-labelledby="paste-h" className="flex max-w-main flex-col gap-6 pt-4 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:pt-10">
+          <div className="flex flex-col gap-3 lg:col-start-1 lg:row-start-1">
             <h1 id="paste-h" className="m-0 text-xl font-semibold tracking-[-0.02em] lg:text-2xl">Pre-check your USG funding application.</h1>
             <p className="m-0 max-w-[62ch] text-base text-ink-2">
               Paste your event plan. FundCheck reads it, checks it against the USG Funding Department's rules, and shows what isn't eligible, what's over a cap and which documents you need.
             </p>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 lg:col-start-2 lg:row-span-3 lg:row-start-1">
             <div className="flex items-baseline justify-between gap-3">
               <label htmlFor="plan" className="label">Your event plan</label>
               <span className={`num text-sm ${over ? 'font-semibold text-ne' : 'text-ink-2'}`} aria-live={over ? 'polite' : 'off'}>
@@ -191,7 +206,7 @@ export default function Check() {
             <textarea
               id="plan"
               ref={planRef}
-              className="field min-h-36 resize-y py-3 leading-6 lg:min-h-52"
+              className="field min-h-36 resize-y py-3 leading-6 lg:min-h-52 lg:flex-1"
               value={plan}
               aria-describedby="privacy"
               aria-invalid={over || undefined}
@@ -203,7 +218,7 @@ export default function Check() {
               Nothing you paste is stored. Don't paste traveller details.
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:col-start-2 lg:row-start-4">
             <button type="button" className="btn btn-primary" onClick={() => submit()} disabled={busy || over} aria-busy={busy}>
               {busy ? <LoaderCircle aria-hidden size={18} className="animate-spin" /> : null}
               Check my plan
@@ -219,7 +234,7 @@ export default function Check() {
             </button>
           </div>
           {error && (
-            <div role="alert" className="flex flex-col gap-3 rounded-panel border border-control bg-panel p-4 text-ink sm:flex-row sm:items-center sm:justify-between">
+            <div role="alert" className="flex flex-col gap-3 rounded-panel border border-control bg-panel p-4 text-ink sm:flex-row sm:items-center sm:justify-between lg:col-start-2 lg:row-start-5">
               <p className="m-0 text-base">{error.message}</p>
               {error.code !== 'empty' && error.code !== 'too_long' && (
                 <button type="button" className="btn btn-secondary shrink-0" onClick={() => submit()}>
@@ -229,7 +244,7 @@ export default function Check() {
             </div>
           )}
           {nextWin && (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 lg:col-start-1 lg:row-start-2">
               <p className="num m-0 flex items-start gap-2 text-base text-ink">
                 <CalendarClock aria-hidden size={18} className="mt-0.5 shrink-0 text-ink-2" />
                 <span>
@@ -248,7 +263,8 @@ export default function Check() {
               </details>
             </div>
           )}
-          <Fold title="What it checks">
+          <div className="lg:col-start-1 lg:row-start-3">
+          <Fold title="What it checks" open={wide}>
             <ul className="m-0 flex list-disc flex-col gap-2 pl-5 text-base text-ink-2 marker:text-control">
               <li>Items USG's rules don't fund, quoted from the Guidelines</li>
               <li>The $4,000 venue cap, $35 food limit and $8,000 yearly cap</li>
@@ -260,9 +276,10 @@ export default function Check() {
               <a href="https://github.com/DY0810/fundcheck" target="_blank" rel="noreferrer">read on GitHub<span className="sr-only"> (opens in a new tab)</span></a>.
             </p>
           </Fold>
+          </div>
         </section>
       ) : (
-        <div className="flex max-w-main flex-col gap-1 pt-2 lg:pt-4">
+        <div className="flex max-w-main flex-col gap-1 pt-2 lg:max-w-none lg:pt-4">
           <h1 className="sr-only">Pre-check of {extraction.facts.name ?? 'your event plan'}</h1>
           <div className="flex flex-wrap items-center justify-between gap-x-4">
             <p className="m-0 hidden min-w-0 truncate text-sm font-medium text-ink sm:block">{extraction.facts.name ?? 'Your event plan'}</p>
@@ -293,7 +310,7 @@ export default function Check() {
       {busy && extraction && <p role="status" className="sr-only">Reading your plan…</p>}
 
       {extraction && check && source && resolution && (
-        <div ref={resultRef} className={`-mt-8 flex max-w-main scroll-mt-4 flex-col gap-6 lg:-mt-12 lg:gap-group ${busy ? 'opacity-60' : ''}`}>
+        <div ref={resultRef} className={`-mt-8 flex max-w-main scroll-mt-4 flex-col gap-6 lg:-mt-12 lg:max-w-none lg:gap-group ${busy ? 'opacity-60' : ''}`}>
 
           {step === 1 && (
             <>
@@ -314,8 +331,10 @@ export default function Check() {
                     </button>
                   }
                 />
-                <Flags check={check} extraction={extraction} />
-              </section>
+                <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-x-10">
+                <div className="flex flex-col gap-6 lg:gap-group">
+                  <Flags check={check} extraction={extraction} />
+                </div>
               <Rows label="Details">
                 {impact.length > 0 && (
                   <Fold flat title="Questions" id="asks-h" meta={open ? `${open} could change this` : 'All answered'}>
@@ -338,18 +357,12 @@ export default function Check() {
                 <Fold flat title="Vendors" meta={vendorsMeta(check)}>
                   <Vendors check={check} answers={answers} onOverride={setVendorOverride} />
                 </Fold>
-                <Fold flat title="Edit the plan" id="read-h" detailsRef={editRef} meta={`${plural(extraction.items.length, 'line')}, ${money(check.money.totalCents)}`}>
-                  <p className="m-0 text-base text-ink-2">Fix anything we got wrong. The pre-check reruns as you type.</p>
-                  <section aria-labelledby="facts-h" className="flex flex-col gap-4">
-                    <h3 id="facts-h" className="m-0 text-base font-semibold">Event</h3>
-                    <FactsFields facts={extraction.facts} onChange={patchFacts} />
-                  </section>
-                  <section aria-labelledby="items-h" className="flex flex-col gap-4 border-t border-line pt-4">
-                    <h3 id="items-h" className="m-0 text-base font-semibold">Line items</h3>
-                    <ItemsTable items={extraction.items} onChange={patchItem} onAdd={addItem} onRemove={removeItem} />
-                  </section>
-                </Fold>
+                {!wide && editFold}
               </Rows>
+                </div>
+              </section>
+              {/* On desktop the line-item table needs the full width, so the editor sits under both columns. */}
+              {wide && <Rows label="Edit the plan">{editFold}</Rows>}
             </>
           )}
 
