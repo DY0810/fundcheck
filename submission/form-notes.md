@@ -36,7 +36,7 @@ The Guidelines §1 say travel needs "at least 9 academic weeks prior to the date
 
 ## 3. Time to fix an incomplete application: 2 business days or 3
 
-The Guidelines §2 say the applicant "must provide the necessary information within 2 business days", and the slides add that "2 business days is equivalent to 48 hours from the notification of an incomplete application". The FAQ doc Q16 says "three business days".
+The Guidelines §2 say the applicant "must provide the necessary information within 2 business days", and add that "2 business days is equivalent to 48 hours from the notification of an incomplete application". The FAQ doc Q16 says "you will have three business days to provide the necessary information".
 
 **Suggestion:** update the FAQ doc to match the Guidelines.
 

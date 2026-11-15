@@ -1,6 +1,6 @@
 # FundCheck shot list
 
-**PROVISIONAL.** The result page is being reordered so the verdict (counts, eligible amount, deadline, first flag) appears first and the edit table moves below it. Shots 5 to 11 describe today's layout and get finalised against the frozen UI. Shots 1 to 4 and 12 to 14 will not change.
+**PROVISIONAL.** The result page is being reordered so the verdict (counts, eligible amount, deadline, first flag) appears first and the edit table moves below it, and the prompts and evals get one more run. Shots 5 to 11 describe today's layout and get finalised against the frozen UI. Shots 12 and 13 depend on the final prompts and eval run. Shots 1 to 4 and 14 will not change.
 
 Pair this with `video-script.md`: the times below match its sections.
 
@@ -64,11 +64,11 @@ Checked live on Nov 14: this plan raises the Ask chip "Does 'dinner boxes for th
 | 6 | 0:34 | Tab 3 | *(provisional)* Scroll so the verdict is in view. | "3 not eligible · 1 over cap · 1 review note", "Eligible request $7,200" |
 | 7 | 0:43 | Tab 3 | *(provisional)* Scroll to the first flag. Hover the quote. | "Selling tickets makes the event not eligible per §5.", "In your plan: '$10 tickets at the door'", the §5 quote, the R2 exception line |
 | 8 | 0:53 | Tab 3 | *(provisional)* Scroll to the balloon and DJ flags. Hover the "AI-judged" badge. | "Helium balloon arch ($250) is not eligible per §5.", "DJ ($600) is not eligible per §5." |
-| 9 | 1:08 | Tab 3 | *(provisional)* Scroll to Money, then the R6 flag. Hover "Rule math". | "Venue and personnel $4,800 of $4,000 cap", "Food per person $10 of $35 limit" |
+| 9 | 1:08 | Tab 3 | *(provisional)* Scroll to Money, then the R6 flag. Hover "Rule math". | "Venue and personnel $4,800 of $4,000 cap" |
 | 10 | 1:22 | Tab 3 | *(provisional)* Scroll to Deadline. Click "Sources word this differently", hold one second, close it. | "Submit by Wed, Feb 3, 2027", "Estimate", "Latest date under the event-date wording: Wed, Feb 24, 2027" |
-| 11 | 1:35 | Tab 3 | *(provisional)* Scroll to the documents checklist. Then in the line-items table change "Printed programs" from 200 to 150 and watch the totals update. Then click "Draft my form answers" (about 5 s) and point at "Download budget CSV". | Quote file names such as `RSO_Lastname_Firstname_WolfgangPuckCatering_Quote.pdf`; the plan total changing; the drafted "Description of event" |
-| 12 | 2:10 | Tab 4, musicians plan | Scroll to the Ask chip. Hover "Yes" and "No" without clicking. | "Does 'dinner boxes for the 6 musicians…' fall under 'Payments to talent or performers'?" |
-| 13 | 2:22 | Tab 5, `/evals` | Hold on the summary, then scroll to e06. | "17 of 18", "Precision 100%", "Recall 96%", then "Fail · Suggested donation at check-in (e06)", "Missed R4." |
+| 11 | 1:35 | Tab 3 | *(provisional)* Scroll to the documents checklist. Then in the line-items table change "Printed programs" from 200 to 150 and watch the totals update. Then click "Draft my form answers" (about 5 s; cut the wait in editing) and point at "Download budget CSV". | Quote file names such as `RSO_Lastname_Firstname_WolfgangPuckCatering_Quote.pdf`; the plan total changing; the drafted "Description of event" |
+| 12 | 2:10 | Tab 4, musicians plan *(provisional)* | Scroll to the Ask chip. Hover "Yes" and "No" without clicking. | "Does 'dinner boxes for the 6 musicians…' fall under 'Payments to talent or performers'?" |
+| 13 | 2:22 | Tab 5, `/evals` *(provisional: numbers change after the final eval run)* | Hold on the summary, then scroll to e06. | "17 of 18", "Precision 100%", "Recall 96%", then "Fail · Suggested donation at check-in (e06)", "Missed R4." |
 | 14 | 2:40 | End card | The repo page `github.com/DY0810/fundcheck` in a logged-out window, or S6's closing slide. | `fundcheck.mayhu733.workers.dev` and `github.com/DY0810/fundcheck` |
 
 ## If something goes wrong on camera

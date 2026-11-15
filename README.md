@@ -51,7 +51,7 @@ flowchart LR
   end
   subgraph Worker["Cloudflare Worker"]
     Index["worker/index.ts<br/>/api/extract · /api/draft<br/>rate limit · sample fallback"]
-    LLM["worker/llm.ts<br/>callJson()"]
+    LLM["worker/llm.ts<br/>callJson(): Claude, then Workers AI"]
     Prompts["worker/prompts.ts"]
     Schema["worker/schema.ts<br/>Zod validation"]
     Cached["src/fixtures/sample-extraction.json"]
@@ -62,11 +62,11 @@ flowchart LR
   Results["public/eval-results.json"]
 
   Check -- "plan text" --> Index
+  Index --> Prompts
+  Index --> Schema
   Index --> LLM
-  LLM --> Prompts
   LLM -- "first" --> Claude
   LLM -- "if Claude fails" --> WAI
-  LLM --> Schema
   Index -. "sample plan only, if slow or failed" .-> Cached
   Index -- "Extraction JSON" --> Check
   Check --> Engine
@@ -98,7 +98,7 @@ Every flag carries a rule ID, and the page renders USG's quote from `src/shared/
 - **Injection-safe prompt.** The plan is passed inside tags as untrusted data, and the system prompt tells the model to ignore instructions inside it. The output must match a Zod schema, and any rule ID outside the allowed list is dropped, so pasted text can't add a rule or change a quote.
 - **Low confidence becomes a question.** An unsure match shows as an Ask chip for the officer, never as a flag.
 - **Keys.** `ANTHROPIC_API_KEY` is a Wrangler secret in production and lives in the git-ignored `.dev.vars` locally. No key is in the repo.
-- **Rate limit.** 20 model calls per minute per IP.
+- **Rate limit.** 20 model calls per minute per IP, counted per Worker instance.
 
 ## Eval results
 
