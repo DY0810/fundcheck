@@ -1,6 +1,6 @@
 # FundCheck shot list
 
-Checked against the live site on Nov 14 after the 20:31 deploy of the three-step UI (Check, Fix, Hand off), at 1536×864 CSS pixels (a 1920×1080 screen at 125% zoom). Pair this with `video-script.md`: the times match its sections. Things are named by their on-screen labels.
+Checked against the live site on Nov 14 after the 20:38 UI freeze (tag `ui-v2-final`), three steps: Check, Fix, Hand off, at 1536×864 CSS pixels (a 1920×1080 screen at 125% zoom). Pair this with `video-script.md`: the times match its sections. Things are named by their on-screen labels.
 
 ## Recording settings
 
@@ -61,12 +61,12 @@ Checked live after the 20:31 deploy: step 1 "What we found" gives "No flags" and
 | 3 | 0:23 | 2, funding page | Scroll to "Fund Descriptions". Cmd+F "356,100". | "the ability to allocate up to $356,100 toward undergraduate students and RSOs" |
 | 4 | 0:29 | 3, FundCheck home | Hold on the heading, then point at the window line. | "Pre-check your USG funding application." and "Next application window: Wed, Nov 18, 2026, 8:00 AM to 11:59 PM" |
 | 5 | 0:36 | 3 | Click "Try the Bovard dance showcase sample". It fills the plan and runs the check by itself; do nothing while it reads. | The plan in "Your event plan", then "Reading your plan…" (about 6 s) |
-| 6 | 0:48 | 3 | Hold on step 1. | The stepper "Check, Fix, Hand off"; "What we found", "3 not eligible", "1 over cap", "1 review note", "Eligible request $7,200 of $8,850 planned", "Review fixes" |
+| 6 | 0:48 | 3 | Hold on step 1. The paste box has collapsed to one row. | "Spring Dance Showcase", "Edit the plan", "Check another plan"; the stepper "Check, Fix, Hand off"; "What we found", "3 not eligible", "1 over cap", "1 review note", "Eligible request $7,200 of $8,850 planned", "Review fixes" |
 | 7 | 0:56 | 3 | Point at the "Not eligible per §5 (3)" heading and "The board may make an exception" beside it, then the first card. | "Ticket sales", "AI-judged", In your plan: "$10 tickets at the door", "USG Funding Department Guidelines §5 says:" "Events that include ticket sales" |
 | 8 | 1:03 | 3 | Scroll down slowly. Hover the "AI-judged" chip on "Helium balloon arch ($250)". | "Helium balloon arch ($250)" ("… Balloons") and "DJ ($600)" ("Payments to talent or performers"), each with "AI-judged" |
 | 9 | 1:12 | 3 | Keep scrolling to "Over cap (1)". Hover "Rule math". | "Venue and personnel come to $4,800, $800 over the $4,000 cap." with "Rule math" and the §3 quote |
 | 10 | 1:23 | 3 | Scroll back up and click "Review fixes". | Step 2 "Review fixes": "Nothing changes until you choose.", "You'll request $8,850 of $8,850 planned", and under "3 changes that follow USG's rules": "Remove Helium balloon arch ($250) from the request", "Remove DJ ($600) from the request", "Request the $4,000 cap for venue and personnel ($800 less)" |
-| 11 | 1:31 | 3 | Click "Approve all 3". Then scroll to "Changes to the event". Don't touch the ticket row. | "You'll request $7,200 of $8,850 planned"; "Don't sell tickets: make the event free" and "These change the event itself, so they are never part of Approve all." |
+| 11 | 1:31 | 3 | Click "Approve all 3". Then scroll to "Changes to the event". Don't touch the ticket row. | "All 3 applied", each row "Applied", "You'll request $7,200 of $8,850 planned"; "Don't sell tickets: make the event free" and "These change the event itself, so they are never part of Approve all." |
 | 12 | 1:42 | 3 | Scroll up and click "Continue". Hold. | Step 3 "Hand off to USG": "1 item left for the board" (Ticket sales · Not eligible), "Amount to request $7,200", "Deadline (estimate) Submit by Wed, Feb 3, 2027", "Open USG's funding page", "Filing needs your USC sign-in. FundCheck doesn't submit for you.", "Download budget CSV" |
 | 13 | 1:51 | 3 | Click "Documents · 11 needed". | "Quote from Wolfgang Puck Catering · Needed", "Name it RSO_Lastname_Firstname_WolfgangPuckCatering_Quote.pdf" |
 | 14 | 1:57 | 3 | Click "Form answers · ready to copy, description to draft", then "Draft my form answers" (about 10 s; cut the wait in editing). | "Filled by FundCheck" rows with "Copy", then "How does the event align with your mission/vision/goals?" with "AI draft" and "[your organization's mission]" |
@@ -79,4 +79,5 @@ Checked live after the 20:31 deploy: step 1 "What we found" gives "No flags" and
 - The read takes longer than 15 seconds and the page shows a saved result with a note: stop and re-take. Don't narrate over it.
 - The sample gives different counts (the model reads the Bovard line differently): re-take once. If it repeats, tell HQ before recording more.
 - "Approve all 3" doesn't leave "You'll request $7,200": an answer in "Questions" probably carried over. Reload tab 3 and re-take.
+- A wrong click: the browser's Back button moves one step back, and from step 1 it returns to the paste box with the text kept.
 - Don't open the sample's "Questions" row on camera. Its count moves between 5 and 6 from run to run, and the voice-over never says it.
