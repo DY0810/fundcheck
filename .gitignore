@@ -6,3 +6,8 @@ dist
 *.log
 .DS_Store
 .env.*
+
+# private working notes (HQ only)
+research/
+plan/
+CLAUDE.md
