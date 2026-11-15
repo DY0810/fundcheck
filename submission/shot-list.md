@@ -1,5 +1,7 @@
 # FundCheck shot list
 
+**Note, Nov 15:** the UI changed after this list was written. There is no sample button (the Bovard sample is already in the box), no "AI-judged" or "Rule math" chips, and Check, Fix and Hand off are one column of rows. The final videos were rendered from the new UI, so this list describes the earlier layout; `video-script.md` has the lines as rendered.
+
 Checked against the live site on Nov 14 after the final UI freeze (tag `ui-v3-final`), three steps: Check, Fix, Hand off, two columns on desktop, at 1536×864 CSS pixels (a 1920×1080 screen at 125% zoom). Pair this with `video-script.md`: the times match its sections. Things are named by their on-screen labels.
 
 ## Recording settings

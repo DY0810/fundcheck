@@ -2,6 +2,8 @@
 
 Pre-check your USG funding application.
 
+**Videos:** [walkthrough (2:20)](https://youtu.be/Kr4KWkKh0ew) · [90-second version](https://youtu.be/WddQY8_CtII)
+
 ## Problem
 
 USG's funding Guidelines list "Events that include ticket sales" and "On-campus events that are not open to all students" as not eligible. So the on-campus events USG funds are free and open to every Trojan, and when a club's application misses the deadline or comes back incomplete, that's one fewer free event for everyone. The department can allocate up to $356,100 a year to undergraduate students and RSOs.
