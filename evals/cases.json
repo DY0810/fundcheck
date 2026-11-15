@@ -228,7 +228,7 @@
         },
         {
           "ruleId": "R3.charity",
-          "itemContains": "contribution"
+          "itemContains": "heal the bay"
         }
       ],
       "mustNotFlag": [

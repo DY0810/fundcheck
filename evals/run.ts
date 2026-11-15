@@ -46,18 +46,26 @@ const results: EvalCaseResult[] = [];
 const perRule = new Map<RuleId, { tp: number; fn: number; fp: number }>();
 const bump = (id: RuleId, k: 'tp' | 'fn' | 'fp') => { const r = perRule.get(id) ?? { tp: 0, fn: 0, fp: 0 }; r[k]++; perRule.set(id, r); };
 
-for (const [n, c] of selected.entries()) {
-  if (n) await new Promise((r) => setTimeout(r, 1000));
-  const t0 = Date.now();
-  let res: ExtractResponse;
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const extract = async (plan: string): Promise<ExtractResponse> => {
   try {
     const r = await fetch(`${base}/api/extract`, {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ plan: c.plan }), signal: AbortSignal.timeout(90_000),
+      body: JSON.stringify({ plan }), signal: AbortSignal.timeout(90_000),
     });
-    res = await r.json() as ExtractResponse;
+    return await r.json() as ExtractResponse;
   } catch (e) {
-    res = { ok: false, error: { code: 'llm_failed', message: (e as Error).message } };
+    return { ok: false, error: { code: 'llm_failed', message: (e as Error).message } };
+  }
+};
+
+for (const [n, c] of selected.entries()) {
+  if (n) await sleep(1000);
+  let t0 = Date.now();
+  let res = await extract(c.plan);
+  if (!res.ok && res.error?.code === 'rate_limited') { // the shared per-IP guard, not a model failure: wait once and retry
+    console.log(`${c.id} rate limited, retrying in 30 s`);
+    await sleep(30_000); t0 = Date.now(); res = await extract(c.plan);
   }
   const ms = Date.now() - t0;
 
@@ -109,7 +117,7 @@ const run: EvalRun = {
 console.table(results.map((r) => ({ id: r.id, pass: r.pass, hits: r.hits.join(' '), misses: r.misses.join(' '), falseFlags: r.falseFlags.join(' '),
   fund: r.fundOk, eligible: r.eligibleOk, ms: r.ms, provider: r.provider })));
 console.table(run.perRule.filter((r) => r.fn || r.fp));
-console.log(`passed ${run.summary.passed}/${run.summary.cases}  precision ${run.summary.precision}  recall ${run.summary.recall}  (${run.provider} ${run.model}, ${base})`);
+console.log(`passed ${run.summary.passed}/${run.summary.cases}  errors ${results.length - served.length}  precision ${run.summary.precision}  recall ${run.summary.recall}  (${run.provider} ${run.model}, ${base})`);
 
 if (only) console.log('partial run (--only): public/eval-results.json not written');
 else {
