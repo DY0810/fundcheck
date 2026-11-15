@@ -32,7 +32,7 @@ Stack: TypeScript, React, Vite, Tailwind CSS, Zod and Vitest, all on one Cloudfl
 
 ## Challenges
 
-USG's documents word the deadline differently: six academic weeks before payment, nine before payment, six before the event, eight for new vendors and travel. So the card shows the earliest date, labelled an estimate, with the quotes one click away.
+USG's documents describe the deadline in more than one way, so the card shows the earliest date, labelled an estimate, with each source's wording one click away.
 
 Another hard part was teaching the model when not to decide: dinner for unpaid musicians is a judgment call, so the right answer there is a question.
 
@@ -42,7 +42,7 @@ Choosing the model: we benchmarked cheaper models on a 41-case subset of the tes
 
 - **Owner:** the USG Funding Department, so Funding Directors open complete applications.
 - **Data:** public documents only. The Guidelines are re-approved each year under §7, so the yearly update is data, not code: the rules table, the vendor sheet and the calendar dates.
-- **Cost (measured):** each check is one model call, 1.4 to 3.7 cents on short plans like the sample and 6 to 8 cents on a 22-item budget, roughly $14 to $37 per thousand checks. Hosting fits Cloudflare's free tier.
+- **Cost (measured):** each check is one model call, 1.4 to 3.7 cents on short plans like the sample and 6 to 8 cents on a 22-item budget, roughly $14 to $37 per thousand checks. Drafting form answers is a second, optional call we did not measure. Hosting fits Cloudflare's free tier.
 - **First rollout:** spring 2027 office hours with the RSO liaisons.
 - **Trained model, later:** once the Funding Department reviews applications through FundCheck, its decisions become labelled examples, with consent, for a small classifier that sorts line items beside Claude and sends disagreements to a reviewer. We trained none this weekend: no labelled data exists yet.
 - **Not built yet:** a reviewer view, PDF or photo quotes, and other funding sources.

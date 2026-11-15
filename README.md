@@ -91,7 +91,7 @@ The shared types (money in integer cents, dates as `YYYY-MM-DD`) are in `src/sha
 
 Every flag carries a rule ID internally, and the page renders USG's quote from `src/shared/rules.json` (version `guidelines-2026-10-21.1`, 51 rules), never text from the model. Each flag is badged "AI-judged" or "Rule math", so the officer can see which part made the call.
 
-**Why this model, and what it costs.** We benchmarked cheaper models on a 41-case subset of the test plans. Claude Sonnet 5.5, the next tier down, halved the cost per check but checked 35 of 41 correctly, against 39 of 41 for `claude-opus-5-5`, so we kept the more accurate model. Each check is one model call: we measured 1.4 to 3.7 cents on short plans like the sample (warm or cold prompt cache) and 6 to 8 cents on a 22-item budget, roughly $14 to $37 per thousand checks. Hosting fits Cloudflare's free tier.
+**Why this model, and what it costs.** We benchmarked cheaper models on a 41-case subset of the test plans. Claude Sonnet 5.5, the next tier down, halved the cost per check but checked 35 of 41 correctly, against 39 of 41 for `claude-opus-5-5`, so we kept the more accurate model. Each check is one model call: we measured 1.4 to 3.7 cents on short plans like the sample (warm or cold prompt cache) and 6 to 8 cents on a 22-item budget, roughly $14 to $37 per thousand checks. Drafting the form answers is a second, optional call that we did not measure. Hosting fits Cloudflare's free tier.
 
 ## Security and privacy
 
