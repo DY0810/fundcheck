@@ -64,11 +64,9 @@
   .figure-md { font-size: 64px; font-weight: 600; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
 
   ul.list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
-  ul.list li { font-size: 21px; line-height: 1.4; padding-left: 26px; position: relative; }
+  ul.list li { font-size: 21px; line-height: 1.4; padding-left: 26px; position: relative; text-wrap: pretty; }
   ul.list li::before { content: ''; position: absolute; left: 4px; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--ink-2); }
   ul.list.check li::before { background: var(--brand); }
-  ul.list.tight { gap: 10px; }
-  ul.list.tight li { font-size: 19px; }
   ul.list.open li::before { background: transparent; box-shadow: inset 0 0 0 2px var(--ink-2); }
 
   .cols { display: grid; gap: 28px; }
@@ -98,11 +96,6 @@
   dl.facts dt { font-size: 22px; font-weight: 600; }
   dl.facts dd { margin: 0; font-size: 21px; line-height: 1.42; }
 
-  /* Slide 7 */
-  .criteria { display: grid; grid-template-columns: 340px 1fr; column-gap: 32px; row-gap: 16px; align-items: baseline; margin: 0; }
-  .criteria dt { font-size: 21px; font-weight: 600; }
-  .criteria dt span { font-weight: 500; color: var(--ink-2); }
-  .criteria dd { margin: 0; font-size: 20px; line-height: 1.42; }
   a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
 </style>
 </head>
@@ -189,10 +182,10 @@
 <section class="slide">
   <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#990000"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#FFCC00" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>FundCheck</div>
   <h1>The model reads the plan. Code does the math.</h1>
-  <div class="flow" id="arch" role="img" aria-label="Event plan, then Claude reads it, then Zod checks it, then TypeScript decides, then the officer checks, fixes and hands off, with USG's quotes on every flag.">
+  <div class="flow" id="arch" role="img" aria-label="Event plan, then AI reads it, then Zod checks it, then TypeScript decides, then the officer checks, fixes and hands off, with USG's quotes on every flag.">
     <div class="step"><h2>Event plan</h2><p>Plain words, pasted by an officer. Treated as untrusted data.</p></div>
     <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-    <div class="step ai"><h2>Claude reads it</h2><p>Line items and event facts. Matches items to rule IDs from a fixed list, picks the fund, drafts the form answers. Backup: Llama 3.3 70B on Cloudflare Workers AI.</p></div>
+    <div class="step ai"><h2>AI reads it</h2><p>Line items and event facts. Matches items to rule IDs from a fixed list, picks the fund, drafts the form answers. A backup system takes over if the first fails.</p></div>
     <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     <div class="step"><h2>Zod checks it</h2><p>Drops any rule ID not on the list. Low-confidence matches become questions, not flags.</p></div>
     <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
@@ -229,46 +222,49 @@
   </div>
 </section>
 
-<!-- 6. Built and not built -->
+<!-- 6. Before and after -->
 <section class="slide">
   <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#990000"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#FFCC00" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>FundCheck</div>
-  <h1>What works today, and what is not built yet</h1>
+  <h1>The same plan, without and with FundCheck</h1>
   <div class="cols grow" style="grid-template-columns: 1fr 1fr;">
     <div class="panel" style="display:flex; flex-direction:column; gap:18px;">
-      <h2>Working today</h2>
-      <ul class="list check tight">
-        <li>Three steps: check, review fixes, hand off. Fixes apply only when the officer approves.</li>
-        <li>Editable line items; every answer reruns the check</li>
-        <li>Not-eligible items with USG’s quote, and money against each cap</li>
-        <li>Deadline estimate, fund, documents with USG’s file names, drafted form answers and a budget CSV</li>
-        <li>A backup AI service and a public set of hand-written test plans</li>
+      <h2>Without FundCheck</h2>
+      <p class="figure">$8,850</p>
+      <p class="body muted">requested as planned, with a balloon arch, a DJ, and venue and personnel over the $4,000 cap</p>
+      <ul class="list open">
+        <li>About 2,000 words of Guidelines to apply by hand</li>
+        <li>The deadline counted in academic weeks by hand</li>
       </ul>
     </div>
     <div class="panel" style="display:flex; flex-direction:column; gap:18px;">
-      <h2>Not built yet</h2>
-      <ul class="list open tight">
-        <li>Filing directly into EngageSC through a USG integration</li>
-        <li>A reviewer view for Funding Directors</li>
-        <li>Reading quotes from PDFs or photos</li>
-        <li>Funding sources beyond USG</li>
-        <li>An exact deadline: USG’s documents word it differently, so FundCheck shows an estimate</li>
-        <li>A trained model. We did not train one this weekend because no labelled data exists yet. Once the Funding Department reviews applications through FundCheck, its decisions become labelled examples, with consent.</li>
+      <h2>With FundCheck</h2>
+      <p class="figure">$7,200</p>
+      <p class="body muted">requested after three fixes the officer approved</p>
+      <ul class="list check">
+        <li>Every rule that applies, with USG’s quote, in about 6 seconds</li>
+        <li>Deadline estimate, fund, drafted form answers and a budget CSV, ready for USG’s form</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- 7. Criteria and the ask -->
+<!-- 7. Next and the ask -->
 <section class="slide">
   <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#990000"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#FFCC00" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>FundCheck</div>
-  <h1>How FundCheck meets the four criteria</h1>
-  <div class="panel grow" style="display:flex; align-items:center;">
-    <dl class="criteria">
-      <dt>Impact &amp; Campus Relevance <span>30%</span></dt><dd>USG-funded on-campus events are free and open to all, so every complete application is one more event any Trojan can attend.</dd>
-      <dt>Technical &amp; AI Execution <span>25%</span></dt><dd>A fixed rule list for the model, code for money and dates, and a public test score with every case in the repo.</dd>
-      <dt>Feasibility &amp; Implementation <span>25%</span></dt><dd>Public data, no login, no storage, a named owner and a yearly data edit.</dd>
-      <dt>User Experience &amp; Design <span>20%</span></dt><dd>Three short steps, check, fix and hand off, with every flag in USG’s own words.</dd>
-    </dl>
+  <h1>Next, with USG</h1>
+  <div class="cols grow" style="grid-template-columns: repeat(3, 1fr); align-content:center;">
+    <div class="panel" style="display:flex; flex-direction:column; gap:14px;">
+      <h2>File into EngageSC</h2>
+      <p class="body">With a USG integration, the approved packet goes straight into the application form.</p>
+    </div>
+    <div class="panel" style="display:flex; flex-direction:column; gap:14px;">
+      <h2>A reviewer view</h2>
+      <p class="body">Funding Directors run the same check on the applications they receive, with each flag and its USG quote.</p>
+    </div>
+    <div class="panel" style="display:flex; flex-direction:column; gap:14px;">
+      <h2>Quotes from a PDF or photo</h2>
+      <p class="body">Vendor quotes are read straight into line items, so officers don’t retype them.</p>
+    </div>
   </div>
   <div class="tint" style="display:flex; justify-content:space-between; align-items:center; gap:24px;">
     <p class="lead"><strong>Our ask:</strong> let the USG Funding Department pilot FundCheck in spring 2027 office hours with the RSO liaisons.</p>
