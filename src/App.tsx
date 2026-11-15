@@ -1,8 +1,5 @@
 import Check from './ui/pages/Check';
-import Evals from './ui/pages/Evals';
 import { Footer, Header } from './ui/components/Chrome';
-
-const page = location.pathname.replace(/\/+$/, '') === '/evals' ? 'evals' : 'check';
 
 if (import.meta.env.DEV && new URLSearchParams(location.search).has('axe')) {
   // Dev-only accessibility check: call window.axeCheck() once the view you want is on screen.
@@ -19,8 +16,8 @@ export default function App() {
   return (
     <div className="flex min-h-dvh flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:rounded-ctl focus:bg-panel focus:px-3 focus:py-2">Skip to content</a>
-      <Header page={page} />
-      <div id="main" className="flex-1">{page === 'evals' ? <Evals /> : <Check />}</div>
+      <Header />
+      <div id="main" className="flex-1"><Check /></div>
       <Footer />
     </div>
   );
