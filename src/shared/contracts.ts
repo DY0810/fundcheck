@@ -145,7 +145,7 @@ export interface Money {
   ineligibleCents: Cents;            // lines with a high-confidence item match (R1, R3.*)
   venuePersonnelCents: Cents;        // venue + personnel lines
   capReductionCents: Cents;          // R6 + R11 + R21 reductions
-  eligibleCents: Cents;              // total − ineligible − capReduction
+  eligibleCents: Cents;              // total − ineligible − capReduction, then capped at yearlyRemainingCents when that is known
   foodCents: Cents;
   foodPerPersonCents: Cents | null;  // null if attendance unknown
   yearlyCapCents: 800000;
