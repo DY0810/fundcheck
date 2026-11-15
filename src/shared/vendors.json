@@ -1,682 +1,1378 @@
 [
  {
   "name": "Casablanca Restaurant [Ensueno Corp]",
+  "kind": "food",
   "cuisine": "Mexican and Seafood",
   "website": "http://www.casablancacatering.com",
   "active": true
  },
  {
   "name": "El Nopal Mexican Restaurant [Vasquez Restaurant Group]",
+  "kind": "food",
   "active": true
  },
  {
   "name": "Sky's Gourmet Marketplace, Inc",
+  "kind": "food",
   "active": true
  },
  {
   "name": "El Pollo Inka [The Inka Group LLC]",
+  "kind": "food",
   "cuisine": "Peruvian",
   "website": "https://elpolloinka.com/gardena/",
   "active": true
  },
  {
   "name": "Holbox Restaurant Group Inc",
+  "kind": "food",
   "website": "https://www.holboxla.com",
   "active": true
  },
  {
   "name": "Casa Sanchez Restaurant, Inc (CASA SANCHEZ RESTAURANT INC)",
+  "kind": "food",
   "cuisine": "Mexican, Vegan Options",
   "website": "http://www.casa-sanchez.com",
   "active": true
  },
  {
   "name": "Caveman Kitchen",
+  "kind": "food",
   "cuisine": "Peruvian",
   "website": "https://www.eatcaveman.com",
   "active": true
  },
  {
   "name": "Taqueria Vista Hermosa (Mercado La Paloma)",
+  "kind": "food",
   "active": true
  },
  {
   "name": "Mexicali Taco",
+  "kind": "food",
   "cuisine": "Bajan Dishes",
   "website": "http://www.mexicalitaco.com",
   "active": true
  },
  {
   "name": "Restaurant Santa Cecilia, Inc",
+  "kind": "food",
   "active": true
  },
  {
   "name": "Catering By Herach And Ara",
+  "kind": "food",
   "cuisine": "Mexican, Italian, Chinese, Mediterranean, Japanese, European and Hawaiian",
   "active": true
  },
  {
   "name": "La Taquiza Inc",
+  "kind": "food",
   "active": true
  },
  {
   "name": "Little Lady Enterprise [Mamas Int'l Tamales]",
+  "kind": "food",
   "cuisine": "Tamales",
   "active": true
  },
  {
   "name": "Border Grill [Ciudad]",
+  "kind": "food",
   "website": "http://www.bordergrill.com",
   "active": false
  },
  {
   "name": "Taqueria Los Altos, Inc",
+  "kind": "food",
   "active": false
  },
  {
   "name": "Charlie's Trio",
+  "kind": "food",
   "cuisine": "Italian",
   "website": "http://www.charliestrio.com",
   "active": true
  },
  {
   "name": "Il Giardino Ristorante",
+  "kind": "food",
   "cuisine": "Italian",
   "active": true
  },
  {
   "name": "Pasta Roma (Kasgo LLC)",
+  "kind": "food",
   "cuisine": "Italian",
   "website": "http://pastaroma.com",
   "active": true
  },
  {
   "name": "Wolfgang Puck Catering",
+  "kind": "food",
   "cuisine": "Pizza, Sandwhiches, and other lighter fare",
   "active": true
  },
  {
   "name": "Yameel Pizza [2 for 1 pizza]",
+  "kind": "food",
   "cuisine": "Pizza",
   "active": true
  },
  {
   "name": "Viztango Cafe (VIZTANGO CAFE)",
+  "kind": "food",
   "cuisine": "Italian",
   "website": "http://www.viztangocafe.com",
   "active": true
  },
  {
   "name": "East Side Mario's (Perkin and Marie)",
+  "kind": "food",
   "cuisine": "Italian-American",
   "active": false
  },
  {
   "name": "Fireworks Pizza, LLC. (Pitfire Artisan Pizza)",
+  "kind": "food",
   "cuisine": "Pizza",
   "website": "http://www.pitfirepizza.com/home",
   "active": false
  },
  {
   "name": "Marios Italian Imports, Inc (Mario's Italian Deli)",
+  "kind": "food",
   "cuisine": "Italian Deli",
   "active": false
  },
  {
   "name": "North American Services, Inc- Command Performance Catering-Ventura County",
+  "kind": "food",
   "cuisine": "\"New American\"",
   "website": "https://www.cpcatering.com",
   "active": true
  },
  {
   "name": "Terrapin Illini- Rosies Bbq Kitchen",
+  "kind": "food",
   "cuisine": "Hamburgers, Hotdogs, and Sausage, BBQ",
   "website": "https://www.rosies-catering.com",
   "active": true
  },
  {
   "name": "WingStop (Far West Restaurant Group LLC)",
+  "kind": "food",
   "cuisine": "Wings",
   "website": "https://www.wingstop.com",
   "active": true
  },
  {
   "name": "Chick-Fil-A [Park Enterprise LLC]",
+  "kind": "food",
   "cuisine": "Chicken",
   "active": true
  },
  {
   "name": "Presidio Foods INC [Dulans Restaurant and Catering]",
+  "kind": "food",
   "cuisine": "Southern and Soul Food",
   "website": "http://dulansoncrenshaw.com",
   "active": true
  },
  {
   "name": "Pink's Hot Dogs, Inc. (PINK S HOT DOGS INC) Globally Connceted Inc (Phat daddys burgers)",
+  "kind": "food",
   "cuisine": "Hot Dogs",
   "website": "https://www.pinkshollywood.com",
   "active": true
  },
  {
   "name": "Quiznos Classic Subs - MB Light House Inc (Quizno's Sub #2593 & 4584) QUIZNOS CLASSIC SUBS MB LIGHT HOUSE INC)",
+  "kind": "food",
   "cuisine": "Sandwiches",
   "website": "https://www.quiznos.com",
   "active": true
  },
  {
   "name": "Rock & Reilly USC, LLC",
+  "kind": "food",
   "website": "https://www.rockandreillysusc.com",
   "active": true
  },
  {
   "name": "Stonefire Grill 6, Inc.",
+  "kind": "food",
   "active": true
  },
  {
   "name": "(Stonefire Grill, STONEFIRE GRILL 6 INC)",
+  "kind": "food",
   "cuisine": "BBQ, Chicken, Pizza, Pasta,etc",
   "website": "https://www.stonefiregrill.com/menu/",
   "active": true
  },
  {
   "name": "Subway Sandwiches (Dollard Development Inc)",
+  "kind": "food",
   "cuisine": "Sandwiches",
   "website": "https://www.subway.com/en-us",
   "active": true
  },
  {
   "name": "Frank Further Inc, [Lets Be Frank (Truck)]",
+  "kind": "food",
   "cuisine": "Hotdogs",
   "website": "http://letsbefrankdogs.com/dog/",
   "active": true
  },
  {
   "name": "HBG Franchise, LLC [Habit Burger Grill]",
+  "kind": "food",
   "cuisine": "Hamburgers, Chicken options",
   "website": "https://www.habitburger.com",
   "active": true
  },
  {
   "name": "In-N-Out Burger",
+  "kind": "food",
   "cuisine": "Hamburgers",
   "website": "https://www.in-n-out.com",
   "active": true
  },
  {
   "name": "La Spice LLC",
+  "kind": "food",
   "cuisine": "American",
   "website": "https://www.laspicecatering.com",
   "active": true
  },
  {
   "name": "Hofs Hut [Lucille's BBQ]",
+  "kind": "food",
   "cuisine": "American",
   "website": "https://www.lucillesbbq.com",
   "active": true
  },
  {
   "name": "Barbecue King",
+  "kind": "food",
   "cuisine": "BBQ",
   "active": false
  },
  {
   "name": "Rattler's Bar-B-Que 1, Inc.",
+  "kind": "food",
   "cuisine": "Barbecue",
   "website": "http://www.rattlersbbq.com",
   "active": false
  },
  {
   "name": "Simply Southern Cuisine - Gina Dusuau",
+  "kind": "food",
   "cuisine": "Southern",
   "active": false
  },
  {
   "name": "Kobunga Korean Grill [Kobunga LLC]",
+  "kind": "food",
   "cuisine": "Korean",
   "website": "https://kobunga.com",
   "active": true
  },
  {
   "name": "Panda Catering",
+  "kind": "food",
   "website": "https://www.pandarg.com",
   "active": true
  },
  {
   "name": "Panda Express [Citadel Panda Express]",
+  "kind": "food",
   "website": "https://www.pandacareers.com",
   "active": true
  },
  {
   "name": "Panda Express",
+  "kind": "food",
   "website": "https://www.pandaexpress.com",
   "active": true
  },
  {
   "name": "Maven Restaurants Inc (Paradise Biryani Pointe)",
+  "kind": "food",
   "cuisine": "Traditional Hyderabad Nawabi Food",
   "website": "https://www.laparadisebiryani.com/home",
   "active": true
  },
  {
   "name": "Yamashiro [Cedar Restaurant Group LLC]",
+  "kind": "food",
   "website": "https://yamashirohollywood.com",
   "active": true
  },
  {
   "name": "Soy Japanese Grill and Roll - Goodeats Corp",
+  "kind": "food",
   "cuisine": "Sushi and Japenese",
   "active": false
  },
  {
   "name": "Urban Masala",
+  "kind": "food",
   "cuisine": "Indian Food",
   "website": "http://www.urbanmasalaonline.com",
   "active": true
  },
  {
   "name": "Manas, Inc.",
+  "kind": "food",
   "cuisine": "Indian",
   "website": "http://www.manasla.com",
   "active": true
  },
  {
   "name": "Radhika restaurant",
+  "kind": "food",
   "cuisine": "Indian",
   "website": "https://radhikarestaurant.com",
   "active": true
  },
  {
   "name": "Bella Pita",
+  "kind": "food",
   "website": "https://bellapita.com",
   "active": true
  },
  {
   "name": "Papa Cristos (C&K Importing Co)",
+  "kind": "food",
   "cuisine": "Greek",
   "website": "https://papacristos.com",
   "active": true
  },
  {
   "name": "Sunnin Lebanese Cafe Inc. (Sunnin Lebanese Cafe)",
+  "kind": "food",
   "cuisine": "Lebanese",
   "website": "https://sunnin.com",
   "active": true
  },
  {
   "name": "Alonti Cafe & Catering [Pepi Company of California, LLC ]",
+  "kind": "food",
   "cuisine": "Boxed lunches, breakfast, pastires",
   "website": "https://www.alonti.com",
   "active": true
  },
  {
   "name": "Baked It Myself, Inc.",
+  "kind": "food",
   "cuisine": "Sandwiches, Paninis, and salads",
   "website": "https://www.bakeditmyself.com",
   "active": true
  },
  {
   "name": "Bergamot Cafe",
+  "kind": "food",
   "website": "http://www.bergamotcafe.com",
   "active": true
  },
  {
   "name": "Bird's Nest Cafe [Bird’s Nest Vermont LLC ]",
+  "kind": "food",
   "website": "https://www.birdsnestla.com",
   "active": true
  },
  {
   "name": "Cafe Gratitude [Cafe Gratitude Arts District LLC]",
+  "kind": "food",
   "website": "http://www.cafegratitude.com",
   "active": true
  },
  {
   "name": "Capuyo Cafe",
+  "kind": "food",
   "website": "http://capuyo-cafe.com",
   "active": true
  },
  {
   "name": "Coffee Bean & Tea Leaf [Intl Coffee & Tea Leaf Llc]",
+  "kind": "food",
   "cuisine": "Coffee House, Breakfast Foods",
   "website": "https://www.coffeebean.com",
   "active": true
  },
  {
   "name": "Dulce USC Village LLC",
+  "kind": "food",
   "cuisine": "Coffee House, Breakfast/Lunch Food",
   "active": true
  },
  {
   "name": "Everytable, Pbc",
+  "kind": "food",
   "cuisine": "Breakfast, Salads, wraps, chicken bowls, desserts, vegan options,",
   "website": "http://www.everytable.com",
   "active": true
  },
  {
   "name": "Greenleaf 10 USC LLC (Greenleaf Gourmet Chopshop, GREENLEAF 10 USC LLC)",
+  "kind": "food",
   "cuisine": "Breakfast, Sandwiches, wraps, Boxed lunches, soups, salads, taco bar",
   "website": "http://www.eatdrinkgreenleaf.com",
   "active": true
  },
  {
   "name": "Ingallina's Box Lunch LA#1 Inc",
+  "kind": "food",
   "cuisine": "Breakfast/Lunch Sandwiches/Salads/Fruit/Dessert",
   "website": "http://www.ingallina.net",
   "active": true
  },
  {
   "name": "L.A. Cafe [Ambreen Enterprises Inc]",
+  "kind": "food",
   "cuisine": "Breakfast/Lunch",
   "website": "https://www.thelacafe.com/menus/",
   "active": true
  },
  {
   "name": "Lemonade",
+  "kind": "food",
   "website": "https://lemonadela.com",
   "active": true
  },
  {
   "name": "Le Gout Bakery and Cafe [Le Gout INC]",
+  "kind": "food",
   "website": "https://legoutpastry.com",
   "active": true
  },
  {
   "name": "Pitchoun",
+  "kind": "food",
   "cuisine": "French Bakery",
   "website": "https://pitchounbakery.com",
   "active": true
  },
  {
   "name": "Subway Sandwiches - Dollard Development Inc",
+  "kind": "food",
   "cuisine": "Sandwiches and Salads",
   "website": "https://www.subway.com/en-us",
   "active": true
  },
  {
   "name": "URTH Caffe Associates V LLC (Urth Caffe, URTH CAFFE ASSOCIATES V LLC)",
+  "kind": "food",
   "cuisine": "Breakfast, Pizza, Sandwiches, Paninis, Salads, desserts",
   "website": "https://www.urthcaffe.com",
   "active": true
  },
  {
   "name": "Mendocino Farms",
+  "kind": "food",
   "cuisine": "Boxed lunches, Sandwiches, salads",
   "website": "https://www.mendocinofarms.com/menus/",
   "active": true
  },
  {
   "name": "Panera Bread Company [Panera, LLC]",
+  "kind": "food",
   "website": "https://www.panerabread.com/en-us/home.html",
   "active": true
  },
  {
   "name": "Arctic Hotspot Cafe & Catering",
+  "kind": "food",
   "cuisine": "Breakfast, Sandwiches, wraps, salads, soups, Hors D'oeuvres, Desserts",
   "website": "https://arctichotspot.com",
   "active": false
  },
  {
   "name": "Watts Coffee house",
+  "kind": "food",
   "cuisine": "Coffee House/Breakfast",
   "website": "http://wattscoffee.menu.com",
   "active": false
  },
  {
   "name": "Y&K Business Group (Togo's, Y&K BUSINESS GROUP)",
+  "kind": "food",
   "cuisine": "Sandwiches and Salads",
   "website": "https://togoscatering.olo.com",
   "active": false
  },
  {
   "name": "Alligator Pear, Inc (Alligator Pear)",
+  "kind": "food",
   "cuisine": "Fancy",
   "website": "https://alligatorpearcatering.com",
   "active": true
  },
  {
   "name": "Anders Catering",
+  "kind": "food",
   "cuisine": "Boxed lunches, BBQ, Breakfast, etc.",
   "website": "https://www.anderscatering.com",
   "active": true
  },
  {
   "name": "Apetit inc- Good heart Catering",
+  "kind": "food",
   "website": "https://www.goodheartcatering.com",
   "active": true
  },
  {
   "name": "Allegro Catering and Event Planning",
+  "kind": "food",
   "website": "https://allegrocateringandevents.net",
   "active": true
  },
  {
   "name": "Bart Karts Inc",
+  "kind": "food",
   "cuisine": "Carnival Snacks and Street Food",
   "website": "https://bartscarts.com/about/our-history/",
   "active": true
  },
  {
   "name": "Bread Crumbs Catering [Villanueva Enterprises]",
+  "kind": "food",
   "website": "http://breadcrumbscatering.com/menu_sub.html",
   "active": true
  },
  {
   "name": "Bruce's Gourmet Catering",
+  "kind": "food",
   "cuisine": "Fancy",
   "website": "http://brucescatering.com/private-event-catering/",
   "active": true
  },
  {
   "name": "City Kitchen (Urban Palate Llc)",
+  "kind": "food",
   "active": true
  },
  {
   "name": "Food Fetish, Inc. [Food Fetish Catering]",
+  "kind": "food",
   "cuisine": "Breakfast, BBQ, Mediterranean, Mexican, Asian, Picnic food, Greek, etc.",
   "website": "https://www.foodfetishcatering.com",
   "active": true
  },
  {
   "name": "Frogtown Industries (Brown Paper LA)",
+  "kind": "food",
   "website": "https://www.brownpaperla.com/menus",
   "active": true
  },
  {
   "name": "Kiro's Catering",
+  "kind": "food",
   "cuisine": "Breakfast, \"Best of Europe buffet,\" \"Classic American Buffet,\" sandwiches, soups, salads, Mexican food,pastas, BBQ, Mediterranean, desserts",
   "website": "https://kiroscatering.com/menus",
   "active": true
  },
  {
   "name": "TGIS Catering Services, Inc.",
+  "kind": "food",
   "website": "https://www.tgiscatering.com",
   "active": true
  },
  {
   "name": "Mercado Food Group, LLC",
+  "kind": "food",
   "active": true
  },
  {
   "name": "Modern Art Catering [Spot Gourmet]",
+  "kind": "food",
   "cuisine": "Asian food, apetizers, everything",
   "website": "https://thespotgourmet.com",
   "active": true
  },
  {
   "name": "Roaming Hunger, Inc.",
+  "kind": "food",
   "cuisine": "Food truck vendor",
   "website": "https://roaminghunger.com",
   "active": true
  },
  {
   "name": "The Kitchen for Exploring Foods LLC",
+  "kind": "food",
   "website": "https://www.thekitchen.net",
   "active": true
  },
  {
   "name": "City Fare, Inc (CITY FARE INC)",
+  "kind": "food",
   "website": "http://www.cityfarecatering.com",
   "active": true
  },
  {
   "name": "Urban Green, LLC",
+  "kind": "food",
   "cuisine": "Sustainable Catering",
   "active": true
  },
  {
   "name": "Back On Broadway Food Co., Inc. (BACK ON BROADWAY FOOD CO INC)",
+  "kind": "food",
   "active": true
  },
  {
   "name": "Serves You Right! Catering [Gan, Michele]",
+  "kind": "food",
   "active": true
  },
  {
   "name": "California Skewers (Katse Inc)",
+  "kind": "food",
   "website": "https://www.californiaskewers.com/caterings.php",
   "active": true
  },
  {
   "name": "Jay's Catering",
+  "kind": "food",
   "cuisine": "Breakfast, Sandwiches, Baked goods, boxed lunches, taco bar, Mexican, BBQ, Hors D'oeuvres, healthy snacks, and more",
   "website": "https://www.jayscatering.com",
   "active": true
  },
  {
   "name": "Jennie Cooks Catering [BUCKS COUNTY CORPORATION]",
+  "kind": "food",
   "cuisine": "\"Homestyle Americana with an Emphasis on plant based cuisine\"",
   "website": "https://jenniecooks.com",
   "active": true
  },
  {
   "name": "Food and Co Inc (Joan's On Third)",
+  "kind": "food",
   "cuisine": "Californian, Mediterranean cuisines, Southwestern France, American Southwest, India, Latin America- vegetarian, kosher style or comfort food,",
   "website": "https://joansonthird.com",
   "active": true
  },
  {
   "name": "Food & Travel [Taste & Company, Food & Travel Inc]",
+  "kind": "food",
   "website": "https://www.tasteandcompany.com",
   "active": true
  },
  {
   "name": "Great Dane Catering & Events",
+  "kind": "food",
   "cuisine": "California Cusine",
   "active": false
  },
  {
   "name": "Bristol Farms",
+  "kind": "food",
   "cuisine": "Including BBQ, sushi, breakfast",
   "website": "https://www.bristolfarms.com/catering/menu/",
   "active": false
  },
  {
   "name": "Tender Greens (TYP Restaurant Group, Inc)",
+  "kind": "food",
   "cuisine": "Fine Casual",
   "website": "https://www.tendergreens.com",
   "active": false
  },
  {
   "name": "Foodlink Catering",
+  "kind": "food",
   "cuisine": "Fancy",
   "website": "http://www.foodinkcatering.com",
   "active": false
  },
  {
   "name": "Nitropod Industries, Inc. [NITROPOD]",
+  "kind": "food",
   "cuisine": "Ice Cream and Frozen Yogurt",
   "website": "https://www.nitropod.net",
   "active": true
  },
  {
   "name": "Crepes Bonaparte [Brats Berlin, Inc.]",
+  "kind": "food",
   "cuisine": "Crepes",
   "website": "https://www.crepesbonaparte.com",
   "active": true
  },
  {
   "name": "Amazebowls LLC",
+  "kind": "food",
   "cuisine": "Acai bowls and smoothies",
   "website": "https://www.amazebowls.com",
   "active": true
  },
  {
   "name": "Homeboy Industries - Homegirl Cafe/Catering",
+  "kind": "food",
   "cuisine": "Baked goods",
   "website": "https://www.homeboyfoods.com/default.asp",
   "active": true
  },
  {
   "name": "Ice Cream Occasions",
+  "kind": "food",
   "cuisine": "Ice-Cream",
   "website": "https://www.icecreamoccasions.com",
   "active": true
  },
  {
   "name": "Catholic Charities Of L.A.",
+  "kind": "food",
   "cuisine": "Bakery and Cafe",
   "active": true
  },
  {
   "name": "COOLHAUS aka Farchitecture",
+  "kind": "food",
   "cuisine": "Ice Cream and Cookies",
   "website": "https://cool.haus",
   "active": false
  },
  {
   "name": "Burbank Scoop Shop",
+  "kind": "food",
   "cuisine": "Ice cream",
   "website": "https://www.benjerry.com/citywalk",
   "active": false
  },
  {
   "name": "Dandy Don's Homemade Ice Cream",
+  "kind": "food",
   "cuisine": "Ice Cream",
   "website": "http://www.dandydons.com",
   "active": false
  },
  {
   "name": "Ackee Bamboo Jamaican Cuisine LLC",
+  "kind": "food",
   "cuisine": "Jamaican",
   "website": "https://ackeebamboo.com",
   "active": true
  },
  {
   "name": "Azla, LLC",
+  "kind": "food",
   "cuisine": "Ethiopian- Vegan",
   "website": "http://azlavegan.com",
   "active": true
  },
  {
   "name": "The Patina Group Newco, LLC",
+  "kind": "food",
   "website": "https://www.patinagroup.com",
   "active": true
  },
  {
   "name": "Rutts Hawaiian Cafe",
+  "kind": "food",
   "cuisine": "Hawaiian",
   "website": "https://ruttscafe.com",
   "active": true
  },
  {
   "name": "Streamline Fish Farm (Malek Restaurant)",
+  "kind": "food",
   "cuisine": "Persian",
   "active": true
  },
  {
   "name": "Jonathan Club",
+  "kind": "food",
   "cuisine": "Fancy",
   "website": "https://www.jc.org",
   "active": true
  },
  {
   "name": "Komodo Catering",
+  "kind": "food",
   "cuisine": "Modern California Asian Fusion",
   "active": true
  },
  {
   "name": "King's Seafood",
+  "kind": "food",
   "cuisine": "Seafood",
   "website": "http://www.kingsseafood.com",
+  "active": true
+ },
+ {
+  "name": "APA Holdings, Inc. [Agency for the Performing Arts, LLC]",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://www.apa-agency.com",
+  "active": true
+ },
+ {
+  "name": "CAMPUSPEAK, Inc.",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://campuspeak.com",
+  "active": true
+ },
+ {
+  "name": "DJ Keelez & Associates [Bernadette Quiles]",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://djkeelez.com",
+  "active": true
+ },
+ {
+  "name": "Endeavor Parent LLC (Harry Walker Agency LLC)",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://www.harrywalker.com",
+  "active": true
+ },
+ {
+  "name": "Kevin Li",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://www.kevinlimagic.com",
+  "active": true
+ },
+ {
+  "name": "Salgado, Jessica",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://www.yesikasalgado.com",
+  "active": true
+ },
+ {
+  "name": "Skam Artist Inc",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://skamartist.com",
+  "active": true
+ },
+ {
+  "name": "United Talent Agency, LLC.",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "active": true
+ },
+ {
+  "name": "[Greater Talent Network, LLC.]",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "active": true
+ },
+ {
+  "name": "Wasserman Media Group, LLC",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://www.teamwass.com/music",
+  "active": true
+ },
+ {
+  "name": "Young Franco [Da Rin De Barbera, Joseph]",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://youngfranco.com.au",
+  "active": true
+ },
+ {
+  "name": "Creative Artists Agency [CAA]",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://www.caa.com",
+  "active": true
+ },
+ {
+  "name": "The Talent Compass Inc",
+  "kind": "other",
+  "category": "Agencies/Talent",
+  "website": "https://www.talentcompass.com",
+  "active": true
+ },
+ {
+  "name": "Gear Connection",
+  "kind": "other",
+  "category": "Audio Visual / Technical",
+  "website": "gearconnection.com",
+  "active": true
+ },
+ {
+  "name": "Audio Visual Svcs Grp (PSAV Presentation Services, AUDIO VISUAL SVCS GRP)",
+  "kind": "other",
+  "category": "Audio Visual / Technical",
+  "website": "psav.com",
+  "active": true
+ },
+ {
+  "name": "Industrial Radio Communications Crp (SJM Industrial Radio, INDUSTRIAL RADIO COMMUNICATIONS CRP)",
+  "kind": "other",
+  "category": "Audio Visual / Technical",
+  "website": "sjmradio.com",
+  "active": true
+ },
+ {
+  "name": "Take One Productions",
+  "kind": "other",
+  "category": "Audio Visual / Technical",
+  "website": "takeonedigital.com",
+  "active": true
+ },
+ {
+  "name": "AAA Flag & Banner",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "aaaflag.com",
+  "active": true
+ },
+ {
+  "name": "FedEx (USC Village)",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "active": true
+ },
+ {
+  "name": "I.D. Me Promotions, LLC [I.D. Me College]",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "https://www.idmepromotions.com",
+  "active": true
+ },
+ {
+  "name": "Items Unlimited",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "active": true
+ },
+ {
+  "name": "Lasting Impression Promotional Products Inc",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "https://www.promoparadise.com",
+  "active": true
+ },
+ {
+  "name": "Letterhead Factory, Inc",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "usc.letterheadfactory.com",
+  "active": true
+ },
+ {
+  "name": "Manhattan Stitching Company, Inc",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "https://manhattanstitching.com",
+  "active": true
+ },
+ {
+  "name": "Premier Products & Promotions Inc.",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "http://premier-la.com",
+  "active": true
+ },
+ {
+  "name": "Indie Printing",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "indieprinting.com",
+  "active": true
+ },
+ {
+  "name": "Ready Reproductions Inc.",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "readyrepro.com",
+  "active": true
+ },
+ {
+  "name": "Row Apparel, LLC [Row Apparel]",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "https://www.rowapparel.com",
+  "active": true
+ },
+ {
+  "name": "Ultimate Shirt Company, Llc",
+  "kind": "other",
+  "category": "Banners and Signs / Printing/ Promotion",
+  "website": "https://www.ultimateshirt.co",
+  "active": true
+ },
+ {
+  "name": "1st Jon, Inc",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "1stjon.com",
+  "active": true
+ },
+ {
+  "name": "A1 Party Rental",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "a1partyrental.com",
+  "active": true
+ },
+ {
+  "name": "Andy Gump, Inc.",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "andygump.com",
+  "active": true
+ },
+ {
+  "name": "Black Tie Event Services Inc",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "https://www.staffworkx.com/about/",
+  "active": true
+ },
+ {
+  "name": "Bright Event Rentals, LLC",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "brightrentals.com",
+  "active": true
+ },
+ {
+  "name": "CSC [Contemporary Services Corporation]",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "active": true
+ },
+ {
+  "name": "Elite Special Events",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "elitespecialevents.com",
+  "active": true
+ },
+ {
+  "name": "GTFO Games LLC [The Escape Bus]",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "https://www.theescapebus.com",
+  "active": true
+ },
+ {
+  "name": "Kinetic Lighting, Inc.",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "https://kineticlighting.com",
+  "active": true
+ },
+ {
+  "name": "L.A. Party Rents",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "lapartyrents.com",
+  "active": true
+ },
+ {
+  "name": "Magic Jump Rentals",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "magicjumprentals.com",
+  "active": true
+ },
+ {
+  "name": "Party Pronto, Inc.",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "partypronto.com",
+  "active": true
+ },
+ {
+  "name": "Signature Party Rentals [TAMME]",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "signatureparty.com",
+  "active": true
+ },
+ {
+  "name": "South Bay Theme Parties, Inc. [South Bay Casino Rentals]",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "https://sbcasino.com",
+  "active": true
+ },
+ {
+  "name": "Town & Country Event Rentals",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "townandcountryeventrentals.com",
+  "active": true
+ },
+ {
+  "name": "USC Facilities Management Services",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "active": true
+ },
+ {
+  "name": "Dolphin Rents, Inc",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "dolphinpartyrentals.com",
+  "active": true
+ },
+ {
+  "name": "Event Logistics Management, LLC (Elm Concierge Event Rentals)",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "elmconcierge.com",
+  "active": true
+ },
+ {
+  "name": "FUN Services",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "funservicessocal.com",
+  "active": true
+ },
+ {
+  "name": "Green Set, Inc",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "greenset.com",
+  "active": true
+ },
+ {
+  "name": "Hollywood Honeywagon And Product",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "https://hollywoodhoneywagon.com",
+  "active": true
+ },
+ {
+  "name": "National Event Services",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "rentnational.com",
+  "active": true
+ },
+ {
+  "name": "Party Pro Rental Center",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "partprorc.com",
+  "active": true
+ },
+ {
+  "name": "Pyro Spectaculars",
+  "kind": "other",
+  "category": "Event/ Party Rentals",
+  "website": "https://www.pyrospec.com",
+  "active": true
+ },
+ {
+  "name": "FunFlicks of Southern California",
+  "kind": "other",
+  "category": "Movie/Screen Rentals",
+  "website": "funflicks.com",
+  "active": true
+ },
+ {
+  "name": "Swank Motion Pictures",
+  "kind": "other",
+  "category": "Movie/Screen Rentals",
+  "website": "swank.com",
+  "active": true
+ },
+ {
+  "name": "Office Depot",
+  "kind": "other",
+  "category": "Office supplies",
+  "website": "officedepot.com",
+  "active": true
+ },
+ {
+  "name": "Fast Deer Bus Charter, Inc.",
+  "kind": "other",
+  "category": "Buses",
+  "website": "fastdeerbus.com",
+  "active": true
+ },
+ {
+  "name": "First Student, Inc.",
+  "kind": "other",
+  "category": "Buses",
+  "website": "firststudentinc.com",
+  "active": true
+ },
+ {
+  "name": "Gold Coast Tours [Hot Dogger Tours, Inc.]",
+  "kind": "other",
+  "category": "Buses",
+  "website": "goldcoasttours.com",
+  "active": true
+ },
+ {
+  "name": "Nada Bus, Inc",
+  "kind": "other",
+  "category": "Buses",
+  "website": "nadabus.com",
+  "active": true
+ },
+ {
+  "name": "Computerized Fashion Services, Inc [Pride Sash]",
+  "kind": "other",
+  "category": "Trophies",
+  "website": "http://www.pridesash.com",
+  "active": true
+ },
+ {
+  "name": "Southern California Trophy Company",
+  "kind": "other",
+  "category": "Trophies",
+  "website": "https://socaltrophy.com/usc/",
+  "active": true
+ },
+ {
+  "name": "Balloon Wonderland",
+  "kind": "other",
+  "category": "Décor",
+  "active": true
+ },
+ {
+  "name": "Jackson Shrub",
+  "kind": "other",
+  "category": "Décor",
+  "website": "jacksonshrub.com",
+  "active": true
+ },
+ {
+  "name": "Los Angeles Pipe Dream Events",
+  "kind": "other",
+  "category": "Décor",
+  "website": "pipedreamevents.com",
+  "active": true
+ },
+ {
+  "name": "Balloon Celebrations",
+  "kind": "other",
+  "category": "Décor",
+  "website": "https://www.ballooncelebrations.com",
+  "active": true
+ },
+ {
+  "name": "GBS Linen",
+  "kind": "other",
+  "category": "Décor",
+  "website": "gbslinens.com",
+  "active": true
+ },
+ {
+  "name": "Dellarobbia Design Studio",
+  "kind": "other",
+  "category": "Flowers",
+  "website": "dellarobbiaflowers.com",
+  "active": true
+ },
+ {
+  "name": "CJ Matsumoto and Sons",
+  "kind": "other",
+  "category": "Flowers",
+  "website": "cjmatsumoto.com",
+  "active": true
+ },
+ {
+  "name": "Dave's Flowers LLC",
+  "kind": "other",
+  "category": "Flowers",
+  "website": "https://davesflowers.com",
+  "active": true
+ },
+ {
+  "name": "Amusebooth LLC",
+  "kind": "other",
+  "category": "Photo Booth",
+  "website": "amusebooths.com",
+  "active": true
+ },
+ {
+  "name": "Creative Photo Booths [Diroll, Wanda]",
+  "kind": "other",
+  "category": "Photo Booth",
+  "website": "https://www.creativephotobooths.com",
+  "active": true
+ },
+ {
+  "name": "Pixster Photobooth LLC",
+  "kind": "other",
+  "category": "Photo Booth",
+  "website": "pixsterphotobooth.com",
+  "active": true
+ },
+ {
+  "name": "Westside Photobooths",
+  "kind": "other",
+  "category": "Photo Booth",
+  "website": "westsidephotobooths.com",
+  "active": true
+ },
+ {
+  "name": "JW Party Pictures",
+  "kind": "other",
+  "category": "Photo Booth",
+  "website": "jwpartypictures.com",
+  "active": true
+ },
+ {
+  "name": "KraftyLab",
+  "kind": "other",
+  "category": "Entertainment",
+  "website": "https://www.kraftylab.com",
+  "active": true
+ },
+ {
+  "name": "LA Live Cinemas LLC",
+  "kind": "other",
+  "category": "Entertainment",
+  "active": true
+ },
+ {
+  "name": "Plan B LLC [Neon Entertainment]",
+  "kind": "other",
+  "category": "Entertainment",
+  "website": "https://www.neon-entertainment.com",
+  "active": true
+ },
+ {
+  "name": "Starline Tours of Hollywood",
+  "kind": "other",
+  "category": "Entertainment",
+  "website": "starlinetours.com",
+  "active": true
+ },
+ {
+  "name": "Sound Decision Entertainment Services",
+  "kind": "other",
+  "category": "Entertainment",
+  "website": "sounddecisiondj.com",
+  "active": true
+ },
+ {
+  "name": "Lucky Strike Los Angeles, Llc",
+  "kind": "other",
+  "category": "Entertainment",
+  "active": true
+ },
+ {
+  "name": "B&H Foto & Electronics Corp",
+  "kind": "other",
+  "category": "Electronic Accessories",
+  "website": "https://www.bhphotovideo.com",
+  "active": true
+ },
+ {
+  "name": "BBC Holdings, LLC [Barry's Bootcamp LLC]",
+  "kind": "other",
+  "category": "Workout Events",
+  "website": "https://www.barrys.com",
   "active": true
  }
 ]

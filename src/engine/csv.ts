@@ -13,7 +13,7 @@ const dollars = (c: number) => (c / 100).toFixed(2);
 const field = (v: string) => `"${v.replace(/^[=+\-@\t\r]/, "'$&").replace(/"/g, '""')}"`;
 
 const website = (i: ExtractedItem) => {
-  const name = i.vendor && i.category === 'food' ? matchVendor(i.vendor, vendors).matchedName : undefined;
+  const name = i.vendor ? matchVendor(i.vendor, vendors).matchedName : undefined;
   return vendors.find((v) => v.name === name)?.website ?? '';
 };
 

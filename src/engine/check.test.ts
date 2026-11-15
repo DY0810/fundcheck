@@ -119,7 +119,34 @@ describe('runCheck rules', () => {
     const told = run(plan({ items }), { vendorOnList: { f: true } });
     expect(ids(told)).not.toContain('R18');
     expect(told.deadline.weeks).toBe(6);
-    expect(run(plan({ items: [item({ vendor: 'Kinko Copies', category: 'promo' })] })).vendors[0].status).toBe('not_applicable');
+  });
+
+  it('checks non-food vendors against the Other Vendors tab too', () => {
+    const found = run(plan({ items: [item({ id: 'l', description: 'Stage lighting rental', vendor: 'Kinetic Lighting', category: 'venue' })] }));
+    expect(found.vendors).toEqual([{ itemId: 'l', vendor: 'Kinetic Lighting', status: 'found', matchedName: 'Kinetic Lighting, Inc.' }]);
+    expect(found.deadline.weeks).toBe(6);
+    expect(ids(found)).not.toContain('R18');
+
+    const missing = run(plan({ items: [item({ id: 'p', description: 'Flyers', vendor: 'Kinko Copies', category: 'promo' })] }));
+    expect(missing.vendors[0].status).toBe('not_found_verify');
+    expect(missing.deadline.weeks).toBe(8);
+    expect(missing.flags.find((fl) => fl.ruleId === 'R18')?.message).toBe('Kinko Copies: not found on the list, verify with the Funding Department.');
+
+    expect(run(plan({ items: [item({ id: 'n', vendor: null })] })).vendors).toEqual([{ itemId: 'n', vendor: '', status: 'not_applicable' }]);
+  });
+
+  it('a listed vendor never makes an item eligible', () => {
+    const items = [
+      item({ id: 'b', description: 'Balloon arch', vendor: 'Balloon Wonderland', category: 'decoration', totalCents: 25000, matches: [{ ruleId: 'R1', confidence: 'high', reason: '' }] }),
+      item({ id: 'd', description: 'DJ set', vendor: 'Sound Decision Entertainment', category: 'talent', totalCents: 60000, matches: [{ ruleId: 'R3.talent', confidence: 'high', reason: '' }] }),
+    ];
+    const r = run(plan({ items }));
+    expect(r.vendors.map((v) => v.status)).toEqual(['found', 'found']);
+    expect(r.flags.filter((fl) => fl.severity === 'not_eligible').map((fl) => [fl.id, fl.message])).toEqual([
+      ['R1:b', 'Balloon arch ($250) is not eligible per §5.'],
+      ['R3.talent:d', 'DJ set ($600) is not eligible per §5.'],
+    ]);
+    expect(r.money).toMatchObject({ ineligibleCents: 85000, eligibleCents: 0 });
   });
 
   it('R21 and travel: lodging over $400 a night is a review note, with 9 weeks and the R22 reminder', () => {

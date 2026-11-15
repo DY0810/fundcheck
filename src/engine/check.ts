@@ -35,7 +35,7 @@ export function runCheck({ extraction: x, answers, today, rules, vendors }: Chec
   const title = (id: RuleId) => rules.rules.find((r) => r.id === id)?.title ?? id;
   const money = buildMoney(x, answers);
   const { ok, r6, r11, att } = reductions(x, answers);
-  const vendorChecks = checkVendors(ok, vendors, answers.vendorOnList);
+  const vendorChecks = checkVendors(x.items, vendors, answers.vendorOnList);
   const travel = f.travel === true || x.items.some((i) => i.category === 'travel' || i.category === 'lodging');
   const deadline = deadlineCard({
     event: f.date,

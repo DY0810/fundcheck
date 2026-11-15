@@ -1,6 +1,6 @@
 import type { ExtractedItem, VendorCheck, VendorList } from '../shared/contracts';
 
-// Plain string matching against the USG Vendor List (Food Vendors tab). Not AI.
+// Plain string matching against the USG Vendor List (both tabs: Food Vendors and Other Vendors). Not AI.
 
 const STOP = new Set(['catering', 'inc', 'llc', 'the', 'co', 'corp', 'ltd', 'pbc']);
 const tokens = (s: string) =>
@@ -26,13 +26,12 @@ export function matchVendor(name: string, list: VendorList): { status: 'found' |
   return { status: 'not_found_verify' };
 }
 
-/** One check per line that names a vendor. The list is food-only, so other lines are not_applicable. */
+/** One check per line, against both tabs of the list. A line that names no vendor is not_applicable. Being listed never makes an item eligible. */
 export function checkVendors(items: ExtractedItem[], list: VendorList, onList: Record<string, boolean> = {}): VendorCheck[] {
-  return items.flatMap((i): VendorCheck[] => {
-    const vendor = i.vendor?.trim();
-    if (!vendor) return [];
-    if (i.category !== 'food') return [{ itemId: i.id, vendor, status: 'not_applicable' }];
-    if (onList[i.id] === true) return [{ itemId: i.id, vendor, status: 'found' }];
-    return [{ itemId: i.id, vendor, ...matchVendor(vendor, list) }];
+  return items.map((i): VendorCheck => {
+    const vendor = i.vendor?.trim() ?? '';
+    if (!vendor) return { itemId: i.id, vendor, status: 'not_applicable' };
+    if (onList[i.id] === true) return { itemId: i.id, vendor, status: 'found' };
+    return { itemId: i.id, vendor, ...matchVendor(vendor, list) };
   });
 }

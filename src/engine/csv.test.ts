@@ -12,7 +12,7 @@ describe('budgetCsv', () => {
 
   it('escapes a comma and a quote, and computes single cost from the total', () => {
     const item = { ...HAND_EXTRACTION.items[4], id: 'x', description: 'Programs, 12" x 18"', vendor: 'Ready Reproductions, Inc.', quantity: 3, totalCents: 1000 };
-    expect(budgetCsv([item], {}).split('\n')[1]).toBe('"Programs, 12"" x 18""","Ready Reproductions, Inc.","","","3","3.33","10.00"');
+    expect(budgetCsv([item], {}).split('\n')[1]).toBe('"Programs, 12"" x 18""","Ready Reproductions, Inc.","","readyrepro.com","3","3.33","10.00"'); // Other Vendors tab
   });
 
   it('neutralises spreadsheet formulas in pasted text', () => {
