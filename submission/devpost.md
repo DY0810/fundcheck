@@ -12,9 +12,9 @@ The timing is this week. Under the event-date wording in USG's FAQ, an event bet
 
 ## Solution
 
-FundCheck is one web page with no login. An officer pastes an event plan in plain words and gets a pre-check: the line items it read (all editable), what the Guidelines don't fund with USG's quote and rule ID, the money against each cap, the fund, a deadline estimate, the documents to attach with USG's file names, and drafted form answers plus a budget CSV.
+FundCheck is one web page with no login. An officer pastes an event plan in plain words and gets a pre-check: the line items it read (all editable), what the Guidelines don't fund with USG's quote, the money against each cap, the fund, a deadline estimate, the documents to attach with USG's file names, and drafted form answers plus a budget CSV.
 
-Facts only the officer knows, like money already received this year, become questions instead of guesses. Each "not eligible per §5" flag sits beside the Guidelines line saying the board can still make an exception.
+Facts only the officer knows, like money already received this year, become questions instead of guesses. The not-eligible list opens with the Guidelines line saying the board can still make an exception.
 
 The sample is a Bovard dance showcase (USG's Performing Arts fund paid for 9 in FY26) with $10 tickets, a balloon arch and a DJ. FundCheck flags all three, trims $800 over the venue cap, and turns an $8,850 plan into a $7,200 request.
 
